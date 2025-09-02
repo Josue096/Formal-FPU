@@ -1,0 +1,9 @@
++define+INLINE_SVA
++UVM_VERDI_TRACE
++plusarg_save
++plusarg_ignore
++incdir+/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/
+/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv
+assertionsBUS.sva
+bus_bind.sva
+

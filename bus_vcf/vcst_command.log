@@ -1,0 +1,452 @@
+#@ # 
+#@ # Running vcst Version O-2018.09-SP2 for linux64 -- Mar 05, 2019
+#@ # Date:   Tue Jan 19 19:02:15 2021
+#@ # Run by: ESTUDIANTES\rmolina@IE-CentOS-07
+#@ 
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/read.tcl
+
+#@ #Renamed orginal open,close,read tcl command to prevent crash on reading large file
+#@ #Star : 9001363498
+#@ rename -force open _original_open
+#@ rename -force close _original_close
+#@ rename -force read _original_read
+#@ # new open command , behaviour is same as default open command only diffrence is we creates a map of file channel and file name
+#@ proc open {file_name args} {
+#@     # fileForChannel is map which stores file_name mapped with file Channel
+#@     global fileForChannel
+#@     set channel [eval [list _original_open $file_name] $args]
+#@     set fileForChannel($channel) $file_name
+#@     return $channel
+#@ }
+#@ #new close command, behaviour is same as default close command only diffrence is we remove the entries from fileForChannel map for given file channel
+#@ proc close {channel} {
+#@     global fileForChannel
+#@     catch {unset fileForChannel($channel)}
+#@     _original_close $channel
+#@ }
+#@ #new read command, behaviour is same as default read command only diffrence is we first check the size of the file before reading it and if file_size> 1GB we don't read it as it causes crash
+#@ proc read { args} {
+#@     variable file_channel
+#@     set size_given 0
+#@     set option_given 0
+#@     variable options
+#@     set read_size ""
+#@     #Check if option is given and extact options ,file_channel , read_size from args 
+#@     foreach arg $args {
+#@         if {[string index $arg 0] == "-" } {
+#@             if {$option_given == 0} {
+#@                 set options $arg
+#@                 set option_given 1
+#@             } else  {
+#@                 append options $arg
+#@             }
+#@         } elseif { [string is integer $arg]} {
+#@             set read_size $arg
+#@             set size_given 1
+#@         } else {
+#@             set file_channel $arg
+#@         }
+#@     }
+#@     global fileForChannel
+#@     variable file_size
+#@     #Catch all exeception while checking the file size
+#@     #star:9001390192 
+#@     if {[catch {set file_size [file size $fileForChannel($file_channel)]}]} {
+#@     } else {
+#@         if { (($file_size > 1024000000)&&(($size_given == 0)||($read_size > 1024000000)))} {
+#@             puts "\[ERROR\] Unable to read file of size > 1GB"
+#@             return 0
+#@         }
+#@     }
+#@     if { $option_given == 0 } {
+#@         if { $size_given == 1 } {
+#@             return [_original_read $file_channel $read_size]
+#@         } else {
+#@             return [_original_read $file_channel]
+#@         }
+#@     } else {
+#@         if { $size_given == 1 } {
+#@             return [_original_read $options $file_channel $read_size]
+#@         } else {
+#@             return [_original_read $options $file_channel]
+#@         }
+#@     }
+#@ }
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/read.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/get_instances.tcl
+
+#@ proc get_instances { args } {
+#@ 
+#@     if {$args == "-help"} {
+#@         puts "Usage: get_instances  # returns all instances"
+#@         puts "       -of_module   # returns instances of the given module"
+#@         puts "       -module   # returns instances under the given module including the instances of the given module"
+#@         return
+#@     }
+#@ 
+#@     set argc [llength $args]
+#@     if {$argc == 0} {
+#@         set inst [get_cells -hier -include_top -filter "is_operator==false" ]
+#@         return $inst
+#@     } else {
+#@         if {$argc == 1} {
+#@             set arg [lindex $args 0]
+#@             if {$arg == "-module"} {
+#@                 puts "Error: module name not given."
+#@             }
+#@             if {$arg == "-of_module"} {
+#@                 puts "Error: of_module name not given."
+#@             }
+#@             return
+#@         }
+#@     }
+#@ 
+#@     if {$argc != 2} {
+#@         set inmod [lsearch $args "-module"]
+#@         set inofmod [lsearch $args "-of_module"]
+#@         if {$inmod != -1 && $inofmod != -1} {
+#@             puts "Error: -module and -of_module options together are not supported."
+#@             return
+#@         }
+#@         puts "Error: This command only accepts only one of 2 options, -of_module <module_name> or -module <module_name>"
+#@         return
+#@     }
+#@ 
+#@     set module [lindex $args 1]
+#@     if {[lindex $args 0] == "-module"} {
+#@         set filter "is_operator==false && orig_ref_name==$module"
+#@         set inst [get_cells -hier -include_top  -filter $filter]
+#@         set i 0
+#@         foreach_in_collection in $inst { 
+#@             set i [expr {$i + 1}]
+#@             set name [get_object_name $in] 
+#@             set filter "is_operator==false && full_name=~$name*"
+#@             if {$i == 1}  {
+#@                 set coll [get_cells -hier -include_top -filter $filter -quiet]
+#@             } else {
+#@                 append_to_collection coll [get_cells -hier -include_top -filter $filter -quiet]
+#@             }
+#@         }
+#@ 
+#@         set size [sizeof_collection $inst]
+#@         if {$size > 0} {
+#@             return $coll
+#@         } else {
+#@             return 
+#@         }
+#@     }
+#@ 
+#@     if {[lindex $args 0] == "-of_module"} {
+#@         set filter "is_operator==false && orig_ref_name==$module"
+#@         set inst [get_cells -include_top -hier -filter $filter ]
+#@         return $inst
+#@     }
+#@     puts "Error: unkown options given."
+#@ }
+#@ create_proc_command get_instances -info "get all instances" -command_group "Database"
+#@ 
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/get_instances.tcl
+
+#@ # Effective user id: ESTUDIANTES\rmolina
+
+restore_session -level default
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/lowpower.tcl
+
+#@ # Sourced by vcst at startup for low power applications.
+#@ # The original goal was to avoid "source" of any file here and
+#@ # rely on autoload.  But, to make commands visible in "help",
+#@ # use source -direct and create_proc_command instead.
+#@ 
+#@ lappend ::auto_path $env(VC_STATIC_HOME)/auxx/monet/tcl
+#@ 
+#@ set path "$env(VC_STATIC_HOME)/auxx/monet/tcl"
+#@ source -direct $path/configure_lp_electrical.tcl
+#@ source -direct $path/enable_check_lp.tcl
+#@ source -direct $path/migrate_waivers.tcl
+#@ source -direct $path/analyze_waiver_correctness.tcl
+#@ source -direct $path/merge_database.tcl
+#@ source -direct $path/tag_operations.tcl
+#@ action aaMonetActionReplayMode -trigger
+
+#@ 
+
+#@ waitfor aaMonetViewDone:0
+
+#@ 
+
+#@ source -direct $path/readmsg_operations.tcl
+#@ source -direct $path/lowpower_schematic.tcl
+#@ source -direct $path/lowpower_vars.tcl
+#@ source -direct $path/get_violation_info.tcl
+#@ source -direct $path/report_violation.tcl
+#@ source -direct $path/lp_smart_relink.tcl
+#@ source -direct $path/configure_lp_abstraction.tcl
+#@ source -direct $path/mark_lp_verilog_abstraction.tcl
+#@ source -direct $path/vclp_waive_sam_violations.tcl
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/lowpower.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/cdc_default_settings.tcl
+
+#@ # This tcl procedure configure minimal settings for cdc check correctness.
+#@ 
+#@ proc cdc_default_settings { args } {
+#@     if {$args == "-help"} {
+#@         puts "Usage: cdc_default_settings # Configure minimal settings for cdc check correctness"
+#@         return
+#@     }
+#@     # Simon and Verdi synthesis are diff and analysis was done for Simon
+#@     # synthsized ciruit which is NLDM hence schematic of NLDM should be
+#@     # shown to user
+#@     set_app_var enable_nldm_nschema true
+#@     # its a SpyGlass feature
+#@     set_app_var enable_schematic_clouds true
+#@     # app-var to enable ldpc
+#@     set_app_var enable_ldpc_transform true
+#@     # app-var to enable fdpc
+#@     set_app_var enable_fdpc_transform true
+#@     # app-var to enable sequential constant propagation
+#@     set_app_var case_analysis_sequential_propagation true
+#@     # app-var to handle constants properly for FDPC
+#@     # propagate zero if only reset and D=0, propagation one if only set and D=1
+#@     set_app_var async_reset_nonseq_const_analysis true
+#@     # app-var to enable traversal for single input single output blackboxes
+#@     set_app_var assume_siso_bbox_pins_connected true
+#@     # app-var to enable libcell-divedown
+#@     set_app_var enable_libcell_divedown true
+#@     # app-var to disable path from inout to out
+#@     #set_app_var disable_path_from_inout_to_out true
+#@     set_app_var enable_vhdl_original_names true
+#@     set_app_var generate_elab_summary_report true
+#@     # app-var to enable naming infra to support define_name_rules
+#@     set_app_var enable_new_name_interface true
+#@     #constant propagation through cgc
+#@     set_app_var case_analysis_propagate_through_icg true
+#@     # app-var to infer pin direction of unresolved modules
+#@     set_app_var port_coercion autoblackbox
+#@ 
+#@     # enable internal diagnostic based on environment variable
+#@     if { [info exists env(SNPS_CDC_INTERNAL_DIAGNOSTICS)] } {
+#@         set diagnostic [ getenv SNPS_CDC_INTERNAL_DIAGNOSTICS ]
+#@ 
+#@         if {$diagnostic & 1 } {
+#@             puts "Disabling CDC Crossing Caching"
+#@             set_app_var cdc_word_level_cache false
+#@             set_app_var cdc_bit_level_cache false
+#@         }
+#@ 
+#@         if {$diagnostic & 2} {
+#@             puts "Enable Clock/Reset Consistency checks"
+#@             setenv SNPS_CDC_INTERNAL_DEBUG_DIAGNOSTICS 1
+#@         }
+#@ 
+#@         if {$diagnostic & 4} {
+#@             puts "Enabling Reverse Iterator for Crossing Consistency"
+#@             check_crossing_consistency -test_inputs
+#@         }
+#@     }
+#@ }
+#@ 
+#@ # Make the above command show up in "help"
+#@ set txt "Configure minimal settings for cdc check correctness"
+#@ set group "CDC"
+#@ create_proc_command cdc_default_settings -info $txt -command_group $group
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/cdc_default_settings.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/setup_netlist_cdc.tcl
+
+#@ # This tcl procedure sets up netlist configuration for cdc.
+#@ 
+#@ proc setup_netlist_cdc { args } {
+#@     if {$args == "-help"} {
+#@         puts "Usage: setup_netlist_cdc # Sets up netlist configuration for cdc"
+#@         return
+#@     }
+#@     set_app_var enable_cgc_autodetect false  
+#@     set_app_var cdc_enable_merge_vector false 
+#@     set_app_var cdc_enable_libcell_mismatch_check true 
+#@ 
+#@ }
+#@ 
+#@ # Make the above command show up in "help"
+#@ set txt "Set up netlist configuration for cdc"
+#@ set group "CDC"
+#@ create_proc_command setup_netlist_cdc -info $txt -command_group $group
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/setup_netlist_cdc.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/setup_netlist_cdc_opt.tcl
+
+#@ # This tcl procedure sets up optional netlist configuration for cdc.
+#@ 
+#@ proc setup_netlist_cdc_opt { args } {
+#@     if {$args == "-help"} {
+#@         puts "Usage: setup_netlist_cdc_opt # Sets up optional netlist configuration for cdc"
+#@         return
+#@     }
+#@     setup_netlist_cdc
+#@     set_app_var disable_path_from_inout_to_out true 
+#@     set_app_var enable_scc_bidir_support true 
+#@ 
+#@ }
+#@ 
+#@ # Make the above command show up in "help"
+#@ set txt "Set up optional netlist configuration for cdc"
+#@ set group "CDC"
+#@ create_proc_command setup_netlist_cdc_opt -info $txt -command_group $group
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/setup_netlist_cdc_opt.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/rdc_default_settings.tcl
+
+#@ # This tcl procedure configure minimal settings for cdc check correctness.
+#@ 
+#@ proc rdc_default_settings { args } {
+#@     if {$args == "-help"} {
+#@         puts "Usage: rdc_default_settings # Configure minimal settings for rdc out of the box run"
+#@         return
+#@     }
+#@     #enable_cdc : Enable CDC specific default settings.
+#@     set_app_var enable_cdc true
+#@     #first disable all setup tags.
+#@     configure_rdc_tag -tag SETUP_* -disable
+#@     configure_rdc_tag -tag SETUP_*_OVERLAP -enable
+#@     configure_rdc_tag -tag SETUP_CLOCK_UNDECL -enable
+#@     configure_rdc_tag -tag SETUP_RESET_UNDECL -enable
+#@     configure_rdc_tag -tag SETUP_CLOCK_CONSTANT -enable
+#@     configure_rdc_tag -tag SETUP_RESET_CONSTANT_ACTIVE -enable
+#@     configure_rdc_tag -tag SETUP_RESET_CONSTANT_INACTIVE -enable
+#@     configure_rdc_tag -tag SYNCRDC_PARTIAL -enable
+#@     configure_rdc_tag -tag SYNCRDC_FULL -enable
+#@     configure_rdc_tag -tag SYNCRDC_IGNOREPATH -enable
+#@     configure_rdc_tag -tag SYNCRDC_UNSYNC_NOSCHEME -enable
+#@     configure_rdc_tag -tag SETUP_SYNC_CLOCK_OVERLAP -enable
+#@     configure_rdc_tag -tag SETUP_ASYNC_CLOCK_OVERLAP -enable
+#@     configure_rdc_tag -tag SETUP_CLOCK_UNUSED -enable
+#@     configure_rdc_tag -tag SETUP_ASYNCRESET_INFER -enable
+#@     configure_rdc_tag -tag SETUP_SYNCRESET_INFER -enable
+#@     configure_rdc_tag -tag SETUP_RESET_PROPAGATED -enable
+#@     configure_rdc_tag -tag SETUP_ASYNCRESET_UNUSED -enable
+#@     configure_rdc_tag -tag SETUP_SYNCRESET_UNUSED -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_ASSERTION_SEQUENCE_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_STATIC_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_CONFIG_NFF_SYNC_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_CONFIG_PATHS_MISMATCH   -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_CONFIG_SYNC_MISMATCH    -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_IGNOREPATH_RESET_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RDC_IGNOREPATH_CLOCK_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_PORT_RESET_ATTRIBUTE_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_RESET_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_HIER_CLOCK_MISMATCH -enable
+#@     configure_rdc_tag -tag SETUP_BBOXPIN_UNCONSTRAINED -enable
+#@     configure_rdc_tag -tag SETUP_BBOXPIN_CONSTRAINED -enable
+#@     configure_rdc_tag -tag SETUP_RESET_OVERLAP -enable
+#@     configure_rdc_tag -tag SETUP_RESET_CONV_COMBO -enable
+#@     configure_rdc_tag -tag SETUP_RESET_CONV_MUX -enable
+#@     configure_rdc_tag -tag SETUP_CGLIBCELL_DEF_INCOMPLETE -enable
+#@     configure_rdc_tag -tag SETUP_LIBCELL_DEF_INCOMPLETE -enable
+#@     configure_rdc_tag -tag SETUP_SDC_OBJECT_NONEXIST -enable
+#@     configure_rdc_tag -tag SETUP_SDC_OBJECT_INVALID -enable
+#@     configure_rdc_tag -tag SETUP_SDC_OPTIONS_INCOMPLETE -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CMD_OVERWRITTEN -enable
+#@     configure_rdc_tag -tag SETUP_SDC_MULT_IODELAY -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CLKGRP_INVALID -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CLKGRP_INCOMPLETE -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CLKNAME_MISSING -enable
+#@     configure_rdc_tag -tag SETUP_SDC_GENCLK_INCOMPLETE -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CLK_NOTFOUND -enable
+#@     configure_rdc_tag -tag SETUP_SDC_EMPTY_CLKGRP -enable
+#@     configure_rdc_tag -tag SETUP_SDC_NO_REFCLK -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CMD_IGNORED -enable
+#@     configure_rdc_tag -tag SETUP_SDC_CLKGRP_IGNORED -enable
+#@     configure_rdc_tag -tag SETUP_SDC_RSTNAME_MISSING -enable
+#@     configure_rdc_tag -tag SETUP_SDC_RST_SENSE_MISSING -enable
+#@     configure_rdc_tag -tag SETUP_DATA_CONSTANT -enable
+#@     configure_rdc_tag -tag SETUP_DOMAIN_INFER -enable
+#@     configure_rdc_tag -tag RDC_ASSERTION_SEQUENCE_NOMATCH -enable
+#@     configure_rdc_tag -tag SETUP_DESIGN_OBJECT_NONEXIST -enable
+#@     configure_rdc_tag -tag SETUP_MULTIPLE_CONSTRAINTS -enable
+#@     configure_rdc_tag -tag SETUP_QUAL_CLK_DOMAIN_INFERRED -enable
+#@ 
+#@     #memory inferencing enabled.
+#@     #configure_mem_macro_inference -mthresh 1024
+#@     #set_app_var disable_memx_transform false
+#@     #
+#@     set_app_var enable_recircmux_propagation true
+#@ 
+#@     #reset propagation configuration with RST2Q Enabled.
+#@     configure_reset_propagation -propagate_through_reset_pin yes
+#@ 
+#@     #RDC crossing analysis configuration
+#@     configure_rdc_paths -rdc_skip_resetless false -dest_hanging_net false -dest_memories false -dest_bbox false -diff_clk_dom true
+#@ 
+#@     set_app_var case_analysis_sequential_propagation true
+#@     set_app_var rdc_mem_threshold -1
+#@     set_app_var rdc_seq_width_threshold false
+#@ }
+#@ 
+#@ # Make the above command show up in "help"
+#@ set txt "Configure minimal settings for rdc out of the box run"
+#@ set group "CDC"
+#@ create_proc_command rdc_default_settings -info $txt -command_group $group
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/cdc_scripts/rdc_default_settings.tcl
+
+#@ # -- Starting source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/fv.tcl
+
+#@ # Sourced by vcst at startup for formal applications.  Keep the code
+#@ # here short, and use autoload to source actual content.
+#@ 
+#@ lappend ::auto_path $env(VC_STATIC_HOME)/auxx/monet/tcl
+#@ 
+#@ source -direct $env(VC_STATIC_HOME)/auxx/monet/tcl/fv_helper.tcl
+#@ source -direct $env(VC_STATIC_HOME)/auxx/monet/tcl/fv_reduced_constraints.tcl
+#@ source -direct $env(VC_STATIC_HOME)/auxx/monet/tcl/fv_bh.tcl
+#@ source -direct $env(VC_STATIC_HOME)/auxx/monet/tcl/common_helper.tcl
+#@ # -- End source /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/monet/tcl/fv.tcl
+
+MasterSourceFile vc_fpv.tcl
+source -echo -verbose vc_fpv.tcl
+#@ # -- Starting source vc_fpv.tcl
+
+#@ set_app_var fml_mode_on true
+#@ set_fml_appmode FPV
+#@ 
+#@ set design tec_riscv_bus
+#@ read_file -top $design -format sverilog -aep all -sva -vcs {-f filelist}
+#@ action aaMonetAvClickedDone:0 -reset
+
+#@ action aaMonetAvClicked:0 -trigger
+
+#@ waitfor aaMonetAvClickedDone:0
+
+#@ 
+
+#@ 
+#@ create_clock clk -period 100
+#@ create_reset reset -low
+#@ 
+#@ sim_run -stable
+#@ sim_save_reset
+#@ check_fv_setup
+#@ report_fv -list
+#@ # -- End source vc_fpv.tcl
+
+action aaHierViewSrc:0 -reset
+action aaHierViewSrc:0 -trigger
+waitfor aaHierViewSrc:0
+
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaMonetBanffSavePropDBToStream -summary 1 -trigger
+action aaVerdiWaitAnnotation -trigger
+report_constant -xml > /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/verdi/constant.xml ; verdi_cmd verdiVcstConstantReport -xmlFile /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/verdi/constant.xml
+action aaMonetSetReuseWave -data {}
+check_fv
+view_trace -property {tec_riscv_bus.sva_bus_inst.a1} -composite
+action aaMonetExecViewTraceDone:0 -reset
+
+waitfor aaMonetExecViewTraceDone:0
+

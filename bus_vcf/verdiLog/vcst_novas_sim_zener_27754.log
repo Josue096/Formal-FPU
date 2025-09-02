@@ -1,0 +1,96 @@
+
+                   VC Static UI Shell (vcst) 
+
+        Version: O-2018.09-SP2 for linux64 -- Mar 05, 2019
+             Copyright (c) 2010-2019 by Synopsys, Inc.
+
+This software and the associated documentation are confidential and 
+proprietary to Synopsys, Inc. Your use or disclosure of this software 
+is subject to the terms and conditions of a written license agreement 
+between you, or your company, and Synopsys, Inc.
+
+1
+#MasterSourceFile vc_fpv.tcl
+set_app_var fml_mode_on true
+true
+set_fml_appmode FPV
+1
+set design tec_riscv_bus
+tec_riscv_bus
+read_file -top $design -format sverilog -aep all -sva -vcs {-f filelist}
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS/VCS-MX Release Notes
+Warning-[UNK_COMP_ARG] Unknown compile time plus argument used
+  Unknown compile time plus argument 'UVM_VERDI_TRACE' is ignored.
+ + use `+plusarg_save' to bind in runtime plusargs;
+ + use `+plusarg_ignore' to suppress this message.
+Info: Invoking New SVA Compiler Instrument...
+Info: SVAC-NC Start
+Info: SVAC-NC Finished
+Info: Invoking Vlog AEP or Cov Instrument...
+Info: Vlog Coverage/AEP Extraction Start
+Info: Vlog Coverage/AEP Extraction Finished
+Info: Invoking Simon...
+Info: Simon VCS Start
+=======================================================
+VCS CPU Time(s)     :0.54
+SIMON CPU Time(s)   :0.05
+SIMON Total Time(s) :0.15
+Peak Memory(MB)     :360
+=======================================================
+Info: Simon VCS Finished
+Info: Simon call complete 
+Info: Exiting after Simon Analysis 
+Verdi KDB elaboration done and the database successfully generated: 0 error(s), 0 warning(s)
+[Info] DB_COPT045: Vcs analyzer task has finished.
+[Info] PROP_I_COLLECT: Collecting Source Properties from the view:tec_riscv_bus.
+[Info] PROP_I_COLLECT: Collecting Source Properties from the view:tec_riscv_bus.
+1
+create_clock clk -period 100
+1
+create_reset reset -low
+1
+sim_run -stable
+[Info] SIM_I_CREATE: Create Simulation Model.
+1
+sim_save_reset
+1
+check_fv_setup
+[Info] FORMAL_I_CREATE: Create Formal Model:tec_riscv_bus.
+[Info] FORMAL_I_RUN: Starting formal verification for check_fv_setup
+	  Id: 0  Goals: 37  Constraints: 0  Block Mode: false
+[Info] APP_LIC_CHKOUT: Checkout 1 app license(s).
+1
+report_fv -list
+  Summary Results
+   Property Summary: FPV
+   -----------------
+   > Assertion
+     - # found        : 1
+     - # not_run      : 1
+   > Vacuity
+     - # found        : 1
+     - # not_run      : 1
+   > Constraint
+     - # found        : 1
+  List Results
+   Property List:
+   --------------
+   > Assertion
+     # Assertion: 1
+     [    0] not_run                  (not_run)      -  tec_riscv_bus.sva_bus_inst.a1
+   > Constraint
+     # Constraint: 1
+     [  838] constrained                             -  constant_838 - reset==1
+1
+1
+1
+1
+1
+#check_fv
+[Info] FORMAL_I_REUSE: Reuse Formal Model:tec_riscv_bus.
+[Info] FORMAL_I_RUN: Starting formal verification for check_fv
+	  Id: 1  Goals: 2  Constraints: 0  Block Mode: false
+[Info] APP_LIC_CHKOUT: Checkout 1 app license(s).

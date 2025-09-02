@@ -1,0 +1,29 @@
+36.9 : BackEndPeakMem : 55 MB(s)
+36.9 : TW_STATUS_PAYLOAD : 
+37.5 : INFO : CONSTRAINTS_GOOD depth 4 time 0 seconds.
+37.5 : BackEndPeakMem : 58 MB(s)
+37.5 : TW_STATUS_PAYLOAD : 
+38.8 : BackEndPeakMem : 56 MB(s)
+38.8 : TW_STATUS_PAYLOAD : 
+38.8 : BackEndPeakMem : 112 MB(s)
+38.8 : TW_STATUS_PAYLOAD : 
+38.9 : BackEndPeakMem : 168 MB(s)
+38.9 : TW_STATUS_PAYLOAD : 
+38.9 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>0</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+38.9 : FALSIFIED : eng s1 goal 0 traceLength 2 traceFile /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/tw/run_tw_session/log.tw-slave/log.eng_50132/vTsk2.trace_0
+38.9 : BackEndPeakMem : 247 MB(s)
+38.9 : TW_STATUS_PAYLOAD : 
+39.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>1</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+39.8 : FALSIFIED : eng e1 goal 1 traceLength 204 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/tw/run_tw_session/log.tw-slave/log.eng_50135/vTsk6.trace_1
+40.0 : BackEndPeakMem : 67 MB(s)
+40.0 : TW_STATUS_PAYLOAD : 
+40.1 : BackEndPeakMem : 134 MB(s)
+40.1 : TW_STATUS_PAYLOAD : 
+40.3 : BackEndPeakMem : 211 MB(s)
+40.3 : TW_STATUS_PAYLOAD : 
+40.3 : BackEndPeakMem : 288 MB(s)
+40.3 : TW_STATUS_PAYLOAD : 
+41.3 : TW_STATUS_PAYLOAD : 
+41.3 : TW_STATUS_ALL_DONE : 288 MB(s) P 0(27) F 2(12) U 0(0) T 2(39)
+47.5 : LAZYLIFTING : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/tw/run_tw_session/log.tw-slave/log.eng_50135/vTsk6.trace_1:/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/tw/run_tw_session/log.tw-slave/log.eng_50135/vTsk6.trace_1.llout
+47.5 : LAZYLIFT TIME : 0

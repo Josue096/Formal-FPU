@@ -1,0 +1,31 @@
+gui_exclusion -set_force true
+gui_assert_mode -mode flat
+gui_class_mode -mode hier
+gui_excl_mgr_flat_list -on  0
+gui_covdetail_select -id  CovDetail.1   -name   Line
+verdiWindowWorkMode -win $_vdCoverage_1 -coverageAnalysis
+verdiDockWidgetHide -dock widgetDock_<HvpDetail>
+verdiDockWidgetHide -dock widgetDock_<Hvp>
+verdiDockWidgetHide -dock widgetDock_<DataBaseDiff>
+verdiDockWidgetHide -dock widgetDock_<PlanDiff>
+verdiDockWidgetHide -dock widgetDock_<Test>
+verdiDockWidgetSetCurTab -dock widgetDock_<ExclMgr>
+verdiDockWidgetSetCurTab -dock widgetDock_Message
+gui_exclusion -set_force true
+gui_covtable_show -show  { Design Hierarchy } -id  CoverageTable.1  -test  MergedTest
+gui_exclusion_file -load -file {/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_010621_14:38.el}
+gui_open_source -id CovSrc.1  -active  tec_riscv_bus  -activate  -matrix  Line
+gui_vcst_action -reload_force
+verdiDockWidgetHide -dock widgetDock_<HvpDetail>
+verdiDockWidgetHide -dock widgetDock_<Hvp>
+verdiDockWidgetHide -dock widgetDock_<DataBaseDiff>
+verdiDockWidgetHide -dock widgetDock_<PlanDiff>
+verdiDockWidgetHide -dock widgetDock_<Test>
+verdiDockWidgetSetCurTab -dock widgetDock_<ExclMgr>
+verdiDockWidgetSetCurTab -dock widgetDock_Message
+gui_exclusion -set_force true
+gui_covtable_show -show  { Design Hierarchy } -id  CoverageTable.1  -test  MergedTest
+gui_exclusion_file -load -file {/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_010621_14:41.el}
+gui_open_source -id CovSrc.1  -active  tec_riscv_bus  -activate  -matrix  Line
+gui_list_expand -id  CoverageTable.1   -list {covtblInstancesList} tec_riscv_bus
+vdCovExit -noprompt

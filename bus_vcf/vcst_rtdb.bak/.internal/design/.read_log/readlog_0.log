@@ -1,0 +1,8 @@
+BEGIN_VIOLATION
+RULE_NAME:IND
+FILE_NAME:assertionsBUS.sva
+LINE_NUMBER:34
+VCS_SEVERITY:Error
+MESSAGE:  Identifier &apos;sys_clk&apos; has not been declared yet. If this error is not VCST_RETexpected, please check if you have set `default_nettype to none.VCST_RETInstance stack trace:VCST_RET    sva_bus  assertionsBUS.sva, 1VCST_RET    tec_riscv_bus  VCST_RET/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv, 109VCST_RET
+END_VIOLATION
+

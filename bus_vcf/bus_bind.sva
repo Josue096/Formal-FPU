@@ -1,0 +1,2 @@
+// SVA binding
+bind tec_riscv_bus sva_bus chk (.*);

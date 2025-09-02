@@ -1,0 +1,643 @@
+*design* DebussyLib (btIdent Verdi_R-2020.12-SP2)
+Command arguments:
+    +define+verilog
+    /mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv
+    -sv
+
+
+*Error* `include file "../BUS_Micro/Bus_Micro_lib.sv" cannot be read
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 1: 
+Highest level modules:
+tec_riscv_bus
+
+
+*Error* view dff_async_rst is not defined for instance bs_grnt_dly
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 36: 
+
+*Error* view Counter_arb is not defined for instance arb_cntr
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 37: 
+
+*Error* view Arbiter_st_Mchn is not defined for instance arb_st_mchn
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 38: 
+
+*Error* view prll_wt_st_mchn is not defined for instance wt_st_mchn
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 39: 
+
+*Error* view prll_rd_st_mchn is not defined for instance rd_st_mchn
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 40: 
+
+*Error* view tri_buf is not defined for instance trn_chng_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 41: 
+
+*Error* view tri_buf is not defined for instance wrt_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 42: 
+
+*Error* view prll_d_reg is not defined for instance D_reg_rd
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 78: 
+
+*Error* view prll_d_reg is not defined for instance D_reg_wt
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 79: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view tri_buf is not defined for instance bus_buf
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 95: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_out_mbc
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 210: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_in_mbc
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 219: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_out_spi
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 228: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_in_spi
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 237: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_out_uart
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 246: 
+
+*Error* view fifo_flops_no_full is not defined for instance fifo_in_uart
+"/mnt/vol_NFS_rh003/estudiantes/jmorales/TEC_RISCV/BUS_Micro/Bus_Micro.sv", 255: 
+Total	211 error(s),   0 warning(s)

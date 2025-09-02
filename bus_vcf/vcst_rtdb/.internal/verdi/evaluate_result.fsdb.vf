@@ -1,0 +1,8 @@
+@FSDB rc file Version 1.0
+[VRTL_FILE_HEADER]
+# !! DON'T EDIT [VRTL_FILE_HEADER] SESSION !!
+Version = 1
+[VRTL_FILE_SOURCE]
+FileType = split
+File1 = /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/trace_1.xml.replay.fsdb
+File2 = /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/verdi/evaluate_result.fsdb

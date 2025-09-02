@@ -1,0 +1,24 @@
+Failed to load tests. Details are as the following:
+Load Failed: 
+Warning-[UCAPI-SNF] Shape Not Found
+  'Fsm' coverage shape is not there in the vdb 
+  '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14.vdb'.
+  Coverage of this metric will not be reported.
+  Please check if proper -cm option was used at compile time.
+The design '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14.vdb' was loaded successfully.
+The following tests are merged/loaded from "/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14.vdb",
+    /mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14/test
+    /mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14/test_vc_cov_0
+Exclusion file '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:14.el' has been loaded successfully.
+Failed to load tests. Details are as the following:
+Load Failed: 
+Warning-[UCAPI-SNF] Shape Not Found
+  'Fsm' coverage shape is not there in the vdb 
+  '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18.vdb'.
+  Coverage of this metric will not be reported.
+  Please check if proper -cm option was used at compile time.
+The design '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18.vdb' was loaded successfully.
+The following tests are merged/loaded from "/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18.vdb",
+    /mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18/test
+    /mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18/test_vc_cov_0
+Exclusion file '/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/mesi/bus_vcf/vcst_rtdb/cov_debug/COV_UA_Auto_011021_14:18.el' has been loaded successfully.

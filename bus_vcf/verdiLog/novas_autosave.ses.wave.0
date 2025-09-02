@@ -1,0 +1,92 @@
+Magic 271485
+Revision Verdi_O-2018.09-SP2
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 27 1366 449 320 160
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d . "" "/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/verdi/evaluate_result.fsdb.vf"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 858.500000
+cursor 800.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+userMarker 700 Rst-End ID_PURPLE5 line_solid Fix
+
+; visible top row signal index
+top 0
+; marker line index
+markerPos 4
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+aliasmapname fifo_flops_no_full(@2).count
+nalias depth		2'b10		NULL
+
+aliasmapname fifo_flops_no_full(@1).count
+nalias depth		3'b011		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@3).D_in
+nalias id		3'b010		NULL
+nalias bdcst		3'b111		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@3).cnt_rbtr
+nalias id		2'b10		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@2).D_in
+nalias bdcst		3'b111		NULL
+nalias id		3'b001		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@2).cnt_rbtr
+nalias id		2'b01		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@1).D_in
+nalias bdcst		3'b111		NULL
+nalias id		3'b000		NULL
+
+aliasmapname prll_intrfs_cntrl_riscv(@1).cnt_rbtr
+nalias id		2'b00		NULL
+
+addGroup "SOURCE-Property"
+activeDirFile "" "/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/verdi/evaluate_result.fsdb.vf"
+addSignal -h 15 /tec_riscv_bus/sva_bus_inst/a1
+addGroup "Support-Signals"
+addSignal -h 15 -UNSIGNED -HEX /tec_riscv_bus/sva_bus_inst/push_spi
+addSignal -h 15 -holdScope clk
+addGroup "G2"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+
+COMPRESSED_TIME_RANGE_LIST_BEGIN
+compressTR_1 0 700 1n off
+
+COMPRESSED_TIME_RANGE_LIST_END
+

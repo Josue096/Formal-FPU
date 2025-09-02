@@ -1,0 +1,97 @@
+18.8 : BackEndPeakMem : 55 MB(s)
+18.8 : TW_STATUS_PAYLOAD : 
+19.4 : INFO : CONSTRAINTS_GOOD depth 4 time 0 seconds.
+19.4 : BackEndPeakMem : 58 MB(s)
+19.4 : TW_STATUS_PAYLOAD : 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>0</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 0 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>1</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 1 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>2</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 2 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>3</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 3 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>4</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 4 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>5</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 5 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>6</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 6 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>7</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 7 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>8</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 8 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>9</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 9 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>10</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 10 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>11</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 11 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>12</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 12 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>13</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 13 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>14</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 14 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>15</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 15 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>16</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 16 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>17</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 17 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>18</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 18 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>19</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 19 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>20</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 20 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>21</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 21 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>22</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.7 : PROVEN : eng 50105 goal 22 
+20.7 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>23</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : PROVEN : eng 50105 goal 23 
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>24</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : PROVEN : eng 50105 goal 24 
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>26</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : PROVEN : eng 50105 goal 26 
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>28</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : PROVEN : eng 50105 goal 28 
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>27</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : FALSIFIED : eng s1 goal 27 traceLength 1 traceFile /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50105/vTsk2.trace_27
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>29</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : FALSIFIED : eng s1 goal 29 traceLength 1 traceFile /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50105/vTsk2.trace_29
+20.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>25</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+20.8 : FALSIFIED : eng s1 goal 25 traceLength 1 traceFile /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50105/vTsk2.trace_25
+20.8 : BackEndPeakMem : 80 MB(s)
+20.8 : TW_STATUS_PAYLOAD : 
+20.8 : BackEndPeakMem : 150 MB(s)
+20.8 : TW_STATUS_PAYLOAD : 
+20.9 : BackEndPeakMem : 71 MB(s)
+20.9 : BackEndPeakMem : 127 MB(s)
+20.9 : TW_STATUS_PAYLOAD : 
+20.9 : TW_STATUS_PAYLOAD : 
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>30</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 30 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_30
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>31</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 31 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_31
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>32</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 32 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_32
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>33</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 33 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_33
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>34</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 34 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_34
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>35</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 35 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_35
+21.8 : TW_STATUS_PAYLOAD_SOLVETIME : <SolveTimeReport><VpId>0</VpId><GoalId>36</GoalId><SolveTime>1</SolveTime></SolveTimeReport>
+21.8 : FALSIFIED : eng e1 goal 36 traceLength 0 traceFile LL1!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/vp0/t3e79.map!DUMMYRESET!DUMMYDFG!DUMMYSEQAIG!/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId0/tw/run_tw_session/log.tw-slave/log.eng_50109/vTsk7.trace_36
+21.8 : BackEndPeakMem : 67 MB(s)
+21.8 : TW_STATUS_PAYLOAD : 
+22.0 : BackEndPeakMem : 125 MB(s)
+22.0 : BackEndPeakMem : 192 MB(s)
+22.0 : TW_STATUS_PAYLOAD : 
+22.0 : BackEndPeakMem : 283 MB(s)
+22.1 : TW_STATUS_PAYLOAD : 
+22.1 : TW_STATUS_PAYLOAD : 
+23.1 : TW_STATUS_PAYLOAD : 
+23.1 : TW_STATUS_ALL_DONE : 283 MB(s) P 27(27) F 10(10) U 0(0) T 37(37)

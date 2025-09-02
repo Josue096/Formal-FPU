@@ -1,0 +1,88 @@
+<SVI>
+<SVI_SIMON>
+  <option data="full_hier"/>
+  <option data="abstract"/>
+  <option data="circWriteFile=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/tec_riscv_bus.scm"/>
+  <option data="outputWorkDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design"/>
+  <option data="vsiLogDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/logs"/>
+  <option data="exitPostAnalysis"/>
+  <option data="noRemoveConstants"/>
+  <option data="2valued"/>
+  <option data="preserveSigs"/>
+  <option data="trackLocations"/>
+  <option data="oneDeep"/>
+  <option data="nxgAutoGlassBox"/>
+  <option data="wholeSignalsInSupport"/>
+  <option data="directIfFull"/>
+  <option data="designAttribute"/>
+  <option data="storeScopeForSvaInGen"/>
+  <option data="useOrigVhdlGenBracket"/>
+  <option data="noSkipSimMemModels"/>
+  <option data="contFeedBackToLatch"/>
+  <option data="genPrimHierarchy"/>
+  <option data="useDot"/>
+  <option data="enableSVAMarking"/>
+  <option data="markRawSigs"/>
+  <option data="fixUndrivenCovSig"/>
+  <option data="treatInitialBlockAsNonSynth=0"/>
+  <option data="top=tec_riscv_bus"/>
+  <option data="addInputResolution"/>
+  <option data="disableAEPs"/>
+  <option data="dumpVsiLib"/>
+  <option data="generateDontCares"/>
+  <option data="q"/>
+  <option data="buildTop=1"/>
+  <option data="j=4"/>
+  <option data="alwaysGenLogicForPartialCombCell"/>
+  <option data="memLatchLimit=16"/>
+  <option data="doControlIdentify=1"/>
+  <option data="numWallSeconds=1200"/>
+  <option data="fastScmRead"/>
+</SVI_SIMON>
+<SVI_VCS>
+</SVI_VCS>
+<SVI_NEW_SVAC>
+  <option data="svacTop=tec_riscv_bus"/>
+  <option data="svacStopAtTop=1"/>
+  <option data="vsiFlow=1"/>
+  <option data="svacVacuity=1"/>
+  <option data="svacLatchedVacuity=1"/>
+  <option data="svacOutputXmlIcd=1"/>
+  <option data="removeVcsAutomata=1"/>
+  <option data="svacIcdFileName=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/svac.icd"/>
+  <option data="svacUqsFileName=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/svac.uqs"/>
+  <option data="svacPureLiveness=1"/>
+  <option data="svacImmediateAssert=1"/>
+  <option data="svacWitness=1"/>
+  <option data="svacLatchedWitness=1"/>
+  <option data="svacAllowImmAssertInFuncTask=1"/>
+  <option data="svacUseVhdlGenerateStyle=1"/>
+</SVI_NEW_SVAC>
+<SVI_VLOG_COV>
+  <option data="covTop=tec_riscv_bus"/>
+  <option data="vsiFlow=1"/>
+  <option data="covExtractIcdFile=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/aep.icd.xml"/>
+  <option data="vsiLogDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design"/>
+  <option data="vsiUserDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/logs"/>
+  <option data="xBounds=1"/>
+  <option data="xAssignX=1"/>
+  <option data="xArithOFlow=1"/>
+  <option data="xSetReset=1"/>
+  <option data="xParCase=1"/>
+  <option data="xFullCase=1"/>
+</SVI_VLOG_COV>
+<SVI_VHDL_COV>
+  <option data="covTop=tec_riscv_bus"/>
+  <option data="vsiFlow=1"/>
+  <option data="covExtractIcdFile=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/aep.icd.xml"/>
+  <option data="vsiLogDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design"/>
+  <option data="vsiUserDir=/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/logs"/>
+  <option data="enableVhdlCov=0"/>
+  <option data="xBounds=1"/>
+  <option data="xAssignX=1"/>
+  <option data="xArithOFlow=1"/>
+  <option data="xSetReset=1"/>
+  <option data="xParCase=1"/>
+  <option data="xFullCase=1"/>
+</SVI_VHDL_COV>
+</SVI>

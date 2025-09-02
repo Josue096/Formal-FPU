@@ -1,0 +1,103 @@
+<ICD>
+ <SystemReset name="" value=""/>
+ <Module name="Counter_arb" DesignLang="Verilog" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../BUS_Micro/Bus_Micro_lib.sv" LineNo="512">
+  <ModuleVariant name="Counter_arb" CheckerModule="">
+   <Property name="arith_oflow_0" type="arith_oflow" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../BUS_Micro/Bus_Micro_lib.sv" LineNo="525">
+    <RegInitializations>
+     <RegInitialization signal="mgaep_aoflow_mgvcm_0" rhs="1'b0"/>
+    </RegInitializations>
+    <PropertyEncoding type="">
+     <EndedSignal signal="mgaep_aoflow_mgvcm_0"/>
+     <AEPEncoding>
+      <AEPNode expr="count &lt;= (count + 1);"/>
+     </AEPEncoding>
+    </PropertyEncoding>
+   </Property>
+   <VariantInstance name="tec_riscv_bus.mbc_bs_ntrfs.prll_cntrl.arb_cntr" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="37">
+    <Property name="arith_oflow_0"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.spi_bs_ntrfs.prll_cntrl.arb_cntr" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="37">
+    <Property name="arith_oflow_0"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.uart_bs_ntrfs.prll_cntrl.arb_cntr" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="37">
+    <Property name="arith_oflow_0"/>
+   </VariantInstance>
+  </ModuleVariant>
+ </Module>
+ <Module name="fifo_flops_no_full_0000" DesignLang="Verilog" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="238">
+  <ModuleVariant name="fifo_flops_no_full_0000" CheckerModule="">
+   <Property name="arith_oflow_1" type="arith_oflow" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="294">
+    <RegInitializations>
+     <RegInitialization signal="mgaep_aoflow_mgvcm_0" rhs="1'b0"/>
+    </RegInitializations>
+    <PropertyEncoding type="">
+     <EndedSignal signal="mgaep_aoflow_mgvcm_0"/>
+     <AEPEncoding>
+      <AEPNode expr="nxt_count &lt;= (count - 1);"/>
+     </AEPEncoding>
+    </PropertyEncoding>
+   </Property>
+   <Property name="arith_oflow_2" type="arith_oflow" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="301">
+    <RegInitializations>
+     <RegInitialization signal="mgaep_aoflow_mgvcm_1" rhs="1'b0"/>
+    </RegInitializations>
+    <PropertyEncoding type="">
+     <EndedSignal signal="mgaep_aoflow_mgvcm_1"/>
+     <AEPEncoding>
+      <AEPNode expr="nxt_count &lt;= (count + 1);"/>
+     </AEPEncoding>
+    </PropertyEncoding>
+   </Property>
+   <VariantInstance name="tec_riscv_bus.fifo_in_mbc" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="219">
+    <Property name="arith_oflow_1"/>
+    <Property name="arith_oflow_2"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.fifo_out_mbc" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="210">
+    <Property name="arith_oflow_1"/>
+    <Property name="arith_oflow_2"/>
+   </VariantInstance>
+  </ModuleVariant>
+ </Module>
+ <Module name="fifo_flops_no_full_0001" DesignLang="Verilog" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="238">
+  <ModuleVariant name="fifo_flops_no_full_0001" CheckerModule="">
+   <Property name="arith_oflow_3" type="arith_oflow" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="294">
+    <RegInitializations>
+     <RegInitialization signal="mgaep_aoflow_mgvcm_0" rhs="1'b0"/>
+    </RegInitializations>
+    <PropertyEncoding type="">
+     <EndedSignal signal="mgaep_aoflow_mgvcm_0"/>
+     <AEPEncoding>
+      <AEPNode expr="nxt_count &lt;= (count - 1);"/>
+     </AEPEncoding>
+    </PropertyEncoding>
+   </Property>
+   <Property name="arith_oflow_4" type="arith_oflow" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv" LineNo="301">
+    <RegInitializations>
+     <RegInitialization signal="mgaep_aoflow_mgvcm_1" rhs="1'b0"/>
+    </RegInitializations>
+    <PropertyEncoding type="">
+     <EndedSignal signal="mgaep_aoflow_mgvcm_1"/>
+     <AEPEncoding>
+      <AEPNode expr="nxt_count &lt;= (count + 1);"/>
+     </AEPEncoding>
+    </PropertyEncoding>
+   </Property>
+   <VariantInstance name="tec_riscv_bus.fifo_in_spi" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="237">
+    <Property name="arith_oflow_3"/>
+    <Property name="arith_oflow_4"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.fifo_in_uart" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="255">
+    <Property name="arith_oflow_3"/>
+    <Property name="arith_oflow_4"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.fifo_out_spi" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="228">
+    <Property name="arith_oflow_3"/>
+    <Property name="arith_oflow_4"/>
+   </VariantInstance>
+   <VariantInstance name="tec_riscv_bus.fifo_out_uart" FileName="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv" LineNo="246">
+    <Property name="arith_oflow_3"/>
+    <Property name="arith_oflow_4"/>
+   </VariantInstance>
+  </ModuleVariant>
+ </Module>
+</ICD>

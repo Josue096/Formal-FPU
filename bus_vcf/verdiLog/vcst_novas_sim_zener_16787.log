@@ -1,0 +1,79 @@
+
+                   VC Static UI Shell (vcst) 
+
+        Version: O-2018.09-SP2 for linux64 -- Mar 05, 2019
+             Copyright (c) 2010-2019 by Synopsys, Inc.
+
+This software and the associated documentation are confidential and 
+proprietary to Synopsys, Inc. Your use or disclosure of this software 
+is subject to the terms and conditions of a written license agreement 
+between you, or your company, and Synopsys, Inc.
+
+1
+#MasterSourceFile template.tcl
+set_app_var fml_mode_on true
+true
+set_app_var fml_cov_tgl_input_port true
+true
+set_fml_var fml_enable_prop_density_cov_map true
+true
+set design tec_riscv_bus
+tec_riscv_bus
+read_file -top $design -format sverilog -cov all -sva -vcs {-f filelist}
+[Info] COV_I_NO_DB_AUTO_OPT_OFF: No coverage database is imported.
+	Hence coverage options cannot be automatically extracted by the tool. So please make sure to specify the relevant coverage options with the read_file/elaborate command.
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS/VCS-MX Release Notes
+Warning-[UNK_COMP_ARG] Unknown compile time plus argument used
+  Unknown compile time plus argument 'UVM_VERDI_TRACE' is ignored.
+ + use `+plusarg_save' to bind in runtime plusargs;
+ + use `+plusarg_ignore' to suppress this message.
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'PW' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'PR' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'BW' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'BR' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'S' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+Error-[IIPCNDI] Identifier not declared
+MESI_bind.sva, 2
+  In instance 'chk' of 'sva_mesi', identifier 'state' bound by .* wildcard 
+  specification to an input port is not defined or imported in the scope.
+  Instance master defined at: assertions.sva, 1
+2 warnings
+6 errors
+[Info] DB_COPT045: Vcs analyzer task has finished.
+[Error] DB_COPT012: VCS reader failed
+	No scm file is generated, thus no NLDM is created.
+[Error] COM_ENV005: Design read using VCS & Simon failed.
+Error: 0
+	Use error_info for more info. (CMD-013)
+Information: script 'template.tcl'
+	stopped at line 5 due to error. (CMD-081)
+Extended error info:
+0
+    while executing
+"read_file -top $design -format sverilog -cov all -sva -vcs {-f filelist}"
+ -- End Extended Error Info
+1
+1

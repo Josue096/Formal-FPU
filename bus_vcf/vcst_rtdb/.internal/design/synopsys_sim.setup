@@ -1,0 +1,10 @@
+-- default WORK mapping
+WORK > DEFAULT
+TIMEBASE = PS
+
+-- default WORK mapping
+WORK > DEFAULT
+TIMEBASE = PS
+
+DEFAULT : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/worklib
+

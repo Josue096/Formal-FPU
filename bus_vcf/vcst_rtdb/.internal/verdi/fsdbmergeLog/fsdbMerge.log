@@ -1,0 +1,4 @@
+Command Line: /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/verdi/platform/LINUXAMD64/bin/fsdbmerge shift.fsdb /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/reset_wave.xml.fsdb -o tmp.fsdb
+uname(Linux IE-CentOS-07 2.6.32-754.27.1.el6.x86_64 #1 SMP Tue Jan 28 14:11:45 UTC 2020 x86_64)
+merge_tree time 0.049610 0.032995 0.010998 delta 26689536 26689536 total 174411776 174411776
+au time 0.223079 0.106984 0.036994 delta 211001344 211001344 total 316416000 316416000

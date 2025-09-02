@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE cov SYSTEM "ucdb_srcinfo.dtd">
+  <srcinfo name="/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf"  >
+    <ucapi_version  major_ver="13"  minor_ver="1"  patch_str="O-2018.09-SP2"  />
+      <fileinfo name="/mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/undef_vcs.v"  id="0"  />
+      <fileinfo name="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/Bus_Micro.sv"  id="1"  />
+      <fileinfo name="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../BUS_Micro/Bus_Micro_lib.sv"  id="2"  />
+      <fileinfo name="/mnt/vol_NFS_Zener/WD_ESPEC/JRojasM/TEC_RISCV/BUS_Micro/../FIFO_Latches/fifo.sv"  id="3"  />
+      <fileinfo name="assertionsBUS.sva"  id="4"  />
+    </srcinfo>

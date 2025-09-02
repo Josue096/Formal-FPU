@@ -1,0 +1,24 @@
+//Definiciondelmodulo
+module sva_bus #(parameter bits = 65, parameter broadcast = {3{1'b1}})(
+
+  input wire clk,
+  input wire reset,
+  input wire pndng_mbc,
+  input wire pndng_spi,
+  input wire pndng_uart,
+  input wire push_mbc,
+  input wire push_spi,
+  input wire push_uart,
+  input wire pop_mbc,
+  input wire pop_spi,
+  input wire pop_uart,
+  input wire [bits-1:0] D_pop_mbc,
+  input wire [bits-1:0] D_pop_spi,
+  input wire [bits-1:0] D_pop_uart,
+  input wire [bits-1:0] D_push_mbc,
+  input wire [bits-1:0] D_push_spi,
+  input wire [bits-1:0] D_push_uart
+);
+
+
+endmodule // sva_bus

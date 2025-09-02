@@ -1,0 +1,2 @@
+// SVA binding
+bind mesi_fsm sva_mesi chk (.*);

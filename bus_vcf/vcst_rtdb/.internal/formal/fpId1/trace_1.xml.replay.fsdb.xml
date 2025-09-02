@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<DfgsimReport>
+	<v1>
+		<TriggeredProps>
+			<signal>a1</signal>
+			<time>10200</time>
+		</TriggeredProps>
+		<Signal-Groups>
+			<Group name="Constant-Inputs">
+				<signal>push_mbc</signal>
+				<signal>pop_spi</signal>
+				<signal>push_spi</signal>
+				<signal>push_uart</signal>
+				<signal>D_push_mbc</signal>
+				<signal>D_push_uart</signal>
+				<signal>reset</signal>
+				<signal>D_push_spi</signal>
+			</Group>
+		</Signal-Groups>
+	</v1>
+</DfgsimReport>

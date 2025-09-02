@@ -1,0 +1,17 @@
+0::tec_riscv_bus::0
+1::prll_bs_ntrfs_riscv_0000::0
+2::prll_bs_ntrfs_riscv_0000_0000::0
+3::prll_bs_ntrfs_riscv_0000_0001::0
+4::fifo_flops_no_full_0000::0
+5::fifo_flops_no_full_0001::0
+6::sva_bus::0
+7::prll_d_reg_0000::0
+8::prll_intrfs_cntrl_riscv::0
+9::tri_buf::0
+10::prll_intrfs_cntrl_riscv_0000::0
+11::prll_intrfs_cntrl_riscv_0001::0
+12::dff_async_rst::0
+13::Counter_arb::0
+14::Arbiter_st_Mchn::0
+15::prll_wt_st_mchn::0
+16::prll_rd_st_mchn::0

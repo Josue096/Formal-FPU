@@ -1,0 +1,11 @@
+twHome : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2
+glHome : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2
+twExe : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/linux64/ctg/bin/tw_master_csc
+twRecipe : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/ctg/orc/fv_pv_default.scme
+twEngDb : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/auxx/ctg/tcl/tw_eng_db.enc
+exeDir : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/linux64/ctg/bin
+maxWorkerStr : 4
+maxTime : 12
+maxMemWorkerGB : 8
+vpDir : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1
+defaultEngScore : /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/formal/fpId1/fv_eng_score

@@ -1,0 +1,6 @@
+@libnz4w_r.so rc file Version 1.0
+[oh]
+invokeDir = /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf
+yv =  -ssy -ssv -ssz
+hostCommand = -usevlogan_front -lib /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/work -2012 -enable_vfs_mp -enable_vfs_mt -flush_textdoc_sdb -enable_vfs_lock -incsave -binddoc_check -force_release_gmem
+simType = VCS
