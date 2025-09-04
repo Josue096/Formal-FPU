@@ -1,6 +1,0 @@
-tec_riscv_bus.tec_riscv_bus.sva_bus_inst.clk
-tec_riscv_bus.tec_riscv_bus.sva_bus_inst.reset
-tec_riscv_bus.tec_riscv_bus.sva_bus_inst.D_push_spi
-tec_riscv_bus.tec_riscv_bus.sva_bus_inst.push_spi
-tec_riscv_bus.tec_riscv_bus.sva_bus_inst.pndng_spi
-tec_riscv_bus.clk
