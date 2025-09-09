@@ -1,3 +1,0 @@
-*design* DebussyLib (btIdent Verdi_O-2018.09-SP2)
-Command arguments:  -lib  /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/work  -saveLevel  -elab  /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/kdb  -simflow  -simdir  /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/kdb_libs  -top  tec_riscv_bus  -saveLevel  -silent  +disable_message+C00373  -Lf  work  +disable_message+C00371  +disable_message+C00380+C00381  +disable_message+C00388+C00389  -SNPS_ELABCOM  -saveElab 
-Total	0 error(s),   0 warning(s)

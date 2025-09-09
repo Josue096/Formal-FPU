@@ -1,9 +1,0 @@
-Command Line: /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/vc_static/O-2018.09-SP2/vcs-mx/linux64/bin/elabcom -simvdaidir /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir -lib /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/work -saveLevel -elab /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/kdb -simflow -simdir /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/.internal/design/simv.daidir/kdb_libs -top tec_riscv_bus -saveLevel -logdir /mnt/vol_NFS_Zener/WD_ESPEC/rmolina/evaristo_project/bus_vcf_2/bus_vcf/vcst_rtdb/verdi/elabcomLog -silent +disable_message+C00373 -Lf work +disable_message+C00371 +disable_message+C00380+C00381 +disable_message+C00388+C00389
-uname(Linux IE-CentOS-07 2.6.32-754.27.1.el6.x86_64 #1 SMP Tue Jan 28 14:11:45 UTC 2020 x86_64)
-[INFO] error/warning message 'C00373' has been suppressed.
-[INFO] error/warning message 'C00371' has been suppressed.
-[INFO] error/warning message 'C00380' has been suppressed.
-[INFO] error/warning message 'C00381' has been suppressed.
-[INFO] error/warning message 'C00388' has been suppressed.
-[INFO] error/warning message 'C00389' has been suppressed.
-au time 0.257984 0.073989 0.073989 delta 95645696 95645696 total 199012352 199012352
