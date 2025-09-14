@@ -9,5 +9,3 @@ rm -rfv `ls | grep -v ".*\.sv\|.*\.sh\|.*\.tcl"`
 # Ajusta la ruta de vfc si no está en el PATH
 vfc -tcl run_adder.tcl -full64 -cov all -log vfc_log.txt;
 
-# --- Notificación ---
-echo "Synopsys Formal finalizó. Revisa vfc_log.txt, properties_report.txt y coverage_report.txt"
