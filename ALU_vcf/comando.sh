@@ -1,6 +1,6 @@
 
 # --- Configuración del entorno Synopsys ---
-source /mnt/vol_NFS_rh003/estudiantes/archivos_config/synopsys_tools.sh
+source ./synopsys_tools.sh
 
 # --- Limpiar archivos de ejecución anteriores ---
 rm -rfv `ls | grep -v ".*\.sv\|.*\.sh\|.*\.tcl"`
