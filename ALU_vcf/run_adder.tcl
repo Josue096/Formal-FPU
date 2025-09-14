@@ -8,7 +8,14 @@ set design fp_adder
 
 # --- Leer archivos ---
 read_file -top $design -format sverilog -cov all -sva -vcs {
-    ../ALU_FP/fp_adder.sv
+    ../FPU/Sumador_restador/fp_adder.sv
+    ../FPU/fp_unpack/fp_unpack.sv
+    ../FPU/Sumador_restador/align_exponents.sv
+    ../FPU/Sumador_restador/add_sub_mantissas.sv
+    ../FPU/Sumador_restador/normalize_result.sv
+    ../FPU/Sumador_restador/round.sv
+    ../FPU/Sumador_restador/fp_pack.sv
+}
     adder_assertions.sv
     adder_bind.sv
 }
