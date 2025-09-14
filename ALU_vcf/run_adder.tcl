@@ -15,7 +15,6 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
     ../FPU/Sumador_restador/normalize_result.sv
     ../FPU/Sumador_restador/round.sv
     ../FPU/Sumador_restador/fp_pack.sv
-}
     adder_assertions.sv
     adder_bind.sv
 }
