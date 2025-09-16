@@ -1,6 +1,6 @@
 
 # --- Configuración del entorno Synopsys ---
-source ./synopsys_tools.sh
+source synopsys_tools.sh
 
 # --- Limpiar archivos de ejecución anteriores ---
 rm -rfv `ls | grep -v ".*\.sv\|.*\.sh\|.*\.tcl"`
