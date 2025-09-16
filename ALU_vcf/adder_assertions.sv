@@ -8,7 +8,7 @@ module fp_adder_checker (
     input logic        underflow
 );
 
-  // --- Propiedad 1: 0 + 0 = 0 ---
+  //0 + 0 = 0
   property add_zero_zero;
     (fp_a == 32'h00000000 && fp_b == 32'h00000000)
       |-> (fp_result == 32'h00000000 && overflow == 0 && underflow == 0);
