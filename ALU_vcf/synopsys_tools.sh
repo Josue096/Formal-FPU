@@ -202,10 +202,10 @@ UVM_HOME=${SYNOPSYS_HOME}/vcs/R-2020.12-SP2/etc/uvm-1.2
 export UVM_HOME
 
 ###### VCF
-VC_STATIC_HOME=/mnt/vol_synopsys2023/synopsys/vc_static/U-2023.03-SP2/bin/
+VC_STATIC_HOME=/mnt/vol_synopsys2023/synopsys/vc_static/U-2023.03-SP2/bin
 export VC_STATIC_HOME
 
-PATH=$PATH:${VC_STATIC_HOME}/bin
+PATH=$PATH:${VC_STATIC_HOME}
 export PATH
 
 ##### VERDI 
