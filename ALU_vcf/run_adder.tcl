@@ -18,5 +18,5 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
 
 sim_run -stable
 sim_save_reset
-report_properties -all > properties_report.txt
-report_coverage -all > coverage_report.txt
+check_fv -block
+report_fv -list > aep_results.txt 
