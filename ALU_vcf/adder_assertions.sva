@@ -1,11 +1,20 @@
 module fp_adder_checker (
+    //top sumnador
     input logic [31:0] fp_a,
     input logic [31:0] fp_b,
     input logic [2:0]  r_mode,
 
     input logic [31:0] fp_result,
     input logic        overflow,
-    input logic        underflow
+    input logic        underflow,
+    // internos: align
+    input logic [23:0] mantissa_a,
+    input logic [23:0] mantissa_b,
+    input logic [7:0]  exponent_a,
+    input logic [7:0]  exponent_b,
+    input logic [23:0] mantissa_a_aligned,
+    input logic [23:0] mantissa_b_aligned,
+    input logic [7:0]  exponent_common
 );
 
 // 0 + 0 = 0
