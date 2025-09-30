@@ -1,8 +1,17 @@
 bind fp_adder fp_adder_checker chk (
-  .fp_a(fp_a),
-  .fp_b(fp_b),
-  .r_mode(r_mode),
-  .fp_result(fp_result),
-  .overflow(overflow),
-  .underflow(underflow)
+//señales output-input 
+  .fp_a                     (fp_a),
+  .fp_b                     (fp_b),
+  .r_mode                   (r_mode),
+  .fp_result                (fp_result),
+  .overflow                 (overflow),
+  .underflow                (underflow),
+//align exponents
+  .mantissa_a               (fp_adder.u3.mantissa_a),
+  .mantissa_b               (fp_adder.u3.mantissa_b),
+  .exponent_a               (fp_adder.u3.exponent_a),
+  .exponent_b               (fp_adder.u3.exponent_b),
+  .mantissa_a_aligned       (fp_adder.u3.mantissa_a_aligned),
+  .mantissa_b_aligned       (fp_adder.u3.mantissa_b_aligned),
+  .exponent_common          (fp_adder.u3.exponent_common)
 );
