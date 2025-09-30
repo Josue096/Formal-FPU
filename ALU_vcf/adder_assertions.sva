@@ -14,28 +14,34 @@ module fp_adder_checker (
     input logic [23:0] mantissa_b_aligned,
     input logic [7:0]  exponent_common
 );
-
 // 0 + 0 = 0
-CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
-                      (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
-  else $error("0 + 0 debería dar 0 sin overflow/underflow");
+  always_comb begin
+    CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
+            (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
+      else $error("0 + 0 debería dar 0 sin overflow/underflow");
+  end
 
 // Si exponent_a > exponent_b, mantissa_b debe desplazarse a la derecha
-CHK_ALIGN_B: assert (!(fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ||
-                      (fp_adder.u3.mantissa_b_aligned == 
-                       (fp_adder.u3.mantissa_b >> (fp_adder.u3.exponent_a - fp_adder.u3.exponent_b))))
-  else $error("mantissa_b no se desplazó correctamente cuando exponent_a > exponent_b");
+always_comb begin
+    if (fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) begin
+        CHK_ALIGN_B: assert(fp_adder.u3.mantissa_b_aligned == (fp_adder.u3.mantissa_b >> (fp_adder.u3.exponent_a - fp_adder.u3.exponent_b)))
+          else $error("mantissa_b no se desplazó correctamente cuando exponent_a > exponent_b");
+    end
+end
 
 // Si exponent_b > exponent_a, mantissa_a debe desplazarse a la derecha
-CHK_ALIGN_A: assert (!(fp_adder.u3.exponent_b > fp_adder.u3.exponent_a) ||
-                      (fp_adder.u3.mantissa_a_aligned == 
-                       (fp_adder.u3.mantissa_a >> (fp_adder.u3.exponent_b - fp_adder.u3.exponent_a))))
-  else $error("mantissa_a no se desplazó correctamente cuando exponent_b > exponent_a");
+always_comb begin
+    if (fp_adder.u3.exponent_b > fp_adder.u3.exponent_a) begin
+        CHK_ALIGN_A: assert(fp_adder.u3.mantissa_a_aligned == (fp_adder.u3.mantissa_a >> (fp_adder.u3.exponent_b - fp_adder.u3.exponent_a)))
+          else $error("mantissa_a no se desplazó correctamente cuando exponent_b > exponent_a");
+    end
+end
 
-// Exponente resultante es el del mayor
-CHK_EXP_COMMON: assert (fp_adder.u3.exponent_common == 
-                        ((fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ? 
-                         fp_adder.u3.exponent_a : fp_adder.u3.exponent_b))
-  else $error("exponent_common no es igual al mayor de exponent_a y exponent_b");
+//exponente resultante es el del mayor
+always_comb begin
+    CHK_EXP_COMMON: assert(fp_adder.u3.exponent_common == ((fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ? 
+                                           fp_adder.u3.exponent_a : fp_adder.u3.exponent_b))
+      else $error("exponent_common no es igual al mayor de exponent_a y exponent_b");
+end
 
 endmodule
