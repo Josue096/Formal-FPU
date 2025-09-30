@@ -1,5 +1,4 @@
 module fp_adder_checker (
-    //top sumnador
     input logic [31:0] fp_a,
     input logic [31:0] fp_b,
     input logic [2:0]  r_mode,
@@ -7,7 +6,6 @@ module fp_adder_checker (
     input logic [31:0] fp_result,
     input logic        overflow,
     input logic        underflow,
-    // internos: align
     input logic [23:0] mantissa_a,
     input logic [23:0] mantissa_b,
     input logic [7:0]  exponent_a,
@@ -18,34 +16,26 @@ module fp_adder_checker (
 );
 
 // 0 + 0 = 0
-  always_comb begin
-    assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
-            (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
-      else $error("0 + 0 debería dar 0 sin overflow/underflow");
-  end
+CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
+                      (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
+  else $error("0 + 0 debería dar 0 sin overflow/underflow");
 
 // Si exponent_a > exponent_b, mantissa_b debe desplazarse a la derecha
-always_comb begin
-    if (fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) begin
-        assert(fp_adder.u3.mantissa_b_aligned == (fp_adder.u3.mantissa_b >> (fp_adder.u3.exponent_a - fp_adder.u3.exponent_b)))
-          else $error("mantissa_b no se desplazó correctamente cuando exponent_a > exponent_b");
-    end
-end
+CHK_ALIGN_B: assert (!(fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ||
+                      (fp_adder.u3.mantissa_b_aligned == 
+                       (fp_adder.u3.mantissa_b >> (fp_adder.u3.exponent_a - fp_adder.u3.exponent_b))))
+  else $error("mantissa_b no se desplazó correctamente cuando exponent_a > exponent_b");
 
 // Si exponent_b > exponent_a, mantissa_a debe desplazarse a la derecha
-always_comb begin
-    if (fp_adder.u3.exponent_b > fp_adder.u3.exponent_a) begin
-        assert(fp_adder.u3.mantissa_a_aligned == (fp_adder.u3.mantissa_a >> (fp_adder.u3.exponent_b - fp_adder.u3.exponent_a)))
-          else $error("mantissa_a no se desplazó correctamente cuando exponent_b > exponent_a");
-    end
-end
+CHK_ALIGN_A: assert (!(fp_adder.u3.exponent_b > fp_adder.u3.exponent_a) ||
+                      (fp_adder.u3.mantissa_a_aligned == 
+                       (fp_adder.u3.mantissa_a >> (fp_adder.u3.exponent_b - fp_adder.u3.exponent_a))))
+  else $error("mantissa_a no se desplazó correctamente cuando exponent_b > exponent_a");
 
-//exponente resultante es el del mayor
-always_comb begin
-    assert(fp_adder.u3.exponent_common == ((fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ? 
-                                           fp_adder.u3.exponent_a : fp_adder.u3.exponent_b))
-      else $error("exponent_common no es igual al mayor de exponent_a y exponent_b");
-end
+// Exponente resultante es el del mayor
+CHK_EXP_COMMON: assert (fp_adder.u3.exponent_common == 
+                        ((fp_adder.u3.exponent_a > fp_adder.u3.exponent_b) ? 
+                         fp_adder.u3.exponent_a : fp_adder.u3.exponent_b))
+  else $error("exponent_common no es igual al mayor de exponent_a y exponent_b");
+
 endmodule
-
-
