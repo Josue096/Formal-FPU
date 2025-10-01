@@ -18,30 +18,30 @@ module fp_adder_checker (
   // 0 + 0 = 0
   always_comb begin
     CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
-                          (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
+                          (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
   end
 
   // mantissa_b alineada si exponent_a > exponent_b
   always_comb begin
     CHK_ALIGN_B: assert ((exponent_a > exponent_b) ->
-                         (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))))
+                         (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))));
   end
 
   // mantissa_a alineada si exponent_b > exponent_a
   always_comb begin
     CHK_ALIGN_A: assert ((exponent_b > exponent_a) ->
-                         (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))))
+                         (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
   end
 
   // exponente resultante es el máximo
   always_comb begin
-    CHK_EXP_COMMON: assert (exponent_common == $max(exponent_a, exponent_b))
+    CHK_EXP_COMMON: assert (exponent_common == $max(exponent_a, exponent_b));
   end
 
   // 0 + 0 = 0
   always_comb begin
     CHK_ZERO_SUM: assert ((fp_a == 32'h41800000 && fp_b == 32'h40000000) ->
-                          (fp_result == 32'h41900000 && overflow == 0 && underflow == 0))
+                          (fp_result == 32'h41900000 && overflow == 0 && underflow == 0));
   end
 
 endmodule
