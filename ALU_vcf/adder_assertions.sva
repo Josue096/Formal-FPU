@@ -35,7 +35,7 @@ module fp_adder_checker (
 
   // exponente resultante es el máximo
   always_comb begin
-    CHK_EXP_COMMON: assert (exponent_common == $max(exponent_a, exponent_b));
+    CHK_EXP_COMMON: assert (exponent_common == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
   end
 
   // 16 + 2 = 18 esto para ver distintos exponentes
