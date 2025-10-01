@@ -38,10 +38,10 @@ module fp_adder_checker (
     CHK_EXP_COMMON: assert (exponent_common == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
   end
 
-  // 16 + 2 = 18 esto para ver distintos exponentes
+  // 16 + 2 = 18 esto para ver distintos exponentes32'hc2480000, 32'h42c80000
   always_comb begin
-    CHK_18_SUM: assert ((fp_a == 32'h41800000 && fp_b == 32'h40000000) ->
-                          (fp_result == 32'h41900000 && overflow == 0 && underflow == 0));
+    CHK_18_SUM: assert ((fp_a == 32'hc2480000 && fp_b == 32'h42c80000) ->
+                          (fp_result == 32'h42480000 && overflow == 0 && underflow == 0));
   end
 
 endmodule
