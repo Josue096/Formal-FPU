@@ -2,10 +2,10 @@ module fp_adder_checker (
     input logic [31:0] fp_a,
     input logic [31:0] fp_b,
     input logic [2:0]  r_mode,
-
     input logic [31:0] fp_result,
     input logic        overflow,
     input logic        underflow,
+
     input logic [23:0] mantissa_a,
     input logic [23:0] mantissa_b,
     input logic [7:0]  exponent_a,
@@ -14,32 +14,34 @@ module fp_adder_checker (
     input logic [23:0] mantissa_b_aligned,
     input logic [7:0]  exponent_common
 );
-// 0 + 0 = 0
+
+  // 0 + 0 = 0
   always_comb begin
     CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
-            (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
+                          (fp_result == 32'h00000000 && overflow == 0 && underflow == 0))
   end
 
-// Si exponent_a > exponent_b, mantissa_b debe desplazarse a la derecha
-always_comb begin
-    if (exponent_a > exponent_b) begin
-        CHK_ALIGN_B: assert(mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b)))
-            else $error("mantissa_b no se desplazó correctamente cuando exponent_a > exponent_b");
-    end
-end
+  // mantissa_b alineada si exponent_a > exponent_b
+  always_comb begin
+    CHK_ALIGN_B: assert ((exponent_a > exponent_b) ->
+                         (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))))
+  end
 
-// Si exponent_b > exponent_a, mantissa_a debe desplazarse a la derecha
-always_comb begin
-    if (exponent_b > exponent_a) begin
-        CHK_ALIGN_A: assert(mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a)))
-            else $error("mantissa_a no se desplazó correctamente cuando exponent_b > exponent_a");
-    end
-end
+  // mantissa_a alineada si exponent_b > exponent_a
+  always_comb begin
+    CHK_ALIGN_A: assert ((exponent_b > exponent_a) ->
+                         (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))))
+  end
 
-// Exponente resultante es el del mayor
-always_comb begin
-    CHK_EXP_COMMON: assert(exponent_common == ((exponent_a > exponent_b) ? exponent_a : exponent_b))
-        else $error("exponent_common no es igual al mayor de exponent_a y exponent_b");
-end
+  // exponente resultante es el máximo
+  always_comb begin
+    CHK_EXP_COMMON: assert (exponent_common == $max(exponent_a, exponent_b))
+  end
+
+  // 0 + 0 = 0
+  always_comb begin
+    CHK_ZERO_SUM: assert ((fp_a == 32'h41800000 && fp_b == 32'h40000000) ->
+                          (fp_result == 32'h41900000 && overflow == 0 && underflow == 0))
+  end
 
 endmodule
