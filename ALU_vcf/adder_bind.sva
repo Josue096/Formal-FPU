@@ -13,5 +13,7 @@ bind fp_adder fp_adder_checker chk (
   .exponent_b               (fp_adder.u3.exponent_b),
   .mantissa_a_aligned       (fp_adder.u3.mantissa_a_aligned),
   .mantissa_b_aligned       (fp_adder.u3.mantissa_b_aligned),
-  .exponent_common          (fp_adder.u3.exponent_common)
+  .exponent_common          (fp_adder.u3.exponent_common),
+  .is_subnormal_a           (fp_adder.u3.is_subnormal_a),
+  .is_subnormal_b           (fp_adder.u3.is_subnormal_b)
 );

@@ -12,7 +12,9 @@ module fp_adder_checker (
     input logic [7:0]  exponent_b,
     input logic [23:0] mantissa_a_aligned,
     input logic [23:0] mantissa_b_aligned,
-    input logic [7:0]  exponent_common
+    input logic [7:0]  exponent_common,
+    input logic        is_subnormal_a,
+    input logic        is_subnormal_b
 );
 
   // 0 + 0 = 0
