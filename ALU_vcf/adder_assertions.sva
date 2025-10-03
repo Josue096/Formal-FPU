@@ -79,15 +79,21 @@ module fp_adder_checker (
                          (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
   end
 
+  always_comb begin
+    ALIGN_NORMAL(A): assert (((exponent_a > exponent_b) && !(is_subnormal_a && is_subnormal_b)) ->
+                         (mantissa_a_aligned == (mantissa_b >> (exponent_a - exponent_b))));
+  end
+
   // exponente resultante es el máximo
   always_comb begin
-    EXP_COMMON: assert (!(is_subnormal_a && is_subnormal_b) -> (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
+    EXP_NORMAL: assert (!(is_subnormal_a && is_subnormal_b) -> (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
   end
 
   // exponente en ambos numeros subnormales
   always_comb begin
     EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
   end
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
