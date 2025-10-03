@@ -6,7 +6,7 @@ bind fp_adder fp_adder_checker chk (
   .fp_result                (fp_result),
   .overflow                 (overflow),
   .underflow                (underflow),
-//variables internas
+//señales internas
   .sign_a                   (fp_adder.sign_a),
   .sign_b                   (fp_adder.sign_b),
   .exponent_a               (fp_adder.exponent_a),
