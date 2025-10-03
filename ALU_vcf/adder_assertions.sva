@@ -70,8 +70,7 @@ module fp_adder_checker (
   // mantissa_b alineada si exponent_a > exponent_b
   always_comb begin
     ALIGN_B: assert ((exponent_a > exponent_b) ->
-                     (mantissa_b_aligned == ((exponent_a - exponent_b) > 23 ? 24'd0 :
-                                              mantissa_b >> (exponent_a - exponent_b))));
+                     (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))));
 end
   // mantissa_a alineada si exponent_b > exponent_a
 always_comb begin
