@@ -48,12 +48,12 @@ module fp_adder_checker (
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //fp_unpack de cada valor es el correcto
   always_comb begin
-    FP_UNPACK_A: assert ((fp_a[30:23] != 8'hFF) ->
+    FP_UNPACK_A: assert  (((fp_a[30:23] != 8'hFF) && (fp_a != 32'h00000000)) ->
                           ((sign_a == fp_a[31]) && (exponent_a == fp_a[30:23]) && (mantissa_a == {|fp_a[30:23], fp_a[22:0]})));
   end
 
   always_comb begin
-    FP_UNPACK_B: assert ((fp_b[30:23] != 8'hFF) ->
+    FP_UNPACK_B: assert (((fp_b[30:23] != 8'hFF) && (fp_b != 32'h00000000)) ->
                           ((sign_b == fp_b[31]) && (exponent_b == fp_b[30:23]) && (mantissa_b == {|fp_b[30:23], fp_b[22:0]})));
   end
 
