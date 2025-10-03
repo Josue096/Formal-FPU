@@ -42,35 +42,35 @@ module fp_adder_checker (
 
   // 0 + 0 = 0
   always_comb begin
-    CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
+    ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
                           (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
   end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // mantissa_b alineada si exponent_a > exponent_b
   always_comb begin
-    CHK_ALIGN_B: assert ((exponent_a > exponent_b) ->
+    ALIGN_B: assert ((exponent_a > exponent_b) ->
                          (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))));
   end
 
   // mantissa_a alineada si exponent_b > exponent_a
   always_comb begin
-    CHK_ALIGN_A: assert ((exponent_b > exponent_a) ->
+    ALIGN_A: assert ((exponent_b > exponent_a) ->
                          (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
   end
 
   // exponente resultante es el máximo
   always_comb begin
-    CHK_EXP_COMMON: assert (!(is_subnormal_a && is_subnormal_b) -> (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
+    EXP_COMMON: assert (!(is_subnormal_a && is_subnormal_b) -> (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
   end
 
   // exponente en ambos numeros subnormales
   always_comb begin
-    CHK_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
+    EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
   end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
-    CHK_15_SUM: assert ((fp_a == 32'h40a00000 && fp_b == 32'h41200000 && r_mode == 3'b001) ->
+    15_SUM: assert ((fp_a == 32'h40a00000 && fp_b == 32'h41200000 && r_mode == 3'b001) ->
                           (fp_result == 32'h41700000 && overflow == 0 && underflow == 0));
   end
 endmodule
