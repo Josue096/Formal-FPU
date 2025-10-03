@@ -31,7 +31,7 @@ module fp_adder_checker (
 //
   input logic         result_sign,
   input logic [7:0]   exponent_out, 
-  input logic         exponent_final;
+  input logic         exponent_final,
   input logic [24:0]  mantissa_sum,
   input logic [26:0]  mantissa_ext,
   input logic [22:0]  mantissa_rounded,
