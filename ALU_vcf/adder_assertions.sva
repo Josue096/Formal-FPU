@@ -80,7 +80,7 @@ module fp_adder_checker (
   end
 
   always_comb begin
-    ALIGN_NORMAL: assert (((exponent_a > exponent_b) && !(is_subnormal_a && is_subnormal_b)) ->
+    ALIGN_NORMAL: assert (((exponent_a > exponent_b) && !(is_subnormal_a || is_subnormal_b)) ->
                          (mantissa_a_aligned == (mantissa_b >> (exponent_a - exponent_b))));
   end
 
