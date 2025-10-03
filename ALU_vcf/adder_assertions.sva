@@ -82,7 +82,7 @@ end
 
   always_comb begin
     ALIGN_NORMAL: assert (((exponent_b > exponent_a) && !(is_subnormal_a || is_subnormal_b)) ->
-                         (mantissa_a_aligned == ((exponent_b - exponent_a) > 23 ? 24'd0 :
+                         (mantissa_a_aligned == (
                                               mantissa_a >> (exponent_b - exponent_a))));
   end
 
@@ -95,6 +95,8 @@ end
   always_comb begin
     EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
   end
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
