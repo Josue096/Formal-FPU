@@ -70,18 +70,20 @@ module fp_adder_checker (
   // mantissa_b alineada si exponent_a > exponent_b
   always_comb begin
     ALIGN_B: assert ((exponent_a > exponent_b) ->
-                         (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))));
-  end
-
+                     (mantissa_b_aligned == ((exponent_a - exponent_b) > 23 ? 24'd0 :
+                                              mantissa_b >> (exponent_a - exponent_b))));
+end
   // mantissa_a alineada si exponent_b > exponent_a
-  always_comb begin
+always_comb begin
     ALIGN_A: assert ((exponent_b > exponent_a) ->
-                         (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
-  end
+                     (mantissa_a_aligned == ((exponent_b - exponent_a) > 23 ? 24'd0 :
+                                              mantissa_a >> (exponent_b - exponent_a))));
+end
 
   always_comb begin
     ALIGN_NORMAL: assert (((exponent_a > exponent_b) && !(is_subnormal_a || is_subnormal_b)) ->
-                         (mantissa_a_aligned == (mantissa_b >> (exponent_a - exponent_b))));
+                         (mantissa_a_aligned == ((exponent_b - exponent_a) > 23 ? 24'd0 :
+                                              mantissa_a >> (exponent_b - exponent_a))));
   end
 
   // exponente resultante es el máximo
