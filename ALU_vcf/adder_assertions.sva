@@ -1,20 +1,43 @@
 module fp_adder_checker (
-    input logic [31:0] fp_a,
-    input logic [31:0] fp_b,
-    input logic [2:0]  r_mode,
-    input logic [31:0] fp_result,
-    input logic        overflow,
-    input logic        underflow,
 
-    input logic [23:0] mantissa_a,
-    input logic [23:0] mantissa_b,
-    input logic [7:0]  exponent_a,
-    input logic [7:0]  exponent_b,
-    input logic [23:0] mantissa_a_aligned,
-    input logic [23:0] mantissa_b_aligned,
-    input logic [7:0]  exponent_common,
-    input logic        is_subnormal_a,
-    input logic        is_subnormal_b
+//señales del top sumador
+  input logic [31:0]  fp_a,
+  input logic [31:0]  fp_b,
+  input logic [2:0]   r_mode,
+  input logic [31:0]  fp_result,
+  input logic         overflow,
+  input logic         underflow,
+
+//señales de bloque fp_unpack
+
+  input logic         sign_a,
+  input logic         sign_b,
+  input logic [7:0]   exponent_a,
+  input logic [7:0]   exponent_b,
+  input logic [23:0]  mantissa_a,
+  input logic [23:0]  mantissa_b,
+  input logic         is_special_a, 
+  input logic         is_special_b,
+  input logic         is_subnormal_a,
+  input logic         is_subnormal_b,
+  input logic         is_zero_a, 
+  input logic         is_zero_b,
+
+//señales de bloque align_exponents
+
+  input logic [23:0]  mantissa_a_aligned,
+  input logic [23:0]  mantissa_b_aligned,
+  input logic [7:0]   exponent_common,
+//
+  input logic         result_sign,
+  input logic [7:0]   exponent_out, 
+  input logic         exponent_final;
+  input logic [24:0]  mantissa_sum,
+  input logic [26:0]  mantissa_ext,
+  input logic [22:0]  mantissa_rounded,
+  input logic         carry_out,
+  input logic         overflow_internal,
+  input logic [31:0]  fp_result_wire
 );
 
   // 0 + 0 = 0
@@ -22,7 +45,7 @@ module fp_adder_checker (
     CHK_ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
                           (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
   end
-
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // mantissa_b alineada si exponent_a > exponent_b
   always_comb begin
     CHK_ALIGN_B: assert ((exponent_a > exponent_b) ->
@@ -44,11 +67,10 @@ module fp_adder_checker (
   always_comb begin
     CHK_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
   end
-
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
     CHK_15_SUM: assert ((fp_a == 32'h40a00000 && fp_b == 32'h41200000 && r_mode == 3'b001) ->
                           (fp_result == 32'h41700000 && overflow == 0 && underflow == 0));
   end
-
 endmodule
