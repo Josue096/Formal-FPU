@@ -114,7 +114,7 @@ end
                 (result_sign == sign_a));
   end
   always_comb begin
-    SIGNO_RESTA_B: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
+    SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 (result_sign == 0));
   end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
