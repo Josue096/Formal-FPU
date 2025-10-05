@@ -106,9 +106,9 @@ end
 
   always_comb begin
     SIGNO_RESTA: assert ((sign_a != sign_b) -> 
-                ((exponent_a > exponent_b) ? sign_a :
+                (result_sign == ((exponent_a > exponent_b) ? sign_a :
                 (exponent_b > exponent_a) ? sign_b :
-                1'b0));
+                1'b0)));
   end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
