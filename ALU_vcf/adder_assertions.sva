@@ -102,13 +102,13 @@ end
   //Resta de mantisas
   always_comb begin
     RESTA: assert ((sign_a != sign_b) -> 
-                (mantissa_sum == (mantissa_a_aligned >= mantissa_b_aligned) ? mantissa_a_aligned - mantissa_b_aligned : mantissa_b_aligned - mantissa_a_aligned));
+    (mantissa_sum == (mantissa_a_aligned >= mantissa_b_aligned) ? (mantissa_a_aligned - mantissa_b_aligned) : (mantissa_b_aligned - mantissa_a_aligned)));
   end
   always_comb begin
     SIGNO_RESTA: assert ((sign_a != sign_b) -> 
-                (result_sign == (mantissa_a_aligned > mantissa_b_aligned) ? sign_a : sign_b));
+                (result_sign == (exponent_a > exponent_b) ? sign_a : sign_b));
   end
-  
+
   always_comb begin
     SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 (result_sign == 0));
