@@ -93,8 +93,17 @@ end
     EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> (exponent_common) == 8'd0);
   end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  //Suma de mantisas
+  always_comb begin
+    SUMA: assert ((sign_a == sign_b) -> ((mantissa_sum == mantissa_a_aligned + mantissa_b_aligned) && (result_sign == sign_b)));
+  end
 
-
+  //Resta de mantisas
+  always_comb begin
+    RESTA: assert ((sign_a != sign_b) -> 
+                ((mantissa_sum == (exponent_a >= exponent_b) ? mantissa_a_aligned - mantissa_b_aligned : mantissa_b_aligned - mantissa_a_aligned)
+                && (result_sign == (exponent_a >= exponent_b) ? sign_a : sign_b ) ));
+  end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
