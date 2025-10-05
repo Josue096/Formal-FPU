@@ -28,11 +28,12 @@ module fp_adder_checker (
   input logic [23:0]  mantissa_a_aligned,
   input logic [23:0]  mantissa_b_aligned,
   input logic [7:0]   exponent_common,
-//
+//Sub_mantisas
   input logic         result_sign,
+  input logic [24:0]  mantissa_sum,
+//
   input logic [7:0]   exponent_out, 
   input logic         exponent_final,
-  input logic [24:0]  mantissa_sum,
   input logic [26:0]  mantissa_ext,
   input logic [22:0]  mantissa_rounded,
   input logic         carry_out,
@@ -105,17 +106,9 @@ end
   end
   always_comb begin
     SIGNO_RESTA: assert ((sign_a != sign_b) -> 
-                (result_sign == (exponent_a > exponent_b) ? sign_a : sign_b));
+                (result_sign == (mantissa_a_aligned > mantissa_b_aligned) ? sign_a : sign_b));
   end
-  always_comb begin
-    SIGNO_RESTA_B: assert ((sign_a < sign_b) -> 
-                (result_sign == sign_b));
-  end
-
-  always_comb begin
-    SIGNO_RESTA_A: assert ((sign_b < sign_a) -> 
-                (result_sign == sign_a));
-  end
+  
   always_comb begin
     SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 (result_sign == 0));
