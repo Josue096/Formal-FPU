@@ -104,16 +104,19 @@ end
                 (mantissa_sum == (exponent_a >= exponent_b) ? mantissa_a_aligned - mantissa_b_aligned : mantissa_b_aligned - mantissa_a_aligned));
   end
 
-always_comb begin
-  SIGNO_RESTA: assert ((sign_a != sign_b) ->
-    (result_sign == (
-        ({exponent_a, mantissa_a} > {exponent_b, mantissa_b}) ? sign_a :
-        ({exponent_b, mantissa_b} > {exponent_a, mantissa_a}) ? sign_b :
-        1'b0
-    ))
-  );
-end
+  always_comb begin
+    SIGNO_RESTA_B: assert ((sign_a < sign_b) -> 
+                (result_sign == sign_b));
+  end
 
+  always_comb begin
+    SIGNO_RESTA_A: assert ((sign_b < sign_a) -> 
+                (result_sign == sign_a));
+  end
+  always_comb begin
+    SIGNO_RESTA_B: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
+                (result_sign == 0));
+  end
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
