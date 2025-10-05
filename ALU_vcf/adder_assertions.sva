@@ -104,11 +104,11 @@ end
                 (mantissa_sum == (mantissa_a_aligned >= mantissa_b_aligned) ? mantissa_a_aligned - mantissa_b_aligned : mantissa_b_aligned - mantissa_a_aligned));
   end
   always_comb begin
-    SIGNO_RESTA_gen: assert ((sign_a != sign_b) -> 
+    SIGNO_RESTA: assert ((sign_a != sign_b) -> 
                 (result_sign == (exponent_a > exponent_b) ? sign_a : sign_b));
   end
   always_comb begin
-    SIGNO_RESTA_B: assert ((sign_a != sign_b) && -> 
+    SIGNO_RESTA_B: assert ((sign_a < sign_b) -> 
                 (result_sign == sign_b));
   end
 
