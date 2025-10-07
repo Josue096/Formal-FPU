@@ -28,13 +28,18 @@ module fp_adder_checker (
   input logic [23:0]  mantissa_a_aligned,
   input logic [23:0]  mantissa_b_aligned,
   input logic [7:0]   exponent_common,
+
 //Sub_mantisas
   input logic         result_sign,
   input logic [24:0]  mantissa_sum,
-//
+
+//Normalize
   input logic [7:0]   exponent_out, 
-  input logic         exponent_final,
   input logic [26:0]  mantissa_ext,
+
+//
+  input logic         exponent_final,
+
   input logic [22:0]  mantissa_rounded,
   input logic         carry_out,
   input logic         overflow_internal,
@@ -106,13 +111,26 @@ end
   end
   always_comb begin
     SIGNO_RESTA: assert ((sign_a != sign_b) -> 
-                (result_sign == (exponent_a > exponent_b) ? sign_a : sign_b));
+                (result_sign == (mantissa_a_aligned > mantissa_b_aligned) ? sign_a : sign_b));
   end
 
   always_comb begin
     SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 (result_sign == 0));
   end
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  //Si hay carry de la suma aumneta exponente en normalize
+  always_comb begin
+    CARRY_SUMA: assert ((mantissa_sum[24]) -> 
+                ((mantissa_ext == {1'b0,mantissa_sum,1'b0}) && (exponent_out == exponent_common + 1)));
+  end
+  //ajuste normalize poner el primer 1 con shift a la derecha
+  always_comb begin
+    SHIFT_NORMALIZE: assert (((!mantissa_sum[24]) && (!mantissa_sum[23])) ->
+              ((mantissa_ext == (mantissa_sum << leading_zero_count(mantissa_sum[23:0])))
+              && (exponent_out == exponent_common - leading_zero_count(mantissa_sum[23:0]))));
+  end
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
   always_comb begin
