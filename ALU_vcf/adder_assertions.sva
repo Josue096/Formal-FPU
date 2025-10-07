@@ -137,9 +137,10 @@ end
                                 && (!mantissa_sum[23])
                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
 
-              ((mantissa_ext == (mantissa_sum << leading_zero_count(mantissa_sum[23:0])))
+              ((mantissa_ext == (mantissa_sum[23:0] << leading_zero_count(mantissa_sum[23:0])))
               ));
   end
+
   always_comb begin
     NORM_SHIFT_EXPO_NORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
