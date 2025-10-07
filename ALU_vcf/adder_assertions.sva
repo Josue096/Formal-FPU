@@ -132,10 +132,21 @@ end
 
   //ajuste normalize poner el primer 1 con shift a la derecha
   always_comb begin
-    NORM_SHIFT_NORMALES: assert (((mantissa_sum != 0) && (!mantissa_sum[24]) && (!mantissa_sum[23])
-                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
+    NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
+                                && (!mantissa_sum[24]) 
+                                && (!mantissa_sum[23])
+                                && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
+
               ((mantissa_ext == (mantissa_sum << leading_zero_count(mantissa_sum[23:0])))
-              && (exponent_out == exponent_common - leading_zero_count(mantissa_sum[23:0]))));
+              ));
+  end
+  always_comb begin
+    NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
+                                && (!mantissa_sum[24]) 
+                                && (!mantissa_sum[23])
+                                && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
+
+              ((exponent_out == exponent_common - leading_zero_count(mantissa_sum[23:0]))));
   end
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
