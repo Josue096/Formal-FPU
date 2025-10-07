@@ -147,7 +147,7 @@ end
                                 && (!mantissa_sum[23])
                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
 
-              ((exponent_out == exponent_common - leading_zero_count(mantissa_sum[23:0]))));
+              ((exponent_out == 8'd0))); //exponent_common - leading_zero_count(mantissa_sum[23:0])
   end
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
