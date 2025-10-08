@@ -99,7 +99,7 @@ module fp_adder_checker (
     SUMA_RESTA_B_MAYOR: assert (((sign_a != sign_b) && (mantissa_b_aligned > mantissa_a_aligned))  -> 
                 ((mantissa_sum == (mantissa_b_aligned - mantissa_a_aligned) && (result_sign == sign_b))));
   
-    SUMA_SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
+    SUMA_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 ((mantissa_sum == 0) && (result_sign == 0)));// solo por que samuel lo define asi, no se si por norma esa asi
   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
