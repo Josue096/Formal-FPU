@@ -129,7 +129,7 @@ end
   logic [23:0] mantissa_shifted_check;
   shift = leading_zero_count(mantissa_sum[23:0]);
   mantissa_shifted_check = mantissa_sum[23:0] << shift;
-    NORM_estupides: assert (((exponent_common > shift_amount) && mantissa_shifted_check[23]));
+    NORM_estupides: assert (((exponent_common > shift) && mantissa_shifted_check[23]));
   end
   //Si hay carry de la suma aumneta exponente en normalize
   always_comb begin
