@@ -124,6 +124,13 @@ end
     NORM_CARRY_EXPO: assert ((mantissa_sum[24]) -> 
                 ((exponent_out == exponent_common + 1)));
   end
+  always_comb begin
+  logic [7:0]  s;
+  logic [23:0] mantissa_shifted_check
+  s = leading_zero_count(mantissa_sum[23:0]);
+  mantissa_shifted_check = mantissa_sum[23:0] << s;
+    NORM_estupides: assert (mantissa_shifted_check[23] == 1);
+  end
   //Si hay carry de la suma aumneta exponente en normalize
   always_comb begin
     NORM_CARRY_MANTISSA: assert ((mantissa_sum[24]) -> 
