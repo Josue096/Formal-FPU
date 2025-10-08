@@ -123,6 +123,21 @@ module fp_adder_checker (
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //Si hay carry de la suma ajusta la mantizza
     shift_amount = leading_zero_count(mantissa_sum[23:0]);
+    function automatic [7:0] leading_zero_count(input logic [23:0] value);
+        begin
+            leading_zero_count = 8'd0; // Inicializar el conteo en cero
+
+            // Recorrer desde el bit más significativo (MSB = 23)
+            for (int i = 23; i >= 0; i--) begin
+
+                // Primer '1' encontrado: contar los ceros previos
+                if (value[i]) begin
+                    leading_zero_count = 8'(23 - i);
+                    break;
+                end
+            end
+        end
+    endfunction
 
     NORM_CARRY_EXPO: assert ((mantissa_sum[24]) -> 
                 ((exponent_out == exponent_common + 1)));
