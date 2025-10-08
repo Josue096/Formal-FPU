@@ -139,7 +139,7 @@ end
                                 && (!mantissa_sum[24]) 
                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
 
-              (mantissa_ext[26:3] = mantissa_preshift[46:23]));
+              (mantissa_ext[26:3] == mantissa_preshift[46:23]));
   end
 
   always_comb begin
