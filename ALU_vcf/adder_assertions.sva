@@ -93,8 +93,8 @@ module fp_adder_checker (
                 ((mantissa_sum == mantissa_a_aligned + mantissa_b_aligned) && (result_sign == sign_b)));
   
   //Resta de mantisas
-    SUMA_RESTA: assert ((sign_a != sign_b) -> 
-    (mantissa_sum == (mantissa_a_aligned >= mantissa_b_aligned) ? (mantissa_a_aligned - mantissa_b_aligned) : (mantissa_b_aligned - mantissa_a_aligned)));
+    SUMA_RESTA: assert (((sign_a != sign_b) && (mantissa_a_aligned > mantissa_b_aligned))  -> 
+                (mantissa_sum == (mantissa_a_aligned - mantissa_b_aligned) ));
 
     SUMA_SIGNO_RESTA: assert ((sign_a != sign_b) -> 
                 (result_sign == (mantissa_a_aligned > mantissa_b_aligned) ? sign_a : sign_b));
