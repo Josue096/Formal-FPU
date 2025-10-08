@@ -93,14 +93,14 @@ module fp_adder_checker (
                 ((mantissa_sum == mantissa_a_aligned + mantissa_b_aligned) && (result_sign == sign_b)));
   
   //Resta de mantisas
-    SUMA_RESTA_A_MAYOR: assert (((sign_a != sign_b) && (mantissa_a_aligned >= mantissa_b_aligned))  -> 
+    SUMA_RESTA_A_MAYOR: assert (((sign_a != sign_b) && (mantissa_a_aligned > mantissa_b_aligned))  -> 
                 ((mantissa_sum == (mantissa_a_aligned - mantissa_b_aligned) && (result_sign == sign_a))));
 
-    SUMA_RESTA_B_MAYOR: assert (((sign_a != sign_b) && (mantissa_b_aligned >= mantissa_a_aligned))  -> 
+    SUMA_RESTA_B_MAYOR: assert (((sign_a != sign_b) && (mantissa_b_aligned > mantissa_a_aligned))  -> 
                 ((mantissa_sum == (mantissa_b_aligned - mantissa_a_aligned) && (result_sign == sign_b))));
   
     SUMA_SIGNO_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
-                (result_sign == 0));
+                ((mantissa_sum == 0) && (result_sign == 0)));// solo por que samuel lo define asi, no se si por norma esa asi
   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   shift_amount = leading_zero_count(mantissa_sum[23:0]); //calculo util para saber cuanto dezplazamiento en caso de shift
