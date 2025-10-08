@@ -119,9 +119,10 @@ module fp_adder_checker (
                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
                 (mantissa_ext[26:3] == (mantissa_sum[23:0]<<shift_amount)));
   
-    NORM_SHIFT_MANTISSA_SUBNORMALES: assert (((mantissa_sum != 0) 
+    NORM_SHIFT_MANTISSA_SUBNORMALES: assert (((mantissa_sum != 0)
+                                && (!mantissa_sum[24]) 
                                 && (exponent_common == 8'b0)) ->
-                (mantissa_ext == {mantissa_sum[23:0]<<shift_amount,1'b0,1'b0,1'b0}));
+                mantissa_ext[26:3] == mantissa_sum[23:0]);
   
     NORM_SHIFT_EXPO_NORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
@@ -143,7 +144,7 @@ module fp_adder_checker (
                                 && (!mantissa_sum[24])  
                                 && (exponent_common > 0) 
                                 && (exponent_common <= leading_zero_count(mantissa_sum[23:0]))) ->
-                ((mantissa_ext == mantissa_sum[23:0] <<(exponent_common-1))));
+                ((mantissa_ext[26:3] == mantissa_sum[23:0] <<(exponent_common-1))));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
