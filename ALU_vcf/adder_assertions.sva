@@ -143,7 +143,7 @@ module fp_adder_checker (
                                 && (!mantissa_sum[24])  
                                 && (exponent_common > 0) 
                                 && (exponent_common <= leading_zero_count(mantissa_sum[23:0]))) ->
-                ((mantissa_ext == mantissa_sum <<(leading_zero_count(mantissa_sum[23:0])- exponent_common))));
+                ((mantissa_ext == mantissa_sum[23:0] <<(leading_zero_count(mantissa_sum[23:0]- exponent_common)))));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
