@@ -125,11 +125,11 @@ end
                 ((exponent_out == exponent_common + 1)));
   end
   always_comb begin
-  logic [7:0]  s;
-  logic [23:0] mantissa_shifted_check
-  s = leading_zero_count(mantissa_sum[23:0]);
-  mantissa_shifted_check = mantissa_sum[23:0] << s;
-    NORM_estupides: assert (mantissa_shifted_check[23] == 1);
+  logic [7:0]  shift;
+  logic [23:0] mantissa_shifted_check;
+  shift = leading_zero_count(mantissa_sum[23:0]);
+  mantissa_shifted_check = mantissa_sum[23:0] << shift;
+    NORM_estupides: assert (((exponent_common > shift_amount) && mantissa_shifted_check[23]));
   end
   //Si hay carry de la suma aumneta exponente en normalize
   always_comb begin
