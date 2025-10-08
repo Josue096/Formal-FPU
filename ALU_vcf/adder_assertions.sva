@@ -85,7 +85,7 @@ module fp_adder_checker (
 
   // exponente en ambos numeros subnormales
     ALIGN_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> 
-                (exponent_common) == 8'd0);
+                (exponent_common) == 8'd1);
   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //Suma de mantisas
@@ -116,7 +116,7 @@ module fp_adder_checker (
   //ajuste normalize poner el primer 1 con shift a la derecha
     NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
-                                && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
+                                && (exponent_common > shift_amount)) ->
                 (mantissa_ext[26:3] == (mantissa_sum[23:0]<<shift_amount)));
   
     NORM_SHIFT_MANTISSA_SUBNORMALES: assert (((mantissa_sum != 0)
