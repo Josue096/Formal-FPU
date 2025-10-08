@@ -134,9 +134,10 @@ end
   always_comb begin
     NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
+                                && (!mantissa_sum[23])
                                 && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
 
-              (mantissa_ext[26:3] == (mantissa_sum[23:0] << leading_zero_count(mantissa_sum[23:0]))));
+              (mantissa_ext[26] == (mantissa_sum[23:0])));
   end
 
   always_comb begin
