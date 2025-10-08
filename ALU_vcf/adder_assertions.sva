@@ -45,7 +45,7 @@ module fp_adder_checker (
   input logic         overflow_internal,
   input logic [31:0]  fp_result_wire
 );
-  logic shift_amount
+  logic shift_amount;
 
   always_comb begin
 
