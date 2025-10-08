@@ -131,13 +131,7 @@ module fp_adder_checker (
   //Si hay carry de la suma aumneta exponente en normalize
 
     NORM_CARRY_MANTISSA: assert ((mantissa_sum[24]) -> 
-                ((mantissa_ext == {mantissa_sum,1'b0,1'b0})));  //{1'b0,mantissa_sum,1'b0}
-  
-
-
-    NORM_CARRY_MANTISSA: assert ((mantissa_sum[24]) -> 
-                ((mantissa_ext == {mantissa_sum,1'b0,1'b0})));  //{1'b0,mantissa_sum,1'b0}
-  
+                ((mantissa_ext == {mantissa_sum,1'b0,1'b0})));  //{1'b0,mantissa_sum,1'b0}  
 
   //ajuste normalize poner el primer 1 con shift a la derecha
 
