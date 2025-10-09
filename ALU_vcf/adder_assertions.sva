@@ -37,11 +37,12 @@ module fp_adder_checker (
   input logic [7:0]   exponent_out, 
   input logic [26:0]  mantissa_ext,
 
-//
-  input logic         exponent_final,
-
+//Round
   input logic [22:0]  mantissa_rounded,
   input logic         carry_out,
+
+//
+  input logic         exponent_final,
   input logic         overflow_internal,
   input logic [31:0]  fp_result_wire
 );
@@ -70,15 +71,18 @@ module fp_adder_checker (
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // mantissa_b alineada si exponent_a > exponent_b
     ALIGN_B: assert ((exponent_a > exponent_b) ->
-                (mantissa_b_aligned == (mantissa_b >> (exponent_a - exponent_b))));
+                (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned == (mantissa_b >> (exponent_a - (exponent_b == 0) ? 1 : exponent_b)))));
 
   // mantissa_a alineada si exponent_b > exponent_a
     ALIGN_A: assert ((exponent_b > exponent_a) ->
-                (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
+                (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned == (mantissa_a >> (exponent_b - (exponent_a == 0) ? 1 : exponent_a)))));
 
     ALIGN_NORMAL: assert (((exponent_b > exponent_a) && !(is_subnormal_a || is_subnormal_b)) ->
                 (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
-  
+
+    ALIGN_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> 
+                (mantissa_a_aligned) == mantissa_a); 
+
   // exponente resultante es el máximo
     ALIGN_EXP_NORMAL: assert (!(is_subnormal_a && is_subnormal_b) -> 
                 (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
@@ -86,6 +90,8 @@ module fp_adder_checker (
   // exponente en ambos numeros subnormales
     ALIGN_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> 
                 (exponent_common) == 8'd1);
+    
+
   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //Suma de mantisas
@@ -145,6 +151,16 @@ module fp_adder_checker (
                                 && (exponent_common > 0) 
                                 && (exponent_common <= leading_zero_count(mantissa_sum[23:0]))) ->
                 ((mantissa_ext[26:3] == mantissa_sum[23:0] <<(exponent_common-1))));
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    ROUND_RNZ: assert ((r_mode == 3'b000) ->
+                (case ({mantissa_ext[2],(|mantissa_ext[1:0])})
+                  2'b00: mantissa_rounded == mantissa_ext[25:3];   
+                  2'b01: mantissa_rounded == mantissa_ext[25:3]; 
+                  2'b10: mantissa_rounded == mantissa_ext[3] ? mantissa_ext[25:3] + 1'b1 : mantissa_ext[25:3] //si es impar redondea para arriba
+                  2'b11: mantissa_rounded == mantissa_ext[25:3] + 1'b1;
+                  //default: mantissa_rounded == mantissa_ext[25:4];
+                endcase));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
