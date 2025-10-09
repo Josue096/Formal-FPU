@@ -157,7 +157,7 @@ module fp_adder_checker (
                 (case ({mantissa_ext[2],(|mantissa_ext[1:0])})
                   2'b00: mantissa_rounded == mantissa_ext[25:3];   
                   2'b01: mantissa_rounded == mantissa_ext[25:3]; 
-                  2'b10: mantissa_rounded == mantissa_ext[3] ? mantissa_ext[25:3] + 1'b1 : mantissa_ext[25:3] //si es impar redondea para arriba
+                  2'b10: mantissa_rounded == mantissa_ext[3] ? mantissa_ext[25:3] + 1'b1 : mantissa_ext[25:3]; //si es impar redondea para arriba
                   2'b11: mantissa_rounded == mantissa_ext[25:3] + 1'b1;
                   //default: mantissa_rounded == mantissa_ext[25:4];
                 endcase));
