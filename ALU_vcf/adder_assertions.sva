@@ -76,7 +76,7 @@ module fp_adder_checker (
 
   // mantissa_a alineada si exponent_b > exponent_a
     ALIGN_A: assert ((exponent_b > exponent_a) ->
-                (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned == (mantissa_a >> (exponent_b - (exponent_a == 0) ? 1 : exponent_a)))));
+                (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned == (mantissa_a >> (exponent_b - ((exponent_a == 0) ? 1 : exponent_a))))));
 
     ALIGN_NORMAL: assert (((exponent_b > exponent_a) && !(is_subnormal_a || is_subnormal_b)) ->
                 (mantissa_a_aligned == (mantissa_a >> (exponent_b - exponent_a))));
@@ -126,32 +126,35 @@ module fp_adder_checker (
                                 && (exponent_common > shift_amount)) ->
                 (mantissa_ext[26:3] == (mantissa_sum[23:0]<<shift_amount)));
   
-    NORM_SHIFT_MANTISSA_SUBNORMALES: assert (((mantissa_sum != 0)
+    NORM_SHIFT_MANTISSA_NORM_A_SUBN: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24]) 
-                                && (exponent_common == 8'b0)) ->
+                                && (exponent_common <= shift_amount)
+                                && (exponent_a > 0)
+                                && (exponent_b > 0)) ->
+                mantissa_ext[26:3] == mantissa_sum[23:0] << (exponent_common - 1));
+
+    NORM_SHIFT_MANTISSA_SUBNORMAL: assert (((mantissa_sum != 0)
+                                && (!mantissa_sum[24]) 
+                                && (exponent_common <= shift_amount)
+                                && (exponent_a == 0)
+                                && (exponent_b == 0)) ->
                 mantissa_ext[26:3] == mantissa_sum[23:0]);
   
     NORM_SHIFT_EXPO_NORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
-                                && (exponent_common > leading_zero_count(mantissa_sum[23:0]))) ->
-                ((exponent_out == exponent_common - leading_zero_count(mantissa_sum[23:0]))));
+                                && (exponent_common > shift_amount)) ->
+                ((exponent_out == exponent_common - shift_amount)));
 
     NORM_SHIFT_EXPO_SUBNORMALES: assert (((mantissa_sum != 0) 
                                 && (!mantissa_sum[24]) 
-                                && (exponent_common == 0)) ->
+                                && (exponent_common <= shift_amount)) ->
                 ((exponent_out == 0)));  
 
     NORM_SHIFT_EXPO_NORM_A_SUBNORM: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24])  
                                 && (exponent_common > 0) 
-                                && (exponent_common <= leading_zero_count(mantissa_sum[23:0]))) ->
+                                && (exponent_common <= shift_amount)) ->
                 ((exponent_out == 0)));
-
-    NORM_SHIFT_MANTISSA_NORM_A_SUBNORM: assert (((mantissa_sum != 0)
-                                && (!mantissa_sum[24])  
-                                && (exponent_common > 0) 
-                                && (exponent_common <= leading_zero_count(mantissa_sum[23:0]))) ->
-                ((mantissa_ext[26:3] == mantissa_sum[23:0] <<(exponent_common-1))));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
