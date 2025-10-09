@@ -153,14 +153,16 @@ module fp_adder_checker (
                 ((mantissa_ext[26:3] == mantissa_sum[23:0] <<(exponent_common-1))));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    ROUND_RNZ: assert ((r_mode == 3'b000) ->
-                (case ({mantissa_ext[2],(|mantissa_ext[1:0])})
-                  2'b00: mantissa_rounded == mantissa_ext[25:3];   
-                  2'b01: mantissa_rounded == mantissa_ext[25:3]; 
-                  2'b10: mantissa_rounded == mantissa_ext[3] ? mantissa_ext[25:3] + 1'b1 : mantissa_ext[25:3]; //si es impar redondea para arriba
-                  2'b11: mantissa_rounded == mantissa_ext[25:3] + 1'b1;
-                  //default: mantissa_rounded == mantissa_ext[25:4];
-                endcase));
+    (case ({mantissa_ext[2],(|mantissa_ext[1:0])})
+      2'b00: mantissa_r = mantissa_ext[25:3];   
+      2'b01: mantissa_r = mantissa_ext[25:3]; 
+      2'b10: mantissa_r = mantissa_ext[3] ? mantissa_ext[25:3] + 1'b1 : mantissa_ext[25:3]; //si es impar redondea para arriba
+      2'b11: mantissa_r = mantissa_ext[25:3] + 1'b1;
+    //default: mantissa_r = mantissa_ext[25:4];
+    endcase);
+    
+    ROUND_RNZ: assert ((r_mode == 3'b000) -> mantissa_rounded == mantissa_r);
+                
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
