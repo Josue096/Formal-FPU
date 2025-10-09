@@ -48,7 +48,7 @@ module fp_adder_checker (
 );
   logic [7:0] shift_amount;
   logic [22:0] mantissa_r;
-  logic [23:0] carry
+  logic [23:0] carry;
 
   always_comb begin
 
