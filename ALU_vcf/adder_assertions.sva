@@ -210,7 +210,7 @@ module fp_adder_checker (
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    FP_PACK : assert (fp_result_wire = {result_sign, exponent_final, mantissa_rounded});
+    FP_PACK : assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
