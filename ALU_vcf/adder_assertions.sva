@@ -46,7 +46,7 @@ module fp_adder_checker (
   input logic         overflow_internal,
   input logic [31:0]  fp_result_wire
 );
-  logic shift_amount;
+  logic [7:0] shift_amount;
 
   always_comb begin
 
@@ -153,6 +153,7 @@ module fp_adder_checker (
                 ((mantissa_ext[26:3] == mantissa_sum[23:0] <<(exponent_common-1))));
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    logic [22:0] mantissa_r;
     case ({mantissa_ext[2],(|mantissa_ext[1:0])})
       2'b00: mantissa_r = mantissa_ext[25:3];   
       2'b01: mantissa_r = mantissa_ext[25:3]; 
