@@ -207,9 +207,14 @@ module fp_adder_checker (
 
     carry = {1'b0, mantissa_ext[25:3]} + 1'b1;
     ROUND_CARRY: assert ((carry_out) -> ((carry [23]) && (mantissa_rounded == mantissa_ext[25:3] + 1'b1)));
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    FP_PACK : assert (fp_result_wire = {result_sign, exponent_final, mantissa_rounded});
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
-    SUM_15: assert ((fp_a == 32'h00080000 && fp_b == 32'h00080000 && r_mode == 3'b001) ->
+    Z_PRUEBA: assert ((fp_a == 32'h80000200 && fp_b == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00100000));
 end  
 
