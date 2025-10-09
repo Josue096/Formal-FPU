@@ -71,7 +71,7 @@ module fp_adder_checker (
     FP_UNPACK_B_SPECIAL: assert ((fp_b[30:23] == 8'hFF) ->
                 ((sign_b == fp_b[31]) && (exponent_b == 8'hFF) && (mantissa_b == {1'b0, fp_b[22:0]}) && is_special_b));
     
-    FP_UNPACK_A_ZERO: assert ((fp_b[30:0] == 31'b0) ->
+    FP_UNPACK_A_ZERO: assert ((fp_a[30:0] == 31'b0) ->
                 (is_zero_a == 1));
 
     FP_UNPACK_B_ZERO: assert ((fp_b[30:0] == 31'b0) ->
@@ -209,8 +209,8 @@ module fp_adder_checker (
     ROUND_CARRY: assert ((carry_out) -> ((carry [23]) && (mantissa_rounded == mantissa_ext[25:3] + 1'b1)));
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
-    SUM_15: assert ((fp_a == 32'h40a00000 && fp_b == 32'h41200000 && r_mode == 3'b001) ->
-                          (fp_result == 32'h41700000 && overflow == 0 && underflow == 0));
+    SUM_15: assert ((fp_a == 32'h00080000 && fp_b == 32'h00080000 && r_mode == 3'b001) ->
+                          (fp_result == 32'h00100000 && overflow == 0 && underflow == 0));
 end  
 
   function automatic [7:0] leading_zero_count(input logic [23:0] value);
