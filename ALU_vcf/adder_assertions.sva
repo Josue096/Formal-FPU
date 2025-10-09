@@ -48,6 +48,7 @@ module fp_adder_checker (
 );
   logic [7:0] shift_amount;
   logic [22:0] mantissa_r;
+  logic [23:0] carry
 
   always_comb begin
 
@@ -194,7 +195,8 @@ module fp_adder_checker (
 
     ROUND_RMM: assert ((r_mode == 3'b100) -> mantissa_rounded == mantissa_r);
 
-    ROUND_CARRY: assert ((carry_out) -> mantissa_rounded - 1 == mantissa_ext[25:3]);
+    carry = mantissa_ext[25:3]+1;
+    ROUND_CARRY: assert ((carry_out) -> ((mantissa_rounded == mantissa_ext[25:3] + 1) && (carry_out == carry [23])));
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
     SUM_15: assert ((fp_a == 32'h40a00000 && fp_b == 32'h41200000 && r_mode == 3'b001) ->
