@@ -1,0 +1,13 @@
+bind fp_mul fp_mul_checker chk (
+//señales output-input 
+  .r_mode   (r_mode),
+  .fp_X     (fp_X),
+  .fp_Y     (fp_Y),
+  .fp_Z     (fp_Z),
+  .ovrf     (ovrf),
+  .udrf     (udrf)
+//señales internas
+
+
+);
+
