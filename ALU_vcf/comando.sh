@@ -1,4 +1,4 @@
 source synopsys_tools.sh
 rm -rfv `ls | grep -v ".*\.sv\|.*\.sh\|.*\.tcl"`
-vcf -file run_adder.tcl | tee salida.log
+vcf -file ./adder/run_adder.tcl | tee salida.log
 #vc_static -file run_adder.tcl | tee vfc_log.txt

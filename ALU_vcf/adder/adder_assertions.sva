@@ -102,8 +102,6 @@ module fp_adder_checker (
   // exponente en ambos numeros subnormales
     ALIGN_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> 
                 (exponent_common) == 8'd1);
-    
-
   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //Suma de mantisas
