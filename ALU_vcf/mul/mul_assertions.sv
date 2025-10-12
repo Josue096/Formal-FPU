@@ -12,7 +12,7 @@ module fp_mul_checker (
 
 always_comb begin
 // MUL
-MUL_IMPLICITO: assert (((|fp_X[30:23] == 0) || (|fp_Y[30:23] == 0)) ->
+MUL_IMPLICITO: assert (((|fp_X[30:23] == 0) ^ (|fp_Y[30:23] == 0 )) ->
                 (fp_Z[30:0] == 31'b0));
 end
 
