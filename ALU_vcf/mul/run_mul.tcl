@@ -2,7 +2,7 @@ set_app_var fml_mode_on true
 set_app_var fml_cov_tgl_input_port true
 set_fml_var fml_enable_prop_density_cov_map true
 
-set design fp_adder
+set design fp_mul
 
 read_file -top $design -format sverilog -cov all -sva -vcs {
     ../../FPU/multiplicador/fp_mul.sv
