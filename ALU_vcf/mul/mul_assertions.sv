@@ -9,15 +9,20 @@ module fp_mul_checker (
     input logic [47:0]  frc_Z_full,
     input logic [22:0]  frc_X, frc_Y
 );
-
+logic Xsub;
+logic Xnif;
+logic XZero;
+logic Ysub;
+logic Ynif;
+logic YZero;
 always_comb begin
-    logic Xsub  = !(|fp_X[30:23]);
-    logic Xnif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
-    logic XZero = (fp_X[30:0] == 31'b0) ? 1 : 0;
+    Xsub  = !(|fp_X[30:23]);
+    Xnif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
+    XZero = (fp_X[30:0] == 31'b0) ? 1 : 0;
 
-    logic Ysub  = !(|fp_Y[30:23]);
-    logic Ynif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
-    logic YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
+    Ysub  = !(|fp_Y[30:23]);
+    Ynif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
+    YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
 
     // MUN
     // Dice que los numeros subnormales
