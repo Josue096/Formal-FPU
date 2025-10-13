@@ -23,7 +23,7 @@ always_comb begin
     XZero = (fp_X[30:0] == 31'b0) ? 1 : 0;
 
     Ysub  = !(|fp_Y[30:23]);
-    Ynif  = (fp_y[30:23] == 8'hff) ? 1 : 0;
+    Ynif  = (fp_Y[30:23] == 8'hff) ? 1 : 0;
     YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
 
     // MUN
