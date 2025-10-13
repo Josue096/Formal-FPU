@@ -16,10 +16,10 @@ always_comb begin
     logic XZero = (fp_X[30:0] == 31'b0);
 
     logic Ysub  = !(|fp_Y[30:23]);
-    logic YNif  = &fp_Y[30:23];
+    logic Ynif  = &fp_Y[30:23];
     logic YZero = (fp_Y[30:0] == 31'b0);
 
-    // MUL
+    // MUN
     // Dice que los numeros subnormales
     MUL_SUB_SON_ZERO: assert (((Xsub ^ Ysub) && !Xnif && !Ynif) ->
                     (fp_Z[30:0] == 31'b0));
