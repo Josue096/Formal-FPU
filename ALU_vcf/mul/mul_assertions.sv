@@ -12,9 +12,11 @@ module fp_mul_checker (
 logic Xsub;
 logic Xnif;
 logic XZero;
+
 logic Ysub;
 logic Ynif;
 logic YZero;
+
 always_comb begin
     Xsub  = !(|fp_X[30:23]);
     Xnif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
@@ -26,13 +28,13 @@ always_comb begin
 
     // MUN
     // Dice que los numeros subnormales
-    MUL_SUB_SON_ZERO: assert (((Xsub ^ Ysub) && !Xnif && !Ynif) ->
+    MUL_SUB_SON_ZERO: assert (((Xsub || Ysub) && !Xnif && !Ynif) ->
                     (fp_Z[30:0] == 31'b0));
     // Dice que los numeros subnormales
     MUL_SUB_POR_SUB: assert (((Xsub && Ysub)) ->
                     (fp_Z[30:0] == 31'b0));
 
-    MUL_ZERO_POR_NUM: assert (((fp_X[30:0] == 31'b0) && (fp_Y[30:0] == 31'b0)) ->
+    MUL_ZERO_POR_NUM: assert (((XZero || YZero) && !Xnif && !Ynif) ->
                     (fp_Z[30:0] == 31'b0));
 end
 
