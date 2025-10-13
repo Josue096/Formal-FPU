@@ -27,7 +27,7 @@ always_comb begin
     MUL_SUB_POR_SUB: assert (((Xsub && Ysub)) ->
                     (fp_Z[30:0] == 31'b0));
 
-    MUL_ZERO_POR_NUM: assert (((XZero || YZero) && !Xnif && !Ynif) ->
+    MUL_ZERO_POR_NUM: assert (((XZero ^ YZero) && !Xnif && !Ynif) ->
                     (fp_Z[30:0] == 31'b0));
 end
 
