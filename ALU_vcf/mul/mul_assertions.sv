@@ -32,13 +32,13 @@ always_comb begin
                     (fp_Z[30:0] == 31'b0));
     // Dice que los numeros subnormales
     MUL_SUB_POR_SUB: assert (((Xsub && Ysub)) ->
-                    (fp_Z == {(fp_X[31] ^ fp_X[31]),31'b0}));
+                    (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
     
     MUL_ZERO_POR_ZERO: assert (((XZero && YZero)) ->
-                    (fp_Z[31:0] == {(fp_X[31] ^ fp_X[31]),31'b0}));
+                    (fp_Z[31:0] == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
     MUL_ZERO_POR_NUM: assert ((((XZero && !Ynif) || (YZero && !Xnif))) ->
-                    (fp_Z[31:0] == {(fp_X[31] ^ fp_X[31]),31'b0}));
+                    (fp_Z[31:0] == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 end
 
 endmodule
