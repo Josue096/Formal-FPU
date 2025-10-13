@@ -28,7 +28,7 @@ always_comb begin
 
     // MUN
     // Dice que los numeros subnormales
-    MUL_SUB_SON_ZERO: assert (((Xsub || Ysub) && !Xnif && !Ynif) ->
+    MUL_SUB_SON_ZERO: assert (((Xsub || Ysub) && (Xnif == 0) && (Ynif == 0)) ->
                     (fp_Z[30:0] == 31'b0));
     // Dice que los numeros subnormales
     MUL_SUB_POR_SUB: assert (((Xsub && Ysub)) ->
