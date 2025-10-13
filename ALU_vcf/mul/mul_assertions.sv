@@ -12,11 +12,11 @@ module fp_mul_checker (
 
 always_comb begin
     logic Xsub  = !(|fp_X[30:23]);
-    logic Xnif  = &fp_X[30:23];
+    logic Xnif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
     logic XZero = (fp_X[30:0] == 31'b0) ? 1 : 0;
 
     logic Ysub  = !(|fp_Y[30:23]);
-    logic Ynif  = &fp_Y[30:23];
+    logic Ynif  = (fp_X[30:23] == 8'hff) ? 1 : 0;
     logic YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
 
     // MUN
