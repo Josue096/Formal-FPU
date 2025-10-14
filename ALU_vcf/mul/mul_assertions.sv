@@ -57,7 +57,7 @@ function automatic [47:0] booth_radix4_multiply(
 
     // Paso 2: Preparar para codificación Booth radix-4
     logic [47:0] product = 48'd0;
-    logic [25:0] booth_Y = {1'b1,mant_Y, 1'b0}; // Extiende Y con dos ceros para codificación radix-4
+    logic [24:0] booth_Y = {mant_Y, 1'b0}; // Extiende Y con dos ceros para codificación radix-4
 
     // Paso 3: Codificación Booth radix-4
     for (int i = 0; i < 12; i++) begin
