@@ -28,7 +28,7 @@ always_comb begin
     Ynif  = (fp_Y[30:23] == 8'hff) ? 1 : 0;
     YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
 
-    man_Z_full = booth_radix4(frc_X, frc_Y);
+    man_Z_full = booth_radix4_multiply(frc_X, frc_Y);
 
     // MUN
     // Dice que los numeros subnormales
@@ -47,57 +47,37 @@ always_comb begin
     BOOTH_ENCODE: assert (frc_Z_full == man_Z_full);
 end
 
-// === función auxiliar, fuera ===
-function automatic signed [2:0] booth_decode(input logic [2:0] bits);
-    case (bits)
-        3'b000: booth_decode =  0;
-        3'b001: booth_decode = +1;
-        3'b010: booth_decode = +1;
-        3'b011: booth_decode = +2;
-        3'b100: booth_decode = -2;
-        3'b101: booth_decode = -1;
-        3'b110: booth_decode = -1;
-        3'b111: booth_decode =  0;
-        default: booth_decode = 0;
-    endcase
-endfunction
-
-// === función principal ===
-function automatic logic signed [47:0] booth_radix4 (
+function logic [47:0] booth_radix4_multiply(
     input logic [22:0] frc_X,
     input logic [22:0] frc_Y
 );
-    localparam int WIDTH  = 24;
-    localparam int DIGITS = (WIDTH + 1) / 2;
+    // Paso 1: Agregar el bit implícito '1' al MSB
+    logic [23:0] mant_X = {1'b1, frc_X};
+    logic [23:0] mant_Y = {1'b1, frc_Y};
 
-    logic [WIDTH:0] Y_ext;
-    logic signed [47:0] result;
-    integer i;
+    // Paso 2: Preparar para codificación Booth radix-4
+    logic [47:0] product = 48'd0;
+    logic [25:0] booth_Y = {mant_Y, 2'b0}; // Extiende Y con dos ceros para codificación radix-4
 
-    Y_ext = {1'b1, frc_Y, 1'b0};
-    result = '0;
+    // Paso 3: Codificación Booth radix-4
+    for (int i = 0; i < 12; i++) begin
+        logic [2:0] booth_bits = booth_Y[i*2 +: 3];
+        logic signed [47:0] partial_product;
 
-    for (i = 0; i < DIGITS; i++) begin
-        logic [2:0] triple = Y_ext[2*i +: 3];
-        automatic signed [2:0] digit = booth_decode(triple);
-        logic signed [47:0] X_ext = {{(48-WIDTH){1'b0}}, frc_X};
-        logic signed [47:0] partial;
-
-        case (digit)
-            +2: partial =  (X_ext <<< 1);
-            +1: partial =   X_ext;
-             0: partial =  48'sd0;
-            -1: partial = -(X_ext);
-            -2: partial = -(X_ext <<< 1);
-            default: partial = 48'sd0;
+        case (booth_bits)
+            3'b000, 3'b111: partial_product = 48'd0;
+            3'b001, 3'b010: partial_product = mant_X;
+            3'b011:         partial_product = mant_X << 1;
+            3'b100:         partial_product = -(mant_X << 1);
+            3'b101, 3'b110: partial_product = -mant_X;
+            default:        partial_product = 48'd0;
         endcase
 
-        partial = partial <<< (2*i);
-        result += partial;
+        // Desplazar el producto parcial según la posición
+        product += partial_product <<< (2 * i);
     end
 
-    return result;
+    return product;
 endfunction
-
 
 endmodule
