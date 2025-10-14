@@ -44,7 +44,7 @@ always_comb begin
     MUL_ZERO_POR_NUM: assert ((((XZero && !Ynif) || (YZero && !Xnif))) ->
                     (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
     
-    BOOTH_ENCODE: assert (frc_Z_full == man_Z_full);
+    BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif)->(frc_Z_full == man_Z_full));
 end
 
 function automatic [47:0] booth_radix4_multiply(
