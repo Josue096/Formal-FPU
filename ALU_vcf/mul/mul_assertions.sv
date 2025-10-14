@@ -44,53 +44,45 @@ always_comb begin
     MUL_ZERO_POR_NUM: assert ((((XZero && !Ynif) || (YZero && !Xnif))) ->
                     (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
     
-    BOOTH_ENCODE: assert (fp_Z == man_Z_full);
+    BOOTH_ENCODE: assert (frc_Z_full == man_Z_full);
 end
 
-function automatic logic signed [47:0] booth_radix4 (
-    input logic [22:0] frc_X,   // mantisa X sin bit implícito
-    input logic [22:0] frc_Y    // mantisa Y sin bit implícito
-);
-    // Parámetros locales
-    localparam int WIDTH  = 24;               // 23 + 1 (bit implícito)
-    localparam int DIGITS = (WIDTH + 1) / 2;  // 12 grupos radix-4
+// === función auxiliar, fuera ===
+function automatic signed [2:0] booth_decode(input logic [2:0] bits);
+    case (bits)
+        3'b000: booth_decode =  0;
+        3'b001: booth_decode = +1;
+        3'b010: booth_decode = +1;
+        3'b011: booth_decode = +2;
+        3'b100: booth_decode = -2;
+        3'b101: booth_decode = -1;
+        3'b110: booth_decode = -1;
+        3'b111: booth_decode =  0;
+        default: booth_decode = 0;
+    endcase
+endfunction
 
-    // Variables internas
-    logic [WIDTH:0] Y_ext;                    // multiplicador extendido
+// === función principal ===
+function automatic logic signed [47:0] booth_radix4 (
+    input logic [22:0] frc_X,
+    input logic [22:0] frc_Y
+);
+    localparam int WIDTH  = 24;
+    localparam int DIGITS = (WIDTH + 1) / 2;
+
+    logic [WIDTH:0] Y_ext;
     logic signed [47:0] result;
     integer i;
 
-    // función decodificadora de 3 bits a -2..+2
-    function automatic signed [2:0] booth_decode(input logic [2:0] bits);
-        case (bits)
-            3'b000: booth_decode =  0;
-            3'b001: booth_decode = +1;
-            3'b010: booth_decode = +1;
-            3'b011: booth_decode = +2;
-            3'b100: booth_decode = -2;
-            3'b101: booth_decode = -1;
-            3'b110: booth_decode = -1;
-            3'b111: booth_decode =  0;
-            default: booth_decode = 0;
-        endcase
-    endfunction
-
-    // Extender el multiplicador (bit implícito + y[-1]=0)
     Y_ext = {1'b1, frc_Y, 1'b0};
-
-    // Inicializar acumulador
     result = '0;
 
-    // Generar los productos parciales y acumular
     for (i = 0; i < DIGITS; i++) begin
         logic [2:0] triple = Y_ext[2*i +: 3];
         automatic signed [2:0] digit = booth_decode(triple);
-
-        // multiplicando extendido a 48 bits
         logic signed [47:0] X_ext = {{(48-WIDTH){1'b0}}, frc_X};
-
-        // generar producto parcial según digit
         logic signed [47:0] partial;
+
         case (digit)
             +2: partial =  (X_ext <<< 1);
             +1: partial =   X_ext;
@@ -100,10 +92,7 @@ function automatic logic signed [47:0] booth_radix4 (
             default: partial = 48'sd0;
         endcase
 
-        // desplazar según el peso del grupo (2*i)
         partial = partial <<< (2*i);
-
-        // acumular en el resultado
         result += partial;
     end
 
