@@ -57,28 +57,29 @@ function automatic [47:0] booth_radix4_multiply(
 
     // Paso 2: Preparar para codificación Booth radix-4
     logic [47:0] product = 48'd0;
-    logic [25:0] booth_Y = {mant_Y, 2'b0}; // Extiende Y con dos ceros para cubrir 12 iteraciones
+    logic [25:0] booth_Y = {mant_Y, 2'b0}; // 24 bits + 2 extra para radix-4
 
     // Paso 3: Codificación Booth radix-4
     for (int i = 0; i < 12; i++) begin
         logic [2:0] booth_bits = booth_Y[i*2 +: 3];
         logic signed [47:0] partial_product;
+        logic signed [47:0] signed_mant_X = {24'd0, mant_X}; // cero-extensión
 
         case (booth_bits)
             3'b000, 3'b111: partial_product = 48'd0;
-            3'b001, 3'b010: partial_product = {{24{mant_X[23]}}, mant_X}; // extensión de signo
-            3'b011:         partial_product = {{24{mant_X[23]}}, mant_X} << 1;
-            3'b100:         partial_product = -({{24{mant_X[23]}}, mant_X} << 1);
-            3'b101, 3'b110: partial_product = -{{24{mant_X[23]}}, mant_X};
+            3'b001, 3'b010: partial_product = signed_mant_X;
+            3'b011:         partial_product = signed_mant_X <<< 1;
+            3'b100:         partial_product = -(signed_mant_X <<< 1);
+            3'b101, 3'b110: partial_product = -signed_mant_X;
             default:        partial_product = 48'd0;
         endcase
 
-        // Desplazar el producto parcial según la posición
         product += partial_product <<< (2 * i);
     end
 
     return product;
 endfunction
+
 
 
 endmodule
