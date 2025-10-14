@@ -47,7 +47,7 @@ always_comb begin
     BOOTH_ENCODE: assert (frc_Z_full == man_Z_full);
 end
 
-function automatic [47:0] booth_radix4_multiply(
+function [47:0] booth_radix4_multiply(
     input logic [22:0] frc_X,
     input logic [22:0] frc_Y
 );
@@ -57,7 +57,7 @@ function automatic [47:0] booth_radix4_multiply(
 
     // Paso 2: Preparar para codificación Booth radix-4
     logic [47:0] product = 48'd0;
-    logic [24:0] booth_Y = {mant_Y, 1'b0}; // Extiende Y con dos ceros para codificación radix-4
+    logic [25:0] booth_Y = {mant_Y, 2'b0}; // Extiende Y con dos ceros para cubrir 12 iteraciones
 
     // Paso 3: Codificación Booth radix-4
     for (int i = 0; i < 12; i++) begin
@@ -66,10 +66,10 @@ function automatic [47:0] booth_radix4_multiply(
 
         case (booth_bits)
             3'b000, 3'b111: partial_product = 48'd0;
-            3'b001, 3'b010: partial_product = mant_X;
-            3'b011:         partial_product = mant_X << 1;
-            3'b100:         partial_product = -(mant_X << 1);
-            3'b101, 3'b110: partial_product = -mant_X;
+            3'b001, 3'b010: partial_product = {{24{mant_X[23]}}, mant_X}; // extensión de signo
+            3'b011:         partial_product = {{24{mant_X[23]}}, mant_X} << 1;
+            3'b100:         partial_product = -({{24{mant_X[23]}}, mant_X} << 1);
+            3'b101, 3'b110: partial_product = -{{24{mant_X[23]}}, mant_X};
             default:        partial_product = 48'd0;
         endcase
 
@@ -79,5 +79,6 @@ function automatic [47:0] booth_radix4_multiply(
 
     return product;
 endfunction
+
 
 endmodule
