@@ -47,7 +47,7 @@ always_comb begin
     BOOTH_ENCODE: assert (frc_Z_full == man_Z_full);
 end
 
-function logic [47:0] booth_radix4_multiply(
+function automatic [47:0] booth_radix4_multiply(
     input logic [22:0] frc_X,
     input logic [22:0] frc_Y
 );
