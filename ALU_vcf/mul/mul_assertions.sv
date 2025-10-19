@@ -56,8 +56,40 @@ function automatic [2:0] radix4_encoder (input logic [2:0] inp);
 endfunction
 
 
+// ===========================================================
+// 1. Función radix4_encoder
+// ===========================================================
+function automatic [2:0] radix4_encoder (input logic [2:0] inp);
+    logic [2:0] out;
+    out[0] = (~inp[1] & inp[0]) | (inp[1] & ~inp[0]);
+    out[1] = ((~inp[2] & inp[1] & inp[0]) | (inp[2] & ~inp[1] & ~inp[0]));
+    out[2] = (inp[2] & (~inp[1] | ~inp[0]));
+    return out;
+endfunction
+
+
+// ===========================================================
+// 2. Módulo extend_24 (extiende un multiplicando de 24 bits)
+// ===========================================================
+module extend_24(
+    input  logic [23:0] M,
+    output logic [47:0] eM,
+    output logic [47:0] eM_bar,
+    output logic [47:0] eM2,
+    output logic [47:0] eM2_bar
+);
+    assign eM      = M[23] ? {24'hFFFFFF, M} : {24'h000000, M}; // extensión de signo
+    assign eM_bar  = -eM;
+    assign eM2     = eM << 1;
+    assign eM2_bar = -eM2;
+endmodule
+
+
+// ===========================================================
+// 3. Función booth_radix4_multiply (usa la función y el módulo anteriores)
+// ===========================================================
 function automatic [47:0] booth_radix4_multiply(input logic [23:0] m, M);
-    // Codificación Booth radix-4 usando la función
+    // Codificación Booth radix-4 usando la función radix4_encoder
     logic [2:0] code [0:11];
 
     code[0]  = radix4_encoder({m[1],  m[0],  1'b0});
@@ -75,7 +107,7 @@ function automatic [47:0] booth_radix4_multiply(input logic [23:0] m, M);
 
     // Extensión del multiplicando
     logic [47:0] eM, eM_bar, eM2, eM2_bar;
-    extend_24 ex(M, eM, eM_bar, eM2, eM2_bar);
+    extend_24 ex(.M(M), .eM(eM), .eM_bar(eM_bar), .eM2(eM2), .eM2_bar(eM2_bar));
 
     // Productos parciales
     logic [47:0] v [0:11];
@@ -87,20 +119,19 @@ function automatic [47:0] booth_radix4_multiply(input logic [23:0] m, M);
     end
 
     // Suma de productos parciales con desplazamiento
-    booth_radix4_multiply = (v[0] << 0)  +
-                            (v[1] << 2)  +
-                            (v[2] << 4)  +
-                            (v[3] << 6)  +
-                            (v[4] << 8)  +
-                            (v[5] << 10) +
-                            (v[6] << 12) +
-                            (v[7] << 14) +
-                            (v[8] << 16) +
-                            (v[9] << 18) +
+    booth_radix4_multiply = (v[0]  << 0)  +
+                            (v[1]  << 2)  +
+                            (v[2]  << 4)  +
+                            (v[3]  << 6)  +
+                            (v[4]  << 8)  +
+                            (v[5]  << 10) +
+                            (v[6]  << 12) +
+                            (v[7]  << 14) +
+                            (v[8]  << 16) +
+                            (v[9]  << 18) +
                             (v[10] << 20) +
                             (v[11] << 22);
 endfunction
-
 
 
 
