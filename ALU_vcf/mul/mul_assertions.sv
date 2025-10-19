@@ -47,53 +47,60 @@ always_comb begin
     BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif)->(frc_Z_full == man_Z_full));
 end
 
-function automatic [47:0] booth_radix4_multiply;
-    input [23:0] m, M;
-
-    reg signed [47:0] eM, eM_bar, eM2, eM2_bar;
-    reg signed [47:0] partial [0:11];
-    integer i;
-
-    reg [2:0] code;
-
-    begin
-        // Extiende el multiplicando M
-        eM      = {{24{M[23]}}, M};           // Sign-extend M to 48 bits
-        eM_bar  = -eM;
-        eM2     = eM <<< 1;                   // Multiplica por 2
-        eM2_bar = -eM2;
-
-        // Genera los 12 códigos radix-4
-        for (i = 0; i < 12; i = i + 1) begin
-            case ({m[2*i+1], m[2*i], (i == 0 ? 1'b0 : m[2*i-1])})
-                3'b000, 3'b111: code = 3'b000; // 0
-                3'b001, 3'b010: code = 3'b001; // +1
-                3'b011:         code = 3'b010; // +2
-                3'b100:         code = 3'b101; // -2
-                3'b101, 3'b110: code = 3'b100; // -1
-                default:        code = 3'b000;
-            endcase
-
-            // Asigna el valor parcial según el código
-            case (code)
-                3'b000: partial[i] = 48'd0;
-                3'b001: partial[i] = eM;
-                3'b010: partial[i] = eM2;
-                3'b100: partial[i] = eM_bar;
-                3'b101: partial[i] = eM2_bar;
-                default: partial[i] = 48'd0;
-            endcase
-
-            // Desplaza el parcial según su posición
-            partial[i] = partial[i] <<< (2 * i);
-        end
-
-        // Suma todos los parciales
-        booth_radix4_multiply = 48'd0;
-        for (i = 0; i < 12; i = i + 1)
-            booth_radix4_multiply = booth_radix4_multiply + partial[i];
-    end
+function automatic [2:0] radix4_encoder (input logic [2:0] inp);
+    logic [2:0] out;
+    out[0] = (~inp[1] & inp[0]) | (inp[1] & ~inp[0]);
+    out[1] = ((~inp[2] & inp[1] & inp[0]) | (inp[2] & ~inp[1] & ~inp[0]));
+    out[2] = (inp[2] & (~inp[1] | ~inp[0]));
+    return out;
 endfunction
+
+
+function automatic [47:0] booth_radix4_multiply(input logic [23:0] m, M);
+    // Codificación Booth radix-4 usando la función
+    logic [2:0] code [0:11];
+
+    code[0]  = radix4_encoder({m[1],  m[0],  1'b0});
+    code[1]  = radix4_encoder({m[3],  m[2],  m[1]});
+    code[2]  = radix4_encoder({m[5],  m[4],  m[3]});
+    code[3]  = radix4_encoder({m[7],  m[6],  m[5]});
+    code[4]  = radix4_encoder({m[9],  m[8],  m[7]});
+    code[5]  = radix4_encoder({m[11], m[10], m[9]});
+    code[6]  = radix4_encoder({m[13], m[12], m[11]});
+    code[7]  = radix4_encoder({m[15], m[14], m[13]});
+    code[8]  = radix4_encoder({m[17], m[16], m[15]});
+    code[9]  = radix4_encoder({m[19], m[18], m[17]});
+    code[10] = radix4_encoder({m[21], m[20], m[19]});
+    code[11] = radix4_encoder({m[23], m[22], m[21]});
+
+    // Extensión del multiplicando
+    logic [47:0] eM, eM_bar, eM2, eM2_bar;
+    extend_24 ex(M, eM, eM_bar, eM2, eM2_bar);
+
+    // Productos parciales
+    logic [47:0] v [0:11];
+    for (int i = 0; i < 12; i++) begin
+        v[i] = (code[i] == 3'b000) ? 48'd0 :
+               (code[i][1] ?
+                    (code[i][2] ? eM2_bar : eM2) :
+                    (code[i][2] ? eM_bar  : eM));
+    end
+
+    // Suma de productos parciales con desplazamiento
+    booth_radix4_multiply = (v[0] << 0)  +
+                            (v[1] << 2)  +
+                            (v[2] << 4)  +
+                            (v[3] << 6)  +
+                            (v[4] << 8)  +
+                            (v[5] << 10) +
+                            (v[6] << 12) +
+                            (v[7] << 14) +
+                            (v[8] << 16) +
+                            (v[9] << 18) +
+                            (v[10] << 20) +
+                            (v[11] << 22);
+endfunction
+
 
 
 
