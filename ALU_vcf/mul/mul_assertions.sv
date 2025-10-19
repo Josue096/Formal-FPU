@@ -28,7 +28,7 @@ always_comb begin
     Ynif  = (fp_Y[30:23] == 8'hff) ? 1 : 0;
     YZero = (fp_Y[30:0] == 31'b0) ? 1 : 0;
 
-    man_Z_full = booth_radix4_multiply(frc_X, frc_Y);
+    man_Z_full = booth_radix4_multiply({1'b1,frc_X}, {1'b1,frc_Y});
 
     // MUN
     // Dice que los numeros subnormales
@@ -47,38 +47,54 @@ always_comb begin
     BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif)->(frc_Z_full == man_Z_full));
 end
 
-function automatic [47:0] booth_radix4_multiply(
-    input logic [22:0] frc_X,
-    input logic [22:0] frc_Y
-);
-    // Paso 1: Agregar el bit implícito '1' al MSB
-    logic [23:0] mant_X = {1'b1, frc_X};
-    logic [23:0] mant_Y = {1'b1, frc_Y};
+function automatic [47:0] booth_radix4_multiply;
+    input [23:0] m, M;
 
-    // Paso 2: Preparar para codificación Booth radix-4
-    logic [47:0] product = 48'd0;
-    logic [25:0] booth_Y = {mant_Y, 2'b0}; // 24 bits + 2 extra para radix-4
+    reg signed [47:0] eM, eM_bar, eM2, eM2_bar;
+    reg signed [47:0] partial [0:11];
+    integer i;
 
-    // Paso 3: Codificación Booth radix-4
-    for (int i = 0; i < 12; i++) begin
-        logic [2:0] booth_bits = booth_Y[i*2 +: 3];
-        logic signed [47:0] partial_product;
-        logic signed [47:0] signed_mant_X = {24'd0, mant_X}; // cero-extensión
+    reg [2:0] code;
 
-        case (booth_bits)
-            3'b000, 3'b111: partial_product = 48'd0;
-            3'b001, 3'b010: partial_product = signed_mant_X;
-            3'b011:         partial_product = signed_mant_X <<< 1;
-            3'b100:         partial_product = -(signed_mant_X <<< 1);
-            3'b101, 3'b110: partial_product = -signed_mant_X;
-            default:        partial_product = 48'd0;
-        endcase
+    begin
+        // Extiende el multiplicando M
+        eM      = {{24{M[23]}}, M};           // Sign-extend M to 48 bits
+        eM_bar  = -eM;
+        eM2     = eM <<< 1;                   // Multiplica por 2
+        eM2_bar = -eM2;
 
-        product += partial_product <<< (2 * i);
+        // Genera los 12 códigos radix-4
+        for (i = 0; i < 12; i = i + 1) begin
+            case ({m[2*i+1], m[2*i], (i == 0 ? 1'b0 : m[2*i-1])})
+                3'b000, 3'b111: code = 3'b000; // 0
+                3'b001, 3'b010: code = 3'b001; // +1
+                3'b011:         code = 3'b010; // +2
+                3'b100:         code = 3'b101; // -2
+                3'b101, 3'b110: code = 3'b100; // -1
+                default:        code = 3'b000;
+            endcase
+
+            // Asigna el valor parcial según el código
+            case (code)
+                3'b000: partial[i] = 48'd0;
+                3'b001: partial[i] = eM;
+                3'b010: partial[i] = eM2;
+                3'b100: partial[i] = eM_bar;
+                3'b101: partial[i] = eM2_bar;
+                default: partial[i] = 48'd0;
+            endcase
+
+            // Desplaza el parcial según su posición
+            partial[i] = partial[i] <<< (2 * i);
+        end
+
+        // Suma todos los parciales
+        booth_radix4_multiply = 48'd0;
+        for (i = 0; i < 12; i = i + 1)
+            booth_radix4_multiply = booth_radix4_multiply + partial[i];
     end
-
-    return product;
 endfunction
+
 
 
 
