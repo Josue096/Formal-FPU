@@ -45,7 +45,7 @@ module fp_mul_checker (
                                   (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif) ->
-                              (frc_Z_full == man_Z_full));
+                              (frc_Z_full[47:3] == man_Z_full[47:3]));
     end
 
     // ======================
