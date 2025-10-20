@@ -29,7 +29,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
 
         // Producto Booth
-
+        man_Z_full = {1'b1,frc_X }*{1'b1,frc_Y };
 
         // Aserciones
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
@@ -45,7 +45,7 @@ module fp_mul_checker (
                                   (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif) ->
-                              (frc_Z_full == {1'b1,frc_X }* {1'b1,frc_Y }));
+                              (frc_Z_full[47:24] == man_Z_full[47:24]));
     end
 
     
