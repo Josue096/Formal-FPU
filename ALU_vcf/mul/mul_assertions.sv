@@ -25,7 +25,7 @@ module fp_mul_checker (
     logic [47:0] man_Z_full;
     logic [47:0] frc_Z_norm_check;
 
-    logic [22:0] mantissa_r;
+    logic [23:0] mantissa_r;
     logic [23:0] carry;
 
     // Combinacional
