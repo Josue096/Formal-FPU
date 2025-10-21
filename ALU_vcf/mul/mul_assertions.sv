@@ -14,7 +14,6 @@ module fp_mul_checker (
     input  logic         norm_n,
     //round
     input  logic         sign_Z,
-    input  logic [2:0]   r_mode,
     input  logic         norm_r,
     input  logic [22:0]  frc_Z
 );
@@ -27,6 +26,7 @@ module fp_mul_checker (
     logic [47:0] frc_Z_norm_check;
 
     logic [22:0] mantissa_r;
+    logic [23:0] carry;
 
     // Combinacional
     always_comb begin
@@ -107,6 +107,10 @@ module fp_mul_checker (
         endcase    
 
         ROUND_RMM: assert ((r_mode == 3'b100) -> frc_Z == mantissa_r);
+        
+        carry = {1'b0, frc_Z_norm[25:3]} + 1'b1;
+
+        ROUND_CARRY: assert ((norm_r) -> ((carry [23]) && (frc_Z == frc_Z_norm[25:3] + 1'b1)));
                         
     end
 

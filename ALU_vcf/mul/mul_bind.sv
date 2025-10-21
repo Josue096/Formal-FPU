@@ -13,7 +13,6 @@ bind fp_mul fp_mul_checker chk (
   .frc_Z_norm (fp_mul.frc_Z_norm),
   .norm_n     (fp_mul.norm_n),
   .sign_Z     (fp_mul.sign_Z),
-  .r_mode     (fp_mul.r_mode),
   .norm_r     (fp_mul.norm_r),
   .frc_Z      (fp_mul.frc_Z)
 );
