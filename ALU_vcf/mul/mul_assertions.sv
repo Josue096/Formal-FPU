@@ -112,7 +112,7 @@ module fp_mul_checker (
 
         ROUND_CARRY: assert ((norm_r) -> (carry [23]));
 
-        Z_PRUEBA: assert ((fp_x == 32'h40400000 && fp_y == 32'h40400000 && r_mode == 3'b001) ->
+        Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));
                         
     end
