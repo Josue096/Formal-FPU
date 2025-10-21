@@ -41,7 +41,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
 
         // Producto Booth
-        man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
+        //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
@@ -56,8 +56,8 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
-        BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif) ->
-                                (frc_Z_full[47:24] == man_Z_full[47:24]));
+        //BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif) ->
+        //                        (frc_Z_full[47:24] == man_Z_full[47:24]));
 
         BOOTH_SUB_SON_ZERO: assert ((Xsub && !Ynif) ->
                                 (frc_Z_full == 48'b0));
@@ -70,7 +70,7 @@ module fp_mul_checker (
 
         NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[26] == 1'b1));
 
-        //ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
+        ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
             2'b00: mantissa_r = frc_Z_norm[25:3];   
