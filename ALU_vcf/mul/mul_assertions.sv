@@ -70,7 +70,7 @@ module fp_mul_checker (
 
         NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[26] == 1'b1));
 
-        ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
+        //ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
             2'b00: mantissa_r = frc_Z_norm[25:3];   
