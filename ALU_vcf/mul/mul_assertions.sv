@@ -25,8 +25,8 @@ module fp_mul_checker (
     logic [47:0] man_Z_full;
     logic [47:0] frc_Z_norm_check;
 
-    logic [23:0] mantissa_r;
-    logic [24:0] carry;
+    logic [22:0] mantissa_r;
+    logic [23:0] carry;
 
     // Combinacional
     always_comb begin
@@ -73,44 +73,44 @@ module fp_mul_checker (
         ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
-            2'b00: mantissa_r = frc_Z_norm[26:3];   
-            2'b01: mantissa_r = frc_Z_norm[26:3]; 
-            2'b10: mantissa_r = frc_Z_norm[3] ? frc_Z_norm[26:3] + 1'b1 : frc_Z_norm[26:3]; //si es impar redondea para arriba
-            2'b11: mantissa_r = frc_Z_norm[26:3] + 1'b1;
-            //default: mantissa_r = frc_Z_norm[26:3];
+            2'b00: mantissa_r = frc_Z_norm[25:3];   
+            2'b01: mantissa_r = frc_Z_norm[25:3]; 
+            2'b10: mantissa_r = frc_Z_norm[3] ? frc_Z_norm[25:3] + 1'b1 : frc_Z_norm[25:3]; //si es impar redondea para arriba
+            2'b11: mantissa_r = frc_Z_norm[25:3] + 1'b1;
+            //default: mantissa_r = frc_Z_norm[25:3];
         endcase
 
         ROUND_RNZ: assert ((r_mode == 3'b000) -> frc_Z == mantissa_r);
 
-        ROUND_RTZ: assert ((r_mode == 3'b001) -> frc_Z == frc_Z_norm[26:3]);
+        ROUND_RTZ: assert ((r_mode == 3'b001) -> frc_Z == frc_Z_norm[22:0]);
 
         case (sign_Z)
-            1'b0: mantissa_r = frc_Z_norm[26:3];   
-            1'b1: mantissa_r = frc_Z_norm[26:3] + 1'b1; 
-            //default: mantissa_r = frc_Z_norm[26:3];
+            1'b0: mantissa_r = frc_Z_norm[25:3];   
+            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            //default: mantissa_r = frc_Z_norm[25:3];
         endcase 
 
         ROUND_RDN: assert ((r_mode == 3'b010) -> frc_Z == mantissa_r);
 
         case (sign_Z)
-            1'b0: mantissa_r = frc_Z_norm[26:3] + 1'b1;   
-            1'b1: mantissa_r = frc_Z_norm[26:3]; 
-            //default: mantissa_r = frc_Z_norm[26:3];
+            1'b0: mantissa_r = frc_Z_norm[25:3] + 1'b1;   
+            1'b1: mantissa_r = frc_Z_norm[25:3]; 
+            //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
         ROUND_RUP: assert ((r_mode == 3'b011) -> frc_Z == mantissa_r);
 
         case (frc_Z_norm[2])
-            1'b0: mantissa_r = frc_Z_norm[26:3];   
-            1'b1: mantissa_r = frc_Z_norm[26:3] + 1'b1; 
-            //default: mantissa_r = frc_Z_norm[26:3];
+            1'b0: mantissa_r = frc_Z_norm[25:3];   
+            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
         ROUND_RMM: assert ((r_mode == 3'b100) -> frc_Z == mantissa_r);
         
-        carry = {1'b0, frc_Z_norm[26:3]} + 1'b1;
+        carry = {1'b0, frc_Z_norm[25:3]} + 1'b1;
 
-        ROUND_CARRY: assert ((norm_r) -> ((carry [24]) && (frc_Z == frc_Z_norm[26:3] + 1'b1)));
+        ROUND_CARRY: assert ((norm_r) -> ((carry [23]) && (frc_Z == frc_Z_norm[25:3] + 1'b1)));
                         
     end
 
