@@ -62,7 +62,7 @@ module fp_mul_checker (
         BOOTH_SUB_SON_ZERO: assert ((Xsub && !Ynif) ->
                                 (frc_Z_full == 48'b0));
 
-        frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0}
+        frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};
 
         NORM_SHIFT_MANTISSA_NORMALES: assert ((frc_Z_norm[0] == |frc_Z_norm_check[21:0]) 
                                 && (frc_Z_norm[26:1] == frc_Z_norm_check[47:22])
