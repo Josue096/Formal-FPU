@@ -84,7 +84,7 @@ module fp_mul_checker (
 
         ROUND_RTZ: assert ((r_mode == 3'b001) -> frc_Z == frc_Z_norm[25:3]);
 
-        case (result_sign)
+        case (sign_Z)
             1'b0: mantissa_r = frc_Z_norm[25:3];   
             1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
@@ -92,7 +92,7 @@ module fp_mul_checker (
 
         ROUND_RDN: assert ((r_mode == 3'b010) -> frc_Z == mantissa_r);
 
-        case (result_sign)
+        case (sign_Z)
             1'b0: mantissa_r = frc_Z_norm[25:3] + 1'b1;   
             1'b1: mantissa_r = frc_Z_norm[25:3]; 
             //default: mantissa_r = frc_Z_norm[25:3];
