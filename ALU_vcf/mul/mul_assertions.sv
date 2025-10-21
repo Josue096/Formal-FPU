@@ -41,7 +41,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
 
         // Producto Booth
-        man_Z_full = {1'b1,frc_X }*{1'b1,frc_Y };
+        man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
