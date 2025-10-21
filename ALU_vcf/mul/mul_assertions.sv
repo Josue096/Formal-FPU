@@ -111,6 +111,9 @@ module fp_mul_checker (
         carry = {1'b0, frc_Z_norm[26:3]} + 1'b1;
 
         ROUND_CARRY: assert ((norm_r) -> (carry [23]));
+
+        Z_PRUEBA: assert ((fp_x == 32'h40400000 && fp_b == 32'h40400000 && r_mode == 3'b001) ->
+                          (fp_result == 32'h41100000));
                         
     end
 
