@@ -44,7 +44,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
         
         equi_norm1 = 32'hc0000000;
-        equi_norm2 = 32'h40490fd;
+        equi_norm2 = 32'h40490fdb;
 
         // Producto Booth
         //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
