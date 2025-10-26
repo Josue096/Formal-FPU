@@ -73,7 +73,7 @@ module fp_mul_checker (
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
         BOOTH_EQU_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full == {0'b1, frc_X} * {0'b1, frc_Y}));
+                                (frc_Z_full == {0'b1, frc_X} * {1'b1, frc_Y}));
 
         BOOTH_EQU_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
                                 (frc_Z_full == {0'b1, frc_X} * {0'b1, frc_Y}));
