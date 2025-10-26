@@ -72,11 +72,11 @@ module fp_mul_checker (
         BOOTH_EQU_NORM_X_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
 
-        BOOTH_EQU_MAXNORM_X_NORM: assert (((fp_X == 32'h3fffffff) && (frc_Y == equi_norm2[22:0])) ->
+        BOOTH_EQU_MAXFRAC_X_NORM: assert (((fp_X == 32'h3fffffff) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
-        BOOTH_EQU_MINSUB_X_NORM: assert (((fp_X == 32'h00000001) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
+        BOOTH_EQU_MAXFRAC_X_MAXFRAC: assert (((fp_X == 32'h3fffffff) && (fp_Y== 32'h3fffffff)) ->
+                                (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
         BOOTH_EQU_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
