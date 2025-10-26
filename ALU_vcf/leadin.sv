@@ -24,7 +24,7 @@ module tb_mantissa_mul;
 
   initial begin
     // Inicialización
-    equi_norm1 = 32'hC0000000; // -2.0
+    equi_norm1 = 32'h402df854; // -2.0
     equi_norm2 = 32'h40490FDB; // +3.1415927
 
     frc_X = equi_norm1[22:0];
