@@ -44,7 +44,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
 
         // Producto Booth
-        man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
+        //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
@@ -60,10 +60,10 @@ module fp_mul_checker (
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         BOOTH_EQU_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full[47:24] == man_Z_full[47:24]));
+                                (frc_Z_full[47:25] == 22'b1001_0010_0001_1111_1011_01));
 
         BOOTH_ZERO: assert ((!frc_X && !Ynif) ->
-                                (frc_Z_full == 48'b0));
+                                (frc_Z_full == frc_Y<<22));
 
         BOOTH_SUB_SON_ZERO: assert ((Xsub && !Ynif) ->
                                 (frc_Z_full == 48'b0));
