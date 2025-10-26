@@ -90,7 +90,7 @@ module fp_mul_checker (
                                 && (frc_Z_norm[26:1] == frc_Z_norm_check[47:22])
                                 && (frc_Z_full[47] == norm_n));
 
-        NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[25] == 1'b1));
+        NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[26] == 1'b1));
 
         ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
