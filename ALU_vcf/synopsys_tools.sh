@@ -1,32 +1,33 @@
 #!/usr/bin/env bash
-################################################################################
+#####################################################
 # Title:        synopsys_tools.sh
 # Description:  Punteros a ejecutables Synopsys 2023
 # Author:       DCILab       
 # Institution:  Instituto Tecnologico de Costa Rica                                    
-# Date:         31 de Octubre de 2023
+# Date:         03 de Junio de 2025
 # Version:      U-2023.03-SP2
 # Updated by:   Juan Jose Montero
-################################################################################
+#               Tiler Urena
+#####################################################
 
-###############################################################################
-# CONFIGURACION DEL PROYECTO
-###############################################################################
+######################################
+# --- CONFIGURACION DEL PROYECTO --- #
+######################################
 
 export DESIGN_HOME=$PWD
 export EDITOR=gedit;
 
-###############################################################################
-# CONFIGURACION DE LA LICENCIA 
-###############################################################################
+########################################
+# --- CONFIGURACION DE LA LICENCIA --- # 
+########################################
 
-export SYNOPSYS_HOME=/mnt/vol_synopsys2023/synopsys
+export SYNOPSYS_HOME=/mnt/vol_NFS_rh003/TOOLS/Synopsys
 export SNPSLMD_LICENSE_FILE=27020@172.21.99.41;
 export SNPSLMD_QUEUE=TRUE;
 
-#############################################################################
-# CONFIGURACION DE RUTAS A HERRAMIENTAS
-#############################################################################
+#################################################
+# --- CONFIGURACION DE RUTAS A HERRAMIENTAS --- #
+#################################################
 
 ## ASIP Designer
 export PATH=$PATH:${SYNOPSYS_HOME}/asip_designer/U-2023.06-SP1/linux64/bin
@@ -110,10 +111,11 @@ export PATH=$PATH:${SYNOPSYS_HOME}/xa/U-2023.03-SP2/bin
 ## Euclide
 export PATH=$PATH:${SYNOPSYS_HOME}/euclide/Euclide-2023.12-SP1-2/linux.gtk.x86_64/eclipse/bin
 
+#######################################
+# --- DESIGN KIT XFAB XH018 XT018 --- #
+#######################################
 
-#############################################################################
-# DESIGN KIT XFAB XH018 XT018
-#############################################################################
+# Este es el viejo (2023) 
 
 export FTK_KIT_DIR=/mnt/vol_synopsys2023/pdks/xfab/design/xkit
 export PATH=$PATH:${FTK_KIT_DIR}/x_all/synopsys/xenv
