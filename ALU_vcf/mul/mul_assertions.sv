@@ -62,7 +62,8 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
-        BOOTH_EQU_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+        BOOTH_EQU_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0]) 
+                                                            && !Xnif && !Ynif && !Xsub && !Ysub) ->
                                 (frc_Z_full[46:25] == 22'b1001_0010_0001_1111_1011_01));
 
         BOOTH_ZERO: assert ((!frc_X && !Ynif) ->
