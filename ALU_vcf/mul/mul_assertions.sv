@@ -43,7 +43,7 @@ module fp_mul_checker (
         Ynif  = (fp_Y[30:23] == 8'hFF);
         YZero = (fp_Y[30:0] == 31'b0);
         
-        equi_norm1 = 32'hc0000000;
+        equi_norm1 = 32'h402df854;
         equi_norm2 = 32'h40490fdb;
 
         // Producto Booth
@@ -64,13 +64,13 @@ module fp_mul_checker (
 
         BOOTH_EQU_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0]) 
                                                             && !Xnif && !Ynif && !Xsub && !Ysub) ->
-                                (frc_Z_full[45:23] == 23'b10010010000111111011011));
+                                (frc_Z_full[45:23] == 23'b00010001010001011000000));
 
-        BOOTH_ZERO: assert ((!frc_X && !Ynif) ->
+        BOOTH_ZERO: assert ((!frc_X) ->
                                 (frc_Z_full[45:23] == frc_Y));
 
-        BOOTH_SUB_SON_ZERO: assert ((Xsub && !Ynif) ->
-                                (frc_Z_full == 48'b0));
+        BOOTH_SUB_SON_ZERO: assert ((Xsub) ->
+                                (frc_Z_full[45:23] == frc_Y));
 
         frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};
 
