@@ -31,6 +31,9 @@ module fp_mul_checker (
     logic [31:0] equi_norm1;
     logic [31:0] equi_norm2;
 
+    logic [31:0] equi_sub1;
+    logic [31:0] equi_sub2;
+
     // Combinacional
     always_comb begin
         // Flags X
