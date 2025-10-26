@@ -10,7 +10,7 @@ module fp_mul_checker (
     input  logic [47:0]  frc_Z_full,
     input  logic [22:0]  frc_X, frc_Y,
     //norm
-    input  logic [25:0]  frc_Z_norm,
+    input  logic [26:0]  frc_Z_norm,
     input  logic         norm_n,
     //round
     input  logic         sign_Z,
@@ -56,6 +56,7 @@ module fp_mul_checker (
         //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
+        
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
                                   (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
@@ -69,11 +70,13 @@ module fp_mul_checker (
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         BOOTH_EQU_NORM_X_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y})//frc_Z_full[45:24] == 22'b0010001010001011000000)
-                                );
+                                (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
         BOOTH_EQU_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
+                                (frc_Z_full == {0'b1, frc_X} * {0'b1, frc_Y}));
+
+        BOOTH_EQU_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
+                                (frc_Z_full == {0'b1, frc_X} * {0'b1, frc_Y}));
 
         BOOTH_ZERO: assert ((!frc_X) ->
                                 (frc_Z_full[45:23] == frc_Y));
@@ -87,7 +90,7 @@ module fp_mul_checker (
                                 && (frc_Z_norm[26:1] == frc_Z_norm_check[47:22])
                                 && (frc_Z_full[47] == norm_n));
 
-        NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[26] == 1'b1));
+        NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[25] == 1'b1));
 
         ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
