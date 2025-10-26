@@ -98,6 +98,10 @@ module fp_mul_checker (
 
         NORM_MSB_UNO: assert ((!Xsub && !Ynif && !Ysub && !Xnif) -> (frc_Z_norm[26] == 1'b1));
 
+        NORM_ZERO: assert (((fp_X[31:0] == 31'b0) && !Ynif) -> (frc_Z_norm[25:3] == frc_Y));
+
+        NORM_SUB_SON_ZERO: assert ((Xsub && !Ynif) -> (frc_Z_norm[25:3] == frc_Y));
+
         ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
 
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
