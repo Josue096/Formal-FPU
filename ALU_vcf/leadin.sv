@@ -1,23 +1,55 @@
-module test_leading_zero_count;
+//=====================================================
+// Testbench para multiplicación de mantissas IEEE754
+//=====================================================
+`timescale 1ns/1ps
 
-  logic [23:0] mantissa_sum;
-  int zeros;
+module tb_mantissa_mul;
+
+  // --------------------------------------------------
+  // Entradas (mantissas sin el bit implícito)
+  // --------------------------------------------------
+  logic [22:0] frc_X; 
+  logic [22:0] frc_Y;
+
+  // --------------------------------------------------
+  // Salida (producto completo con bits extendidos)
+  // --------------------------------------------------
+  logic [47:0] man_Z_full;
+
+  // --------------------------------------------------
+  // Variables auxiliares (para mostrar valores IEEE754)
+  // --------------------------------------------------
+  logic [31:0] equi_norm1;  // -2.0
+  logic [31:0] equi_norm2;  // +π ≈ 3.1415927
 
   initial begin
-    mantissa_sum = 24'b0000_0000_0001_0000_0000_0000;
-    zeros = leading_zero_count(mantissa_sum);
-    $display("mantissa_sum = %b", mantissa_sum);
-    $display("leading_zero_count = %0d", zeros);
+    // Inicialización
+    equi_norm1 = 32'hC0000000; // -2.0
+    equi_norm2 = 32'h40490FDB; // +3.1415927
 
-    mantissa_sum = 24'b0001_0000_0000_0000_0000_0000;
-    zeros = leading_zero_count(mantissa_sum);
-    $display("mantissa_sum = %b", mantissa_sum);
-    $display("leading_zero_count = %0d", zeros);
+    frc_X = equi_norm1[22:0];
+    frc_Y = equi_norm2[22:0];
 
-    mantissa_sum = 24'b1111_1111_1111_1111_1111_1111;
-    zeros = leading_zero_count(mantissa_sum);
-    $display("mantissa_sum = %b", mantissa_sum);
-    $display("leading_zero_count = %0d", zeros);
+    // --------------------------------------------------
+    // Multiplicación de mantissas con bit implícito
+    // --------------------------------------------------
+    man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
+
+    // --------------------------------------------------
+    // Impresión de resultados
+    // --------------------------------------------------
+    $display("==============================================");
+    $display(" IEEE754 Mantissa Multiplication Test (VCS) ");
+    $display("==============================================");
+    $display("frc_X       = %b", frc_X);
+    $display("frc_Y       = %b", frc_Y);
+    $display("{1, frc_X}  = %b", {1'b1, frc_X});
+    $display("{1, frc_Y}  = %b", {1'b1, frc_Y});
+    $display("man_Z_full  = %b", man_Z_full);
+    $display("man_Z_full (hex) = %h", man_Z_full);
+    $display("man_Z_full[47:24] (24 bits normalizados?) = %b", man_Z_full[47:24]);
+    $display("man_Z_full[46:24] (23 bits) = %b", man_Z_full[46:24]);
+    $display("==============================================");
 
     $finish;
   end
