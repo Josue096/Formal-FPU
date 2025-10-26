@@ -147,7 +147,7 @@ module fp_mul_checker (
 
         ROUND_CARRY: assert ((norm_r) -> (carry [23]));
 
-        bias = (norm_n||norm_r) ? 8'b01111111 : 8'b01111110; 
+        bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; 
         EXP_NORM: assert (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
