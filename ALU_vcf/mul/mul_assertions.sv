@@ -17,8 +17,7 @@ module fp_mul_checker (
     input  logic         norm_r,
     input  logic [22:0]  frc_Z,
     //exponente
-    input  logic [7:0]   exp_Z,
-    input  logic         ovrf, udrf
+    input  logic [7:0]   exp_Z
 );
 
     // Flags subnormales, infinitos y ceros
