@@ -24,7 +24,7 @@ module tb_mantissa_mul;
 
   initial begin
     // Inicialización
-    equi_norm1 = 32'h402df854; // -2.0
+    equi_norm1 = 32'h002df854; // -2.0
     equi_norm2 = 32'h40490FDB; // +3.1415927
 
     frc_X = equi_norm1[22:0];
@@ -33,7 +33,7 @@ module tb_mantissa_mul;
     // --------------------------------------------------
     // Multiplicación de mantissas con bit implícito
     // --------------------------------------------------
-    man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
+    man_Z_full = {1'b0, frc_X} * {1'b1, frc_Y};
 
     // --------------------------------------------------
     // Impresión de resultados
