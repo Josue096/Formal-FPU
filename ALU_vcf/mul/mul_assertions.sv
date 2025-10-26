@@ -15,7 +15,10 @@ module fp_mul_checker (
     //round
     input  logic         sign_Z,
     input  logic         norm_r,
-    input  logic [22:0]  frc_Z
+    input  logic [22:0]  frc_Z,
+    //exponente
+    input  logic [7:0]   exp_Z,
+    input  logic         ovrf, udrf
 );
 
     // Flags subnormales, infinitos y ceros
@@ -33,6 +36,7 @@ module fp_mul_checker (
 
     logic [31:0] equi_sub1;
     logic [31:0] equi_sub2;
+    logic [7:0]  bias;
 
     // Combinacional
     always_comb begin
@@ -143,6 +147,9 @@ module fp_mul_checker (
         carry = {1'b0, frc_Z_norm[25:3]} + 1'b1;
 
         ROUND_CARRY: assert ((norm_r) -> (carry [23]));
+
+        bias = (norm_n|norm_r) ? 8'b01111111 : 8'b01111110; 
+        EXP_NORM: assert (exp_Z == fp_X[31:23]+fp_Y[31:23]-bias);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));

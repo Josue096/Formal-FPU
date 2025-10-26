@@ -14,6 +14,9 @@ bind fp_mul fp_mul_checker chk (
   .norm_n     (FPM.norm_n),
   .sign_Z     (FPM.sign_Z),
   .norm_r     (FPM.norm_r),
-  .frc_Z      (FPM.frc_Z)
+  .frc_Z      (FPM.frc_Z),
+  .exp_Z      (FPM.exp_Z),
+  .ovrf       (FPM.ovrf),
+  .udrf       (FPM.udrf)
 );
 
