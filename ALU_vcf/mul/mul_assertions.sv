@@ -84,9 +84,9 @@ module fp_mul_checker (
         BOOTH_EQU_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
                                 (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
 
-        BOOTH_ZERO: assert ((!frc_X) ->
+        BOOTH_MINFRAC: assert ((!frc_X) ->
                                 (frc_Z_full[45:23] == frc_Y));
-
+                                
         BOOTH_SUB_SON_ZERO: assert ((Xsub) ->
                                 (frc_Z_full[45:23] == frc_Y));
 
