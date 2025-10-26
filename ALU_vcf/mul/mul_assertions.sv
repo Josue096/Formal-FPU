@@ -28,6 +28,9 @@ module fp_mul_checker (
     logic [22:0] mantissa_r;
     logic [23:0] carry;
 
+    logic [31:0] equi_norm1 = 32'hc0000000;
+    logic [31:0] equi_norm2 = 32'h40490fdb;
+
     // Combinacional
     always_comb begin
         // Flags X
@@ -41,7 +44,7 @@ module fp_mul_checker (
         YZero = (fp_Y[30:0] == 31'b0);
 
         // Producto Booth
-        //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
+        man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
@@ -56,8 +59,11 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
-        //BOOTH_ENCODE: assert ((!Xsub && !Ynif && !Ysub && !Xnif) ->
-        //                        (frc_Z_full[47:24] == man_Z_full[47:24]));
+        BOOTH_EQU_NORM: assert ((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+                                (frc_Z_full[47:24] == man_Z_full[47:24]);
+
+        BOOTH_ZERO: assert ((!frc_X && !Ynif) ->
+                                (frc_Z_full == 48'b0));
 
         BOOTH_SUB_SON_ZERO: assert ((Xsub && !Ynif) ->
                                 (frc_Z_full == 48'b0));
