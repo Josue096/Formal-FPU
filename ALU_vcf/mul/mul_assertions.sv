@@ -150,9 +150,23 @@ module fp_mul_checker (
         bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; 
         EXP_NORM: assert (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
 
-        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= 8'd127) -> udrf);
+        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= bias) -> udrf);
 
         EXP_OVRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)) -> ovrf);
+
+        EXC_ZER: assert ((udrf||XZero||YZero) -> zer);
+
+        EXC_SUB_SON_ZERO: assert ((Xsub) -> zer);
+
+        EXC_INF: assert ((( &fp_X[23:0] && !(|fp_X[30:23]))|| ovrf
+                        || ( &fp_Y[23:0] && !(|fp_Y[30:23])))
+                        -> inf);
+        
+        EXC_NAN: assert (((&fp_X[23:0] && |fp_X[30:23]) 
+        || (XZero && (&fp_Y[23:0] && !(|fp_Y[30:23]))) 
+                        || (YZero && (&fp_X[23:0] && !(|fp_X[30:23])))
+                        || (&fp_Y[23:0] && |fp_Y[30:23]))
+                        -> nan);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));
