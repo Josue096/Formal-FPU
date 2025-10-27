@@ -72,19 +72,19 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
-        BOOTH_EQU_NORM_X_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+        BOOTH_NORM_X_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
 
-        BOOTH_EQU_MAXFRAC_X_NORM: assert (((fp_X == 32'h3fffffff) && (frc_Y == equi_norm2[22:0])) ->
+        BOOTH_MAXFRAC_X_NORM: assert (((fp_X == 32'h3fffffff) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
-        BOOTH_EQU_MAXFRAC_X_MAXFRAC: assert (((fp_X == 32'h3fffffff) && (fp_Y== 32'h3fffffff)) ->
+        BOOTH_MAXFRAC_X_MAXFRAC: assert (((fp_X == 32'h3fffffff) && (fp_Y== 32'h3fffffff)) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
-        BOOTH_EQU_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+        BOOTH_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
 
-        BOOTH_EQU_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
+        BOOTH_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
                                 (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
 
         BOOTH_MINFRAC: assert ((!frc_X) ->
@@ -149,6 +149,10 @@ module fp_mul_checker (
 
         bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; 
         EXP_NORM: assert (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
+
+        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= bias) -> udrf);
+
+        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= bias + 255) -> ovrf);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));
