@@ -171,7 +171,7 @@ module fp_mul_checker (
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h40C00000));
-        Z_PRUEBA: assert ((fp_X == 32'h00a00000 && fp_Y == 32'h00a00000 && r_mode == 3'b001) ->
+        Z_PRU: assert ((fp_X == 32'h00a00000 && fp_Y == 32'h00a00000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h01200000));
                         
     end
