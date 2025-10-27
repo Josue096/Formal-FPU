@@ -150,9 +150,7 @@ module fp_mul_checker (
         bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; 
         EXP_NORM: assert (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
 
-        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= bias) -> udrf);
-
-        EXP_UDRF_MENOR: assert (((fp_X[30:23]+fp_Y[30:23]) < bias) -> udrf);
+        EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= 8'd127) -> udrf);
 
         EXP_OVRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)) -> ovrf);
 
