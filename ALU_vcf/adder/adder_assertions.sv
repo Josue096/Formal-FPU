@@ -87,8 +87,8 @@ module fp_adder_checker (
                 (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned ==  mantissa_a >> (expo_diff - 1))));
   // mantissa_b alineada si exponent_a > exponent_b
     expo_diff = (exponent_a - exponent_b);
-    ALIGN_B_NORM: assert (((exponent_a > exponent_b))->
-                (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned == (mantissa_b >> expo_diff))));
+    ALIGN_B_NORM: assert (((exponent_a > exponent_b)&& !is_subnormal_a && !is_subnormal_b)->
+                (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned == mantissa_b >> (expo_diff))));
     
     ALIGN_B_SUBNORM: assert (((!is_subnormal_a && is_subnormal_b))->
                 (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned ==  mantissa_b >> (expo_diff - 1))));
