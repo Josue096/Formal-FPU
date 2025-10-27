@@ -205,8 +205,10 @@ module fp_adder_checker (
 
     FP_PACK : assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
-    Z_PRUEBA: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
+    PRUEBA_SUB: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00140000));
+    PRUEBA_SUB_NORM: assert ((fp_a == 32'h01000000 && fp_b == 32'h00300000 && r_mode == 3'b001) ->
+                          (fp_result == 32'h01180000));
     
 end  
 
