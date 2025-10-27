@@ -152,6 +152,8 @@ module fp_mul_checker (
 
         EXP_UDRF: assert (((fp_X[30:23]+fp_Y[30:23]) <= bias) -> udrf);
 
+        EXP_UDRF_MENOR: assert (((fp_X[30:23]+fp_Y[30:23]) <= bias) -> udrf);
+
         EXP_OVRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)) -> ovrf);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
