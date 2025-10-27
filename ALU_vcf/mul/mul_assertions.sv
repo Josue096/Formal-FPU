@@ -159,14 +159,14 @@ module fp_mul_checker (
 
         EXC_SUB_SON_ZERO: assert ((Xsub) -> zer);
 
-        EXC_INF: assert ((( (fp_X[23:0] == 0) && &fp_X[30:23]) || ovrf
-                        || ((fp_Y[23:0] == 0) && &fp_Y[30:23]))
+        EXC_INF: assert ((( (fp_X[22:0] == 0) && &fp_X[30:23]) || ovrf
+                        || ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
                         -> inf);
         
-        EXC_NAN: assert ((((|fp_X[23:0]) && &fp_X[30:23]) 
-                        //|| (Ysub && ((fp_X[23:0] == 0) && &fp_X[30:23])) 
-                        //|| (Xsub && ((fp_Y[23:0] == 0) && &fp_Y[30:23]))
-                        || ((|fp_Y[23:0]) && &fp_Y[30:23]))
+        EXC_NAN: assert ((((|fp_X[22:0]) && &fp_X[30:23]) 
+                        || (Ysub && ((fp_X[22:0] == 0) && &fp_X[30:23])) 
+                        || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
+                        || ((|fp_Y[22:0]) && &fp_Y[30:23]))
                         -> nan);
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
