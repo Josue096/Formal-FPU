@@ -155,19 +155,19 @@ module fp_mul_checker (
 
         EXP_OVRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)) -> ovrf);
 
-        EXC_ZER: assert ((udrf||XZero||YZero) -> zer);
+        EXC_ZER: assert (zer -> (udrf||XZero||YZero));
 
         EXC_SUB_SON_ZERO: assert ((Xsub) -> zer);
 
-        EXC_INF: assert ((( (fp_X[22:0] == 0) && &fp_X[30:23]) || ovrf
-                        || ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
-                        -> inf);
+        EXC_INF: assert (inf ->
+                        (( (fp_X[22:0] == 0) && &fp_X[30:23]) || ovrf
+                        || ((fp_Y[22:0] == 0) && &fp_Y[30:23])));
         
-        EXC_NAN: assert ((((|fp_X[22:0]) && &fp_X[30:23]) 
+        EXC_NAN: assert (nan-> 
+                        (((|fp_X[22:0]) && &fp_X[30:23]) 
                         || (Ysub && ((fp_X[22:0] == 0) && &fp_X[30:23])) 
                         || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
-                        || ((|fp_Y[22:0]) && &fp_Y[30:23]))
-                        -> nan);
+                        || ((|fp_Y[22:0]) && &fp_Y[30:23])));
 
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));
