@@ -56,8 +56,7 @@ module fp_adder_checker (
   // 0 + 0 = 0
     ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
                 (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
-  
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   //fp_unpack de cada valor es el correcto
     FP_UNPACK_A: assert (((fp_a[30:23] != 8'hFF) && (fp_a[30:0] != 31'd0)) ->
                 ((sign_a == fp_a[31]) && (exponent_a == fp_a[30:23]) && (mantissa_a == {|fp_a[30:23], fp_a[22:0]})));
@@ -77,7 +76,6 @@ module fp_adder_checker (
     FP_UNPACK_B_ZERO: assert ((fp_b[30:0] == 31'b0) ->
                 (is_zero_b == 1));
   
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // mantissa_a alineada si exponent_b > exponent_a
 
   expo_diff = (is_subnormal_a) ? 1 : exponent_b - exponent_a;
@@ -102,8 +100,7 @@ module fp_adder_checker (
   // exponente en ambos numeros subnormales
     ALIGN_EXP_SUBNORMAL: assert ((is_subnormal_a && is_subnormal_b) -> 
                 (exponent_common) == 8'd1);
-  
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   //Suma de mantisas
     SUMA: assert ((sign_a == sign_b) -> 
                 ((mantissa_sum == mantissa_a_aligned + mantissa_b_aligned) && (result_sign == sign_b)));
@@ -118,7 +115,6 @@ module fp_adder_checker (
     SUMA_RESTA_IGUALES: assert ((sign_a != sign_b && (mantissa_a_aligned == mantissa_b_aligned)) -> 
                 ((mantissa_sum == 0) && (result_sign == 0)));// solo por que samuel lo define asi, no se si por norma esa asi
   
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   shift_amount = leading_zero_count(mantissa_sum[23:0]); //calculo util para saber cuanto dezplazamiento en caso de shift
 
   //Si hay carry de la suma ajusta la mantizza
@@ -164,8 +160,6 @@ module fp_adder_checker (
                                 && (exponent_common > 0) 
                                 && (exponent_common <= shift_amount)) ->
                 ((exponent_out == 0)));
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     case ({mantissa_ext[2],(|mantissa_ext[1:0])})
       2'b00: mantissa_r = mantissa_ext[25:3];   
@@ -206,11 +200,8 @@ module fp_adder_checker (
     carry = {1'b0, mantissa_ext[25:3]} + 1'b1;
     ROUND_CARRY: assert ((carry_out) -> ((carry [23]) && (mantissa_rounded == mantissa_ext[25:3] + 1'b1)));
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
     FP_PACK : assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // 5 + 10 = 15 prueba de samuel
     Z_PRUEBA: assert ((fp_a == 32'h00080000 && fp_b == 32'h00080000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00100000));
