@@ -207,9 +207,12 @@ module fp_adder_checker (
 
     PRUEBA_SUB: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00140000));
+                          
     PRUEBA_SUB_NORM: assert ((fp_a == 32'h01000000 && fp_b == 32'h00300000 && r_mode == 3'b001) ->
                           (fp_result == 32'h01180000));
-    
+
+    PRUEBA_NORM_NORM: assert ((fp_a == 32'h14300000 && fp_b == 32'h1FC00000&& r_mode == 3'b001) ->
+                          (fp_result == 32'h1FC00001));
 end  
 
   function automatic [7:0] leading_zero_count(input logic [23:0] value);
