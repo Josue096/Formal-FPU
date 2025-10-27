@@ -202,9 +202,9 @@ module fp_adder_checker (
 
     FP_PACK : assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
-  // 5 + 10 = 15 prueba de samuel
-    Z_PRUEBA: assert ((fp_a == 32'h00080000 && fp_b == 32'h00080000 && r_mode == 3'b001) ->
-                          (fp_result == 32'h00100000));
+    Z_PRUEBA: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
+                          (fp_result == 32'h00140000));
+    
 end  
 
   function automatic [7:0] leading_zero_count(input logic [23:0] value);
