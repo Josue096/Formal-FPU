@@ -169,9 +169,10 @@ module fp_mul_checker (
                         || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
                         || ((|fp_Y[22:0]) && &fp_Y[30:23])));
 
-        Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
+        PRUEBA_NORM: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h40C00000));
-        Z_PRU: assert ((fp_X == 32'h00a00000 && fp_Y == 32'h00a00000 && r_mode == 3'b001) ->
+
+        PRUEBA_SUBNORM: assert ((fp_X == 32'h00a00000 && fp_Y == 32'h00a00000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h01200000));
                         
     end
