@@ -155,7 +155,7 @@ module fp_mul_checker (
 
         EXP_OVRF: assert (((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)) -> ovrf);
 
-        EXC_ZER: assert (zer -> (udrf||XZero||YZero));
+        EXC_ZER: assert (zer -> (udrf||XZero||YZero||Xsub));
 
         EXC_SUB_SON_ZERO: assert ((Xsub) -> zer);
 
