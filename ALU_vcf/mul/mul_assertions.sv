@@ -60,6 +60,8 @@ module fp_mul_checker (
         //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
+
+        MUL_MANTISSA: assert (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y});
         
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
                                   (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
