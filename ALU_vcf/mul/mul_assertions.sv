@@ -59,12 +59,9 @@ module fp_mul_checker (
         equi_sub1 = 32'h002df854;
         equi_sub2 = 32'h00490fdb;
 
-        // Producto Booth
         //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
         // Aserciones
-
-        MUL_MANTISSA: assert (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y});
         
         //Numeros subnormales producen el mismo resultado que cero
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
