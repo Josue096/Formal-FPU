@@ -15,3 +15,5 @@ sim_run -stable
 sim_save_reset
 check_fv -block
 report_fv -list > aep_results.txt 
+report_fv -assertion_coverage > assertion_cov.txt
+report_fv -prop_density_cov_map > density_cov.txt
