@@ -20,6 +20,5 @@ sim_run -stable
 sim_save_reset
 check_fv -block
 report_fv -list > aep_results_adder.txt 
-
-analyze_fv_coverage -assertion
+analyze_fv_coverage
 report_fv_coverage -o assertion_cov_adder.txt
