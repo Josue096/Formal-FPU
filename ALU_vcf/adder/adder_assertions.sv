@@ -85,7 +85,7 @@ module fp_adder_checker (
                 (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned == mantissa_a >> (expo_diff))));
 
     //Mantissa_a necesita ser alineada si exponent_b > exponent_a casos subnormales
-    ALIGN_A_SUBNORM: assert (((is_subnormal_a && !is_subnormal_b && is_zero_b))->
+    ALIGN_A_SUBNORM: assert (((is_subnormal_a && !is_subnormal_b && !is_zero_b))->
                 (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned ==  mantissa_a >> (expo_diff - 1))));
 
     //Mantissa_b necesita ser alineada si exponent_a > exponent_b casos normales
@@ -94,7 +94,7 @@ module fp_adder_checker (
                 (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned == mantissa_b >> (expo_diff))));
 
     //Mantissa_b necesita ser alineada si exponent_a > exponent_b casos subnormales
-    ALIGN_B_SUBNORM: assert ((!is_subnormal_a && is_subnormal_b && is_zero_a)->
+    ALIGN_B_SUBNORM: assert ((!is_subnormal_a && is_subnormal_b && !is_zero_a)->
                 (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned ==  mantissa_b >> (expo_diff - 1))));
 
     //Alineamiento cuando ambos son subnormales
