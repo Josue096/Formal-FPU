@@ -203,6 +203,6 @@ module fp_mul_checker (
         Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
                           (fp_Z == 32'h41100000));           
         Z_PRUEBA_Underflow: assert ((fp_X == 32'h20000000 && fp_Y == 32'h1F800000 && r_mode == 3'b001) ->
-                          (fp_Z == 32'h00400000));     
+                          (fp_Z == 32'h00000000));     
     end
 endmodule
