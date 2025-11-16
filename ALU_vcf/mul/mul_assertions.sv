@@ -178,7 +178,7 @@ module fp_mul_checker (
 
         //Si ocurre un underflow
         EXP_UDRF: assert (udrf -> ((fp_X[30:23]+fp_Y[30:23]) <= bias));
-
+        EXP_UDRF_MANTISA: assert (udrf -> ((frc_Z) == 23'b0));
         //Si ocurre un overflow
         EXP_OVRF: assert (ovrf -> ((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)));
 
