@@ -177,7 +177,7 @@ module fp_adder_checker (
                                 && (!mantissa_sum[23])
                                 && (is_subnormal_a)
                                 && (is_subnormal_b)) ->
-                mantissa_ext[25:2] == mantissa_sum[23:0]);
+                mantissa_ext[24:1] == mantissa_sum[23:0]);
 
     NORM_SHIFT_EXPO_SUBN: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24]) 
