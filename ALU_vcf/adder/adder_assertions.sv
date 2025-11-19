@@ -132,7 +132,7 @@ module fp_adder_checker (
                 ((exponent_out == exponent_common + 1)));
 
     //Carry si el bit implicito tambien es 1 en subnormales
-    NORM_CARRY_EXPO_SUB: assert (( mantissa_sum[23] && (exponent_common == 8'b0)) -> 
+    NORM_CARRY_EXPO_SUB: assert (( mantissa_sum[23] && (exponent_common == 8'b0) && mantissa_sum != 0) -> 
                 ((exponent_out == exponent_common + 1)));
   
     //Si hay carry de la suma aumneta exponente en normalize
