@@ -175,8 +175,7 @@ module fp_adder_checker (
     NORM_SHIFT_MANTISSA_SUBN: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24]) 
                                 && (!mantissa_sum[23])
-                                && (is_subnormal_a)
-                                && (is_subnormal_b)) ->
+                                && (exponent_common == 8'b0)) ->
                 mantissa_ext[25:3] == mantissa_sum[23:0]);
 
     NORM_SHIFT_EXPO_SUBN: assert (((mantissa_sum != 0)
