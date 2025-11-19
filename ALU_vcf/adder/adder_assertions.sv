@@ -141,7 +141,7 @@ module fp_adder_checker (
     
     //Carry si el bit implicito tambien es 1 en subnormales
     NORM_CARRY_MANTISSA_SUBN: assert (( mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
-                ((mantissa_ext[25:2] == mantissa_sum[23:0])));   
+                ((mantissa_ext[26:3] == mantissa_sum[23:0])));   
 
     //Ajuste normalize poner el primer 1 con shift a la derecha
     NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
