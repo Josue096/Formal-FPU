@@ -132,7 +132,7 @@ module fp_adder_checker (
                 ((exponent_out == exponent_common + 1)));
 
     //Carry si el bit implicito tambien es 1 en subnormales
-    NORM_CARRY_EXPO_SUB: assert (( mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
+    NORM_CARRY_EXPO_SUB: assert (( mantissa_sum[23] && (exponent_common == 8'b0)) -> 
                 ((exponent_out == exponent_common + 1)));
   
     //Si hay carry de la suma aumneta exponente en normalize
@@ -162,7 +162,7 @@ module fp_adder_checker (
                                 && (!mantissa_sum[23])   
                                 && (exponent_common > 0) 
                                 && (exponent_common <= shift_amount)) ->
-                ((mantissa_ext[26:3] == mantissa_sum[23:0] << (exponent_common))));
+                ((mantissa_ext[25:3] == mantissa_sum[23:0] << (exponent_common))));
 
     NORM_SHIFT_EXPO_NORM_A_SUBN: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24])
@@ -181,8 +181,7 @@ module fp_adder_checker (
     NORM_SHIFT_EXPO_SUBN: assert (((mantissa_sum != 0)
                                 && (!mantissa_sum[24]) 
                                 && (!mantissa_sum[23])
-                                && (is_subnormal_a)
-                                && (is_subnormal_b)) ->
+                                && (exponent_common == 8'b0)) ->
                 ((exponent_out == exponent_common)));  
     
     //Redondeo al mas cercano (pares en empate)
