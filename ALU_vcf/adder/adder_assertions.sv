@@ -85,7 +85,7 @@ module fp_adder_checker (
                 (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned == mantissa_a >> (expo_diff))));
 
     //Mantissa_a necesita ser alineada si exponent_b > exponent_a casos subnormales
-    ALIGN_A_SUBNORM: assert (((is_subnormal_a && !is_subnormal_b && !is_zero_b))->
+    ALIGN_A_SUBNORM: assert ((is_subnormal_a && !is_subnormal_b && !is_zero_b && !is_special_b)->
                 (mantissa_b_aligned == mantissa_b && (mantissa_a_aligned ==  mantissa_a >> (expo_diff - 1))));
 
     //Mantissa_b necesita ser alineada si exponent_a > exponent_b casos normales
@@ -94,7 +94,7 @@ module fp_adder_checker (
                 (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned == mantissa_b >> (expo_diff))));
 
     //Mantissa_b necesita ser alineada si exponent_a > exponent_b casos subnormales
-    ALIGN_B_SUBNORM: assert ((!is_subnormal_a && is_subnormal_b && !is_zero_a)->
+    ALIGN_B_SUBNORM: assert ((!is_subnormal_a && is_subnormal_b && !is_zero_a && !is_special_a)->
                 (mantissa_a_aligned == mantissa_a && (mantissa_b_aligned ==  mantissa_b >> (expo_diff - 1))));
 
     //Alineamiento cuando ambos son subnormales
@@ -102,7 +102,7 @@ module fp_adder_checker (
                 ((mantissa_b_aligned == mantissa_b) && (mantissa_a_aligned == mantissa_a))); 
 
     //El exponente resultante es el mayor
-    ALIGN_EXP_NORMAL: assert (!(is_subnormal_a && is_subnormal_b) -> 
+    ALIGN_EXP_NORMAL: assert ((!(is_subnormal_a || is_subnormal_b) && !is_special_a && !is_special_b) -> 
                 (exponent_common) == ((exponent_a > exponent_b) ? exponent_a : exponent_b));
 
     //Exponente en ambos numeros subnormales
@@ -132,16 +132,16 @@ module fp_adder_checker (
                 ((exponent_out == exponent_common + 1)));
 
     //Carry si el bit implicito tambien es 1 en subnormales
-    NORM_CARRY_EXPO_SUB: assert ((mantissa_sum[24] || mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
-                ((exponent_out == exponent_common + 1 + shift_amount)));
+    NORM_CARRY_EXPO_SUB: assert (( mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
+                ((exponent_out == exponent_common + 1)));
   
     //Si hay carry de la suma aumneta exponente en normalize
     NORM_CARRY_MANTISSA: assert ((mantissa_sum[24] && !is_subnormal_a && !is_subnormal_b) -> 
                 ((mantissa_ext == {mantissa_sum,1'b0,1'b0})));  //{1'b0,mantissa_sum,1'b0}  
     
     //Carry si el bit implicito tambien es 1 en subnormales
-    NORM_CARRY_MANTISSA_SUBN: assert ((mantissa_sum[24] || mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
-                ((mantissa_ext == {mantissa_sum,1'b0,1'b0} << shift_amount)));   
+    NORM_CARRY_MANTISSA_SUBN: assert (( mantissa_sum[23] && is_subnormal_a && is_subnormal_b) -> 
+                ((mantissa_ext[25:2] == mantissa_sum[23:0])));   
 
     //Ajuste normalize poner el primer 1 con shift a la derecha
     NORM_SHIFT_MANTISSA_NORMALES: assert (((mantissa_sum != 0) 
