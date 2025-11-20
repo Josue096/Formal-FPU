@@ -14,5 +14,7 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
 
 sim_run -stable
 sim_save_reset
-check_fv -block
-report_fv -list > aep_results_mul.txt 
+prove -all
+check_cov
+report_cov -summary > cov_summary.txt
+report_fv -list > aep_results_mul.txt
