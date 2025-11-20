@@ -13,4 +13,5 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
 
 sim_run -stable
 sim_save_reset
+check_fv -block
 report_fv -list > aep_results_mul.txt 
