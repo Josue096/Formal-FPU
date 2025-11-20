@@ -7,7 +7,6 @@ set design fp_mul
 
 read_file -top $design -format sverilog -cov all -sva -vcs {
     ../../FPU/multiplicador/fp_mul.sv
-
     mul_assertions.sv
     mul_bind.sv
 }

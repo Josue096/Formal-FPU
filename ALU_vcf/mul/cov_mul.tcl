@@ -1,7 +1,5 @@
 set_app_var fml_mode_on true
 set_fml_appmode FPV
-
-# Enable SVA property coverage
 set_app_var fml_cov_tgl_input_port true
 set_fml_var fml_enable_prop_density_cov_map true
 
@@ -13,6 +11,5 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
     mul_bind.sv
 }
 
-# Let VC Formal find a stable reset
 sim_run -stable
 sim_save_reset
