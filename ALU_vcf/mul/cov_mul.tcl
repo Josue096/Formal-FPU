@@ -2,7 +2,7 @@ set_app_var fml_mode_on true
 set_fml_appmode AEP
 
 # Ask VC Formal to read in the filelist
-set design arbiter
+set design fp_mul
 read_file -top $design -format sverilog -aep all -sva -vcs {    
     ../../FPU/multiplicador/fp_mul.sv
 
