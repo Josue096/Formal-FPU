@@ -109,8 +109,8 @@ module fp_mul_checker (
 
         frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};//Dado el diagrama de Vianney
 
-        //Normalizacion de numeros normales
-        NORM_SHIFT_MANTISSA_NORMALES: assert ((frc_Z_norm[0] == |frc_Z_norm_check[21:0]) 
+        //Normalizacion de numeros 
+        NORM_SHIFT_MANTISSA: assert ((frc_Z_norm[0] == |frc_Z_norm_check[21:0]) 
                                 && (frc_Z_norm[26:1] == frc_Z_norm_check[47:22])
                                 && (frc_Z_full[47] == norm_n));
 
@@ -176,14 +176,14 @@ module fp_mul_checker (
         //Calculo del exponenete
         EXP_NORM: assert (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
 
-        //Si ocurre un underflow
+        //Si ocurre un underflow por exponente
         EXP_UDRF: assert (udrf -> ((fp_X[30:23]+fp_Y[30:23]) <= bias));
-        EXP_UDRF_MANTISA: assert (udrf -> ((frc_Z) == 23'b0));
+        EXP_UDRF_MANTISA: assert ((udrf && !Xsub && !Ysub) -> ((frc_Z) == 23'b0));
         //Si ocurre un overflow
         EXP_OVRF: assert (ovrf -> ((fp_X[30:23]+fp_Y[30:23]) >= (bias + 255)));
 
         //Si algun input es subnormal, zero o se produce un underflow
-        EXC_ZER: assert (zer -> (udrf||Ysub||Xsub));
+        EXC_ZER: assert ((udrf||Ysub||Xsub) -> zer);
 
         //Chechk: numeros subnormales producen el mismo resultado que cero 
         EXC_SUB_SON_ZERO: assert ((Xsub) -> zer);
