@@ -1,5 +1,5 @@
 set_app_var fml_mode_on true
-set_fml_appmode COV
+set_fml_appmode FPV
 
 set design fp_mul
 
