@@ -1,5 +1,5 @@
 set_app_var fml_mode_on true
-set_fml_appmode COV
+set_fml_appmode FPV
 
 # Enable SVA property coverage
 set_app_var fml_cov_tgl_input_port true
