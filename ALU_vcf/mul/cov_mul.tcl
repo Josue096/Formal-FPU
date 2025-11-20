@@ -13,7 +13,3 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
 # Ask VC Formal to bring the design out of reset
 sim_run -stable
 sim_save_reset
-
-# Let AEP do its thing
-check_fv -block
-report_fv -list > aep_results.txt
