@@ -1,5 +1,5 @@
 set_app_var fml_mode_on true
-set_fml_appmode FPV 
+set_fml_appmode COV 
 
 # Ask VC Formal to read in the filelist
 set design fp_mul
