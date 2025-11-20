@@ -3,7 +3,7 @@ set_fml_appmode FPV
 
 # Ask VC Formal to read in the filelist
 set design fp_mul
-read_file -top $design -format sverilog -aep all -sva -vcs {    
+read_file -top $design -format sverilog -aep all -cov all -sva -vcs {    
     ../../FPU/multiplicador/fp_mul.sv
 
     mul_assertions.sv
