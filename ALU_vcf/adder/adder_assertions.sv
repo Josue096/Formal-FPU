@@ -240,7 +240,7 @@ module fp_adder_checker (
               (fp_b[30:23] == 8'hFF && |fp_b[21:0])) -> fp_result == 32'h7fc00000);
 
     CASO_NAN_INF: assert (((fp_a == 32'h7f800000 && fp_b == 32'hff800000) || 
-                (fp_a == 32'hff800000 && fp_b == 32'h7f800000)) -> fp_result == 32'h7fc00000):
+                (fp_a == 32'hff800000 && fp_b == 32'h7f800000)) -> fp_result == 32'h7fc00000);
                 ;
     
     CASO_INF_POSITIVO: assert (((fp_a == 32'h7f800000 && !(fp_b[30:23] == 8'hFF && |fp_b[22:0])) || 
