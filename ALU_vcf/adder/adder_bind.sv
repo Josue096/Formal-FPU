@@ -1,4 +1,4 @@
-bind fp_adder fp_adder_checker chk (
+bind fp_adder adder_assertions chk (
 //señales output-input 
   .fp_a                     (fp_a),
   .fp_b                     (fp_b),
