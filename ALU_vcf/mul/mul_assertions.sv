@@ -20,6 +20,7 @@ module fp_mul_checker (
     input  logic [22:0]  frc_Z,
 
     //Senales del bloque exponente
+    input  logic [31:0]  Z,
     input  logic [7:0]   exp_Z,
     input  logic         zer, inf, nan
 );
@@ -199,12 +200,20 @@ module fp_mul_checker (
                         || (Ysub && ((fp_X[22:0] == 0) && &fp_X[30:23])) 
                         || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
                         || ((|fp_Y[22:0]) && &fp_Y[30:23])));
+        
+        NET_NAN: assert (nan -> fp_Z == 32'h7fc00000);
 
-        Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
-                          (fp_Z == 32'h41100000));           
-        Z_PRUEBA_Underflow: assert ((fp_X == 32'h20000000 && fp_Y == 32'h1F800000 && r_mode == 3'b001) ->
-                          (fp_Z == 32'h00400000 && !udrf));     
-        Z_PRUEBA_ZERO: assert ((fp_X == 32'h00000000 && fp_Y == 32'h00000000 && r_mode == 3'b001) ->
-                          (fp_Z == 32'h00000000) && !udrf);
+        NET_INF: assert (inf -> fp_Z == {Z[31], 8'hff, 23'b0});
+
+        NET_ZERO: assert (zer -> fp_Z == {Z[31], 8'h0, 23'b0});
+
+        NET_Z: assert (!nan && !inf && !zero && (Z!=hffc00000) -> fp_Z == Z);
+
+        //Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
+        //                  (fp_Z == 32'h41100000));           
+        //Z_PRUEBA_Underflow: assert ((fp_X == 32'h20000000 && fp_Y == 32'h1F800000 && r_mode == 3'b001) ->
+        //                  (fp_Z == 32'h00400000 && !udrf));     
+        //Z_PRUEBA_ZERO: assert ((fp_X == 32'h00000000 && fp_Y == 32'h00000000 && r_mode == 3'b001) ->
+        //                  (fp_Z == 32'h00000000) && !udrf);
     end
 endmodule
