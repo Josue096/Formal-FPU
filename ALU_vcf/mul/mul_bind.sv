@@ -19,6 +19,6 @@ bind fp_mul fp_mul_checker chk (
   .nan        (FPM.nan), 
   .inf        (FPM.inf), 
   .zer        (FPM.zer),
-  .z          (FPM.Z)
+  .z          (FPM.z),
 );
 
