@@ -230,11 +230,23 @@ module fp_adder_checker (
     ROUND_CARRY: assert ((carry_out) -> ((carry [23]) && (mantissa_rounded == mantissa_ext[25:3] + 1'b1)));
 
     //Se enpaqueta bien devuelta 
-    FP_PACK : assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
+    FP_PACK: assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
-    UNDERFLOW : assert ((!is_zero_b) || (!is_zero_b) && (fp_result_wire[30:0] == 31'b0) -> underflow);
+    UNDERFLOW: assert ((!is_zero_b) || (!is_zero_b) && (fp_result_wire[30:0] == 31'b0) -> underflow);
 
-    OVERFLOW : assert (((exponent_common + carry_out + mantissa_sum[24]) >= 255) -> overflow);
+    OVERFLOW: assert (((exponent_common + carry_out + mantissa_sum[24]) >= 255) -> overflow);
+
+    CASO_NAN_IN: assert (((fp_a[30:23] == 8'hFF && |fp_a[21:0]) ||
+              (fp_b[30:23] == 8'hFF && |fp_b[21:0])) -> fp_result = 32'h7fc00000)
+
+    CASO_NAN_INF: assert (((fp_a == 32'h7f800000 && fp_b == 32'hff800000) || 
+                (fp_a == 32'hff800000 && fp_b == 32'h7f800000)) -> fp_result = 32'h7fc00000)
+    
+    CASO_INF_POSITIVO: assert (((fp_a == 32'h7f800000 && !(fp_b[30:23] == 8'hFF && |fp_b[22:0])) || 
+                (fp_b == 32'h7f800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result = 32'h7f800000)
+    
+    CASO_INF_NEGATIVO: assert (((fp_a == 32'hff800000 && !(fp_b[30:23] == 8'hFF && |fp_b[22:0])) || 
+                (fp_b == 32'hff800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result = 32'hff800000)
 
     PRUEBA_SUB: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00140000));
