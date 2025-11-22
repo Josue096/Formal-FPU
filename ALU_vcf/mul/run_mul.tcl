@@ -2,7 +2,7 @@ set_app_var fml_mode_on true
 
 set_app_var fml_cov_tgl_input_port true
 set_fml_var fml_enable_prop_density_cov_map true
-
+fml_set_coi -level small
 set design fp_mul
 
 read_file -top $design -format sverilog -cov all -sva -vcs {
