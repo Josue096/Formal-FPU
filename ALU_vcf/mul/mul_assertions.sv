@@ -32,12 +32,7 @@ module fp_mul_checker (
   // =======================================
   // CLOCK VIRTUAL PARA VC FORMAL (VCF)
   // =======================================
-  logic clk = 0;
-  always #1 clk = ~clk;
-
-  // Clock para TODAS las properties SVA
-  default clocking cb @ (posedge clk); endclocking
-
+  default clocking cb @(*) ; endclocking
 
   // =======================================
   // Variables auxiliares
