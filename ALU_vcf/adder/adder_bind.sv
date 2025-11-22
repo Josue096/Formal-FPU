@@ -1,6 +1,6 @@
 module adder_bind;
 
-  bind fp_adder adder_assertions chk (
+  bind fp_adder fp_adder_checker_sva chk (
     .fp_a                     (fp_a),
     .fp_b                     (fp_b),
     .r_mode                   (r_mode),
