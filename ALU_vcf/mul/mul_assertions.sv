@@ -132,10 +132,10 @@ module fp_mul_checker (
 
         //Redondeo al mas cercano (pares en empate)
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
-            2'b00: assign mantissa_r = frc_Z_norm[25:3];   
-            2'b01: assign mantissa_r = frc_Z_norm[25:3]; 
-            2'b10: assign mantissa_r = frc_Z_norm[3] ? frc_Z_norm[25:3] + 1'b1 : frc_Z_norm[25:3]; //si es impar redondea para arriba
-            2'b11: assign mantissa_r = frc_Z_norm[25:3] + 1'b1;
+            2'b00: mantissa_r = frc_Z_norm[25:3];   
+            2'b01: mantissa_r = frc_Z_norm[25:3]; 
+            2'b10: mantissa_r = frc_Z_norm[3] ? frc_Z_norm[25:3] + 1'b1 : frc_Z_norm[25:3]; //si es impar redondea para arriba
+            2'b11: mantissa_r = frc_Z_norm[25:3] + 1'b1;
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase
 
@@ -146,8 +146,8 @@ module fp_mul_checker (
 
         //Redondeo hacia abajo
         case (sign_Z)
-            1'b0: assign mantissa_r = frc_Z_norm[25:3];   
-            1'b1: assign mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            1'b0: mantissa_r = frc_Z_norm[25:3];   
+            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase 
 
@@ -155,8 +155,8 @@ module fp_mul_checker (
 
         //Redondeo hacia arriba
         case (sign_Z)
-            1'b0: assign mantissa_r = frc_Z_norm[25:3] + 1'b1;   
-            1'b1: assign mantissa_r = frc_Z_norm[25:3]; 
+            1'b0: mantissa_r = frc_Z_norm[25:3] + 1'b1;   
+            1'b1: mantissa_r = frc_Z_norm[25:3]; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
@@ -164,8 +164,8 @@ module fp_mul_checker (
 
         //Redondeo al mas cercano (maxima magnitud en empate)
         case (frc_Z_norm[2])
-            1'b0: assign mantissa_r = frc_Z_norm[25:3];   
-            1'b1: assign mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            1'b0: mantissa_r = frc_Z_norm[25:3];   
+            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
