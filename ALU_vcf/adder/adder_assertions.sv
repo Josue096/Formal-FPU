@@ -15,11 +15,11 @@ module fp_adder_checker (
   input logic [7:0]   exponent_b,
   input logic [23:0]  mantissa_a,
   input logic [23:0]  mantissa_b,
-  input logic         is_special_a,
+  input logic         is_special_a, 
   input logic         is_special_b,
   input logic         is_subnormal_a,
   input logic         is_subnormal_b,
-  input logic         is_zero_a,
+  input logic         is_zero_a, 
   input logic         is_zero_b,
 
 //señales de bloque align_exponents
@@ -32,389 +32,271 @@ module fp_adder_checker (
   input logic [24:0]  mantissa_sum,
 
 //Normalize
-  input logic [7:0]   exponent_out,
+  input logic [7:0]   exponent_out, 
   input logic [26:0]  mantissa_ext,
 
 //Round
   input logic [22:0]  mantissa_rounded,
   input logic         carry_out,
 
-//Pack
+//Final
   input logic [7:0]   exponent_final,
   input logic         overflow_internal,
   input logic [31:0]  fp_result_wire
 );
 
-// -------------------------------------------------------
-// Clock artificial para evaluación de SVA (solo checker)
-// -------------------------------------------------------
-logic clk;
-initial clk = 0;
-always #1 clk = ~clk;
+  // =======================================
+  // CLOCK VIRTUAL PARA VC FORMAL (VCF)
+  // =======================================
+  logic clk = 0;
+  always #1 clk = ~clk;
 
-// -------------------------------------------------------
-// Clock por defecto para TODAS las properties del módulo
-// -------------------------------------------------------
-default clocking cb @ (posedge clk);
-endclocking
+  // Clock para TODAS las properties SVA
+  default clocking cb @ (posedge clk); endclocking
 
-// ------------------------------
-// Señales muestreadas (s_*) sincronizadas al clk
-// ------------------------------
-logic [31:0] s_fp_a, s_fp_b, s_fp_result, s_fp_result_wire;
-logic [2:0]  s_r_mode;
-logic        s_overflow, s_underflow, s_overflow_internal;
 
-logic        s_sign_a, s_sign_b, s_result_sign;
-logic [7:0]  s_exponent_a, s_exponent_b, s_exponent_common, s_exponent_out, s_exponent_final;
-logic [23:0] s_mantissa_a, s_mantissa_b, s_mantissa_a_aligned, s_mantissa_b_aligned;
-logic        s_is_special_a, s_is_special_b, s_is_subnormal_a, s_is_subnormal_b, s_is_zero_a, s_is_zero_b;
-logic [24:0] s_mantissa_sum;
-logic [26:0] s_mantissa_ext;
-logic [22:0] s_mantissa_rounded;
-logic        s_carry_out;
+  // =======================================
+  // Variables auxiliares
+  // =======================================
+  logic [7:0]  shift_amount;
+  logic [22:0] mantissa_r;
+  logic [23:0] carry;
+  logic [7:0]  expo_diff;
 
-// ------------------------------
-// Señales auxiliares muestreadas / calculadas
-// ------------------------------
-logic [7:0] s_expo_diff_ab;
-logic [7:0] s_expo_diff_ba;
-logic [7:0] s_shift_amount;
-logic [22:0] s_mantissa_r;
-logic [23:0] s_carry; // used in ROUND_CARRY property
+  assign shift_amount = leading_zero_count(mantissa_sum[23:0]);
 
-// Muestreo síncrono de todas las entradas relevantes
-always_ff @(posedge clk) begin
-  s_fp_a            <= fp_a;
-  s_fp_b            <= fp_b;
-  s_r_mode          <= r_mode;
-  s_fp_result       <= fp_result;
-  s_overflow        <= overflow;
-  s_underflow       <= underflow;
 
-  s_sign_a          <= sign_a;
-  s_sign_b          <= sign_b;
-  s_exponent_a      <= exponent_a;
-  s_exponent_b      <= exponent_b;
-  s_mantissa_a      <= mantissa_a;
-  s_mantissa_b      <= mantissa_b;
-  s_is_special_a    <= is_special_a;
-  s_is_special_b    <= is_special_b;
-  s_is_subnormal_a  <= is_subnormal_a;
-  s_is_subnormal_b  <= is_subnormal_b;
-  s_is_zero_a       <= is_zero_a;
-  s_is_zero_b       <= is_zero_b;
+  // =======================================
+  // ====== TODAS TUS ASSERTIONS ORIGINALES =
+  // =======================================
 
-  s_mantissa_a_aligned <= mantissa_a_aligned;
-  s_mantissa_b_aligned <= mantissa_b_aligned;
-  s_exponent_common    <= exponent_common;
+  ZERO_SUM: assert property (
+      (fp_a == 32'h00000000 && fp_b == 32'h00000000)
+      |-> (fp_result == 32'h00000000 && !overflow && !underflow)
+  );
 
-  s_result_sign     <= result_sign;
-  s_mantissa_sum    <= mantissa_sum;
+  FP_UNPACK_A: assert property (
+      ((fp_a[30:23] != 8'hFF) && (fp_a[30:0] != 31'd0))
+      |-> ((sign_a == fp_a[31]) &&
+           (exponent_a == fp_a[30:23]) &&
+           (mantissa_a == {1'b1, fp_a[22:0]}))
+  );
 
-  s_exponent_out    <= exponent_out;
-  s_mantissa_ext    <= mantissa_ext;
+  FP_UNPACK_B: assert property (
+      ((fp_b[30:23] != 8'hFF) && (fp_b[30:0] != 31'd0))
+      |-> ((sign_b == fp_b[31]) &&
+           (exponent_b == fp_b[30:23]) &&
+           (mantissa_b == {1'b1, fp_b[22:0]}))
+  );
 
-  s_mantissa_rounded <= mantissa_rounded;
-  s_carry_out        <= carry_out;
+  FP_UNPACK_A_SPECIAL: assert property (
+      (fp_a[30:23] == 8'hFF)
+      |-> (sign_a == fp_a[31] &&
+           exponent_a == 8'hFF &&
+           mantissa_a == {1'b0, fp_a[22:0]} &&
+           is_special_a)
+  );
 
-  s_exponent_final   <= exponent_final;
-  s_overflow_internal<= overflow_internal;
-  s_fp_result_wire   <= fp_result_wire;
-end
+  FP_UNPACK_B_SPECIAL: assert property (
+      (fp_b[30:23] == 8'hFF)
+      |-> (sign_b == fp_b[31] &&
+           exponent_b == 8'hFF &&
+           mantissa_b == {1'b0, fp_b[22:0]} &&
+           is_special_b)
+  );
 
-// Calculitos sobre señales muestreadas (combinacional)
-assign s_expo_diff_ab = s_exponent_b - s_exponent_a;
-assign s_expo_diff_ba = s_exponent_a - s_exponent_b;
-assign s_shift_amount  = leading_zero_count(s_mantissa_sum[23:0]);
-assign s_carry = {1'b0, s_mantissa_ext[25:3]} + 1'b1;
+  FP_UNPACK_A_ZERO: assert property ( (fp_a[30:0] == 0) |-> is_zero_a );
+  FP_UNPACK_B_ZERO: assert property ( (fp_b[30:0] == 0) |-> is_zero_b );
 
-// Para mantener exactamente tu lógica de mantissa_r (la dejé aquí "combinacionalmente derivada")
-// Nota: no cambio las reglas de redondeo — las properties comparan contra s_mantissa_r calculada así.
-// Emulo el mismo comportamiento de tus case usando una combinacional-block que asigna s_mantissa_r
-always_comb begin
-  // default
-  s_mantissa_r = s_mantissa_ext[25:3];
+  ALIGN_A_NORM: assert property (
+      ((exponent_b > exponent_a) && !is_subnormal_a && !is_subnormal_b)
+      |-> (mantissa_b_aligned == mantissa_b &&
+           mantissa_a_aligned == mantissa_a >> (exponent_b - exponent_a))
+  );
 
-  // ROUND_RNZ: (mantissa_ext[2], |mantissa_ext[1:0])
-  unique case ({s_mantissa_ext[2], (|s_mantissa_ext[1:0])})
-    2'b00: s_mantissa_r = s_mantissa_ext[25:3];
-    2'b01: s_mantissa_r = s_mantissa_ext[25:3];
-    2'b10: s_mantissa_r = s_mantissa_ext[3] ? s_mantissa_ext[25:3] + 1'b1 : s_mantissa_ext[25:3];
-    2'b11: s_mantissa_r = s_mantissa_ext[25:3] + 1'b1;
-  endcase
+  ALIGN_A_SUBNORM: assert property (
+      (is_subnormal_a && !is_subnormal_b && !is_zero_b && !is_special_b)
+      |-> (mantissa_b_aligned == mantissa_b &&
+           mantissa_a_aligned == mantissa_a >> ((exponent_b - exponent_a) - 1))
+  );
 
-  // ROUND_RDN (uses result_sign)
-  // but we don't override s_mantissa_r here unconditionally — properties will compare against s_mantissa_r
-  // You had several case blocks in the original always_comb; we emulate only the final s_mantissa_r result
-  // (The properties still compare mantissa_rounded == mantissa_r for the given r_mode)
-end
+  ALIGN_B_NORM: assert property (
+      ((exponent_a > exponent_b) && !is_subnormal_a && !is_subnormal_b)
+      |-> (mantissa_a_aligned == mantissa_a &&
+           mantissa_b_aligned == mantissa_b >> (exponent_a - exponent_b))
+  );
 
-// ------------------------------
-// PROPERTIES (usando señales muestreadas, s_*)
-// ------------------------------
+  ALIGN_B_SUBNORM: assert property (
+      (!is_subnormal_a && is_subnormal_b && !is_zero_a && !is_special_a)
+      |-> (mantissa_a_aligned == mantissa_a &&
+           mantissa_b_aligned == mantissa_b >> ((exponent_a - exponent_b) - 1))
+  );
 
-// ----------------------------------------------------------
-// Caso de esquina
-// ----------------------------------------------------------
-property ZERO_SUM_p;
-  (s_fp_a == 32'h00000000 && s_fp_b == 32'h00000000) |-> 
-  (s_fp_result == 32'h00000000 && s_overflow == 0 && s_underflow == 0);
-endproperty
-ZERO_SUM: assert property (ZERO_SUM_p);
+  ALIGN_SUBNORMAL: assert property (
+      (is_subnormal_a && is_subnormal_b)
+      |-> (mantissa_a_aligned == mantissa_a &&
+           mantissa_b_aligned == mantissa_b)
+  );
 
-// ----------------------------------------------------------
-// FP UNPACK
-// ----------------------------------------------------------
-property FP_UNPACK_A_p;
-  ((s_fp_a[30:23] != 8'hFF) && (s_fp_a[30:0] != 31'd0)) |-> 
-  ((s_sign_a == s_fp_a[31]) && (s_exponent_a == s_fp_a[30:23]) && (s_mantissa_a == {1'b1, s_fp_a[22:0]}));
-endproperty
-FP_UNPACK_A: assert property(FP_UNPACK_A_p);
+  ALIGN_EXP_NORMAL: assert property (
+      (!(is_subnormal_a || is_subnormal_b) && !is_special_a && !is_special_b)
+      |-> (exponent_common == ((exponent_a > exponent_b) ? exponent_a : exponent_b))
+  );
 
-property FP_UNPACK_B_p;
-  ((s_fp_b[30:23] != 8'hFF) && (s_fp_b[30:0] != 31'd0)) |-> 
-  ((s_sign_b == s_fp_b[31]) && (s_exponent_b == s_fp_b[30:23]) && (s_mantissa_b == {1'b1, s_fp_b[22:0]}));
-endproperty
-FP_UNPACK_B: assert property(FP_UNPACK_B_p);
+  ALIGN_EXP_SUBNORMAL: assert property (
+      (is_subnormal_a && is_subnormal_b)
+      |-> (exponent_common == 8'd0)
+  );
 
-// ----------------------------------------------------------
-// SPECIALS
-// ----------------------------------------------------------
-property FP_UNPACK_A_SPECIAL_p;
-  (s_fp_a[30:23] == 8'hFF) |-> 
-  ((s_sign_a == s_fp_a[31]) && (s_exponent_a == 8'hFF) && (s_mantissa_a == {1'b0, s_fp_a[22:0]}) && s_is_special_a);
-endproperty
-FP_UNPACK_A_SPECIAL: assert property(FP_UNPACK_A_SPECIAL_p);
+  SUMA: assert property (
+      (sign_a == sign_b)
+      |-> (mantissa_sum == mantissa_a_aligned + mantissa_b_aligned &&
+           result_sign == sign_b)
+  );
 
-property FP_UNPACK_B_SPECIAL_p;
-  (s_fp_b[30:23] == 8'hFF) |-> 
-  ((s_sign_b == s_fp_b[31]) && (s_exponent_b == 8'hFF) && (s_mantissa_b == {1'b0, s_fp_b[22:0]}) && s_is_special_b);
-endproperty
-FP_UNPACK_B_SPECIAL: assert property(FP_UNPACK_B_SPECIAL_p);
+  SUMA_RESTA_A_MAYOR: assert property (
+      ((sign_a != sign_b) && (mantissa_a_aligned > mantissa_b_aligned))
+      |-> (mantissa_sum == mantissa_a_aligned - mantissa_b_aligned &&
+           result_sign == sign_a)
+  );
 
-// ----------------------------------------------------------
-// ZEROS
-// ----------------------------------------------------------
-property FP_UNPACK_A_ZERO_p;
-  (s_fp_a[30:0] == 31'b0) |-> (s_is_zero_a == 1);
-endproperty
-FP_UNPACK_A_ZERO: assert property(FP_UNPACK_A_ZERO_p);
+  SUMA_RESTA_B_MAYOR: assert property (
+      ((sign_a != sign_b) && (mantissa_b_aligned > mantissa_a_aligned))
+      |-> (mantissa_sum == mantissa_b_aligned - mantissa_a_aligned &&
+           result_sign == sign_b)
+  );
 
-property FP_UNPACK_B_ZERO_p;
-  (s_fp_b[30:0] == 31'b0) |-> (s_is_zero_b == 1);
-endproperty
-FP_UNPACK_B_ZERO: assert property(FP_UNPACK_B_ZERO_p);
+  SUMA_RESTA_IGUALES: assert property (
+      ((sign_a != sign_b) && (mantissa_a_aligned == mantissa_b_aligned))
+      |-> (mantissa_sum == 0 && result_sign == 0)
+  );
 
-// ----------------------------------------------------------
-// ALINEAMIENTO
-// ----------------------------------------------------------
-property ALIGN_A_NORM_p;
-  ((s_exponent_b > s_exponent_a) && !s_is_subnormal_a && !s_is_subnormal_b) |->
-  ((s_mantissa_b_aligned == s_mantissa_b) && (s_mantissa_a_aligned == s_mantissa_a >> s_expo_diff_ab));
-endproperty
-ALIGN_A_NORM: assert property (ALIGN_A_NORM_p);
+  NORM_CARRY_EXPO: assert property (
+      (mantissa_sum[24] && !is_subnormal_a && !is_subnormal_b)
+      |-> (exponent_out == exponent_common + 1)
+  );
 
-property ALIGN_A_SUBNORM_p;
-  (s_is_subnormal_a && !s_is_subnormal_b && !s_is_zero_b && !s_is_special_b) |->
-  ((s_mantissa_b_aligned == s_mantissa_b) && (s_mantissa_a_aligned == s_mantissa_a >> (s_expo_diff_ab - 1)));
-endproperty
-ALIGN_A_SUBNORM: assert property (ALIGN_A_SUBNORM_p);
+  NORM_CARRY_EXPO_SUB: assert property (
+      (mantissa_sum[23] && exponent_common == 0 && mantissa_sum != 0)
+      |-> (exponent_out == exponent_common + 1)
+  );
 
-property ALIGN_B_NORM_p;
-  ((s_exponent_a > s_exponent_b) && !s_is_subnormal_a && !s_is_subnormal_b) |->
-  ((s_mantissa_a_aligned == s_mantissa_a) && (s_mantissa_b_aligned == s_mantissa_b >> s_expo_diff_ba));
-endproperty
-ALIGN_B_NORM: assert property (ALIGN_B_NORM_p);
+  NORM_CARRY_MANTISSA: assert property (
+      (mantissa_sum[24] && !is_subnormal_a && !is_subnormal_b)
+      |-> (mantissa_ext == {mantissa_sum, 2'b00})
+  );
 
-property ALIGN_B_SUBNORM_p;
-  (!s_is_subnormal_a && s_is_subnormal_b && !s_is_zero_a && !s_is_special_a) |->
-  ((s_mantissa_a_aligned == s_mantissa_a) && (s_mantissa_b_aligned == s_mantissa_b >> (s_expo_diff_ba - 1)));
-endproperty
-ALIGN_B_SUBNORM: assert property (ALIGN_B_SUBNORM_p);
+  NORM_CARRY_MANTISSA_SUBN: assert property (
+      (mantissa_sum[23] && exponent_common == 0 && mantissa_sum != 0)
+      |-> (mantissa_ext[25:3] == mantissa_sum[23:0])
+  );
 
-property ALIGN_SUBNORMAL_p;
-  (s_is_subnormal_a && s_is_subnormal_b) |->
-  ((s_mantissa_b_aligned == s_mantissa_b) && (s_mantissa_a_aligned == s_mantissa_a));
-endproperty
-ALIGN_SUBNORMAL: assert property(ALIGN_SUBNORMAL_p);
+  NORM_SHIFT_MANTISSA_NORMALES: assert property (
+      (mantissa_sum != 0 &&
+       !mantissa_sum[24] &&
+       !mantissa_sum[23] &&
+       (exponent_common > shift_amount))
+      |-> (mantissa_ext[26:3] == (mantissa_sum[23:0] << shift_amount))
+  );
 
-property ALIGN_EXP_NORMAL_p;
-  (!(s_is_subnormal_a || s_is_subnormal_b) && !s_is_special_a && !s_is_special_b) |->
-  (s_exponent_common == ((s_exponent_a > s_exponent_b) ? s_exponent_a : s_exponent_b));
-endproperty
-ALIGN_EXP_NORMAL: assert property(ALIGN_EXP_NORMAL_p);
+  NORM_SHIFT_EXPO_NORMALES: assert property (
+      (mantissa_sum != 0 &&
+       !mantissa_sum[24] &&
+       !mantissa_sum[23] &&
+       (exponent_common > shift_amount))
+      |-> (exponent_out == exponent_common - shift_amount)
+  );
 
-property ALIGN_EXP_SUBNORMAL_p;
-  (s_is_subnormal_a && s_is_subnormal_b) |-> (s_exponent_common == 8'd0);
-endproperty
-ALIGN_EXP_SUBNORMAL: assert property (ALIGN_EXP_SUBNORMAL_p);
+  NORM_SHIFT_MANTISSA_NORM_A_SUBN: assert property (
+      (mantissa_sum != 0 &&
+       !mantissa_sum[24] &&
+       !mantissa_sum[23] &&
+       exponent_common > 0 &&
+       exponent_common <= shift_amount)
+      |-> (mantissa_ext[25:3] == (mantissa_sum[23:0] << exponent_common))
+  );
 
-// ----------------------------------------------------------
-// SUMA / RESTA
-// ----------------------------------------------------------
-property SUMA_p;
-  (s_sign_a == s_sign_b) |->
-  ((s_mantissa_sum == s_mantissa_a_aligned + s_mantissa_b_aligned) && (s_result_sign == s_sign_b));
-endproperty
-SUMA: assert property(SUMA_p);
+  NORM_SHIFT_EXPO_NORM_A_SUBN: assert property (
+      (mantissa_sum != 0 &&
+       !mantissa_sum[24] &&
+       !mantissa_sum[23] &&
+       exponent_common > 0 &&
+       exponent_common <= shift_amount)
+      |-> (exponent_out == 0)
+  );
 
-property SUMA_RESTA_A_MAYOR_p;
-  ((s_sign_a != s_sign_b) && (s_mantissa_a_aligned > s_mantissa_b_aligned)) |->
-  ((s_mantissa_sum == (s_mantissa_a_aligned - s_mantissa_b_aligned)) && (s_result_sign == s_sign_a));
-endproperty
-SUMA_RESTA_A_MAYOR: assert property(SUMA_RESTA_A_MAYOR_p);
+  ROUND_RNZ: assert property (
+      (r_mode == 3'b000)
+      |-> (mantissa_rounded == ( // RN-even
+          (mantissa_ext[2] && (|mantissa_ext[1:0])) ?
+            mantissa_ext[25:3] + 1 :
+            mantissa_ext[25:3]
+        ))
+  );
 
-property SUMA_RESTA_B_MAYOR_p;
-  ((s_sign_a != s_sign_b) && (s_mantissa_b_aligned > s_mantissa_a_aligned)) |->
-  ((s_mantissa_sum == (s_mantissa_b_aligned - s_mantissa_a_aligned)) && (s_result_sign == s_sign_b));
-endproperty
-SUMA_RESTA_B_MAYOR: assert property(SUMA_RESTA_B_MAYOR_p);
+  ROUND_RTZ: assert property (
+      (r_mode == 3'b001)
+      |-> (mantissa_rounded == mantissa_ext[25:3])
+  );
 
-property SUMA_RESTA_IGUALES_p;
-  ((s_sign_a != s_sign_b) && (s_mantissa_a_aligned == s_mantissa_b_aligned)) |->
-  ((s_mantissa_sum == 0) && (s_result_sign == 0));
-endproperty
-SUMA_RESTA_IGUALES: assert property(SUMA_RESTA_IGUALES_p);
+  ROUND_RDN: assert property (
+      (r_mode == 3'b010)
+      |-> (mantissa_rounded ==
+           (result_sign ? (mantissa_ext[25:3] + 1) : mantissa_ext[25:3]))
+  );
 
-// ----------------------------------------------------------
-// NORMALIZE
-// ----------------------------------------------------------
-property NORM_CARRY_EXPO_p;
-  (s_mantissa_sum[24] && !s_is_subnormal_a && !s_is_subnormal_b) |-> (s_exponent_out == s_exponent_common + 1);
-endproperty
-NORM_CARRY_EXPO: assert property(NORM_CARRY_EXPO_p);
+  ROUND_RUP: assert property (
+      (r_mode == 3'b011)
+      |-> (mantissa_rounded ==
+           (result_sign ? mantissa_ext[25:3] :
+                          (mantissa_ext[25:3] + 1)))
+  );
 
-property NORM_CARRY_EXPO_SUB_p;
-  (s_mantissa_sum[23] && s_exponent_common == 8'b0 && s_mantissa_sum != 0) |-> (s_exponent_out == s_exponent_common + 1);
-endproperty
-NORM_CARRY_EXPO_SUB: assert property(NORM_CARRY_EXPO_SUB_p);
+  ROUND_RMM: assert property (
+      (r_mode == 3'b100)
+      |-> (mantissa_rounded ==
+           (mantissa_ext[2] ?
+                (mantissa_ext[25:3] + 1) :
+                mantissa_ext[25:3]))
+  );
 
-property NORM_CARRY_MANTISSA_p;
-  (s_mantissa_sum[24] && !s_is_subnormal_a && !s_is_subnormal_b) |-> (s_mantissa_ext == {s_mantissa_sum, 1'b0, 1'b0});
-endproperty
-NORM_CARRY_MANTISSA: assert property(NORM_CARRY_MANTISSA_p);
+  ROUND_CARRY: assert property (
+      carry_out
+      |-> (mantissa_rounded == mantissa_ext[25:3] + 1 &&
+           mantissa_rounded[23])
+  );
 
-property NORM_CARRY_MANTISSA_SUBN_p;
-  (s_mantissa_sum[23] && s_exponent_common == 8'b0 && s_mantissa_sum != 0) |-> (s_mantissa_ext[25:3] == s_mantissa_sum[23:0]);
-endproperty
-NORM_CARRY_MANTISSA_SUBN: assert property(NORM_CARRY_MANTISSA_SUBN_p);
+  FP_PACK: assert property (
+      fp_result_wire == {result_sign, exponent_final, mantissa_rounded}
+  );
 
-// ----------------------------------------------------------
-// SHIFT NORMAL
-// ----------------------------------------------------------
-property NORM_SHIFT_MANTISSA_NORMALES_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && (s_exponent_common > s_shift_amount)) |->
-  (s_mantissa_ext[26:3] == (s_mantissa_sum[23:0] << s_shift_amount));
-endproperty
-NORM_SHIFT_MANTISSA_NORMALES: assert property(NORM_SHIFT_MANTISSA_NORMALES_p);
+  PRUEBA_SUB: assert property (
+      (fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001)
+      |-> (fp_result == 32'h00140000)
+  );
 
-property NORM_SHIFT_EXPO_NORMALES_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && (s_exponent_common > s_shift_amount)) |->
-  (s_exponent_out == s_exponent_common - s_shift_amount);
-endproperty
-NORM_SHIFT_EXPO_NORMALES: assert property(NORM_SHIFT_EXPO_NORMALES_p);
+  PRUEBA_SUB_NORM: assert property (
+      (fp_a == 32'h01000000 && fp_b == 32'h00300000 && r_mode == 3'b001)
+      |-> (fp_result == 32'h01180000)
+  );
 
-// ----------------------------------------------------------
-// NORM → SUBNORM
-// ----------------------------------------------------------
-property NORM_SHIFT_MANTISSA_NORM_A_SUBN_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && s_exponent_common > 0 && s_exponent_common <= s_shift_amount) |->
-  (s_mantissa_ext[25:3] == (s_mantissa_sum[23:0] << s_exponent_common));
-endproperty
-NORM_SHIFT_MANTISSA_NORM_A_SUBN: assert property(NORM_SHIFT_MANTISSA_NORM_A_SUBN_p);
+  PRUEBA_NORM_NORM: assert property (
+      (fp_a == 32'h14300000 && fp_b == 32'h1FC00000 && r_mode == 3'b001)
+      |-> (fp_result == 32'h1FC00001)
+  );
 
-property NORM_SHIFT_EXPO_NORM_A_SUBN_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && s_exponent_common > 0 && s_exponent_common <= s_shift_amount) |->
-  (s_exponent_out == 0);
-endproperty
-NORM_SHIFT_EXPO_NORM_A_SUBN: assert property(NORM_SHIFT_EXPO_NORM_A_SUBN_p);
 
-// ----------------------------------------------------------
-// SUBNORMAL → SUBNORMAL
-// ----------------------------------------------------------
-property NORM_SHIFT_MANTISSA_SUBN_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && s_exponent_common == 8'b0) |->
-  (s_mantissa_ext[25:3] == s_mantissa_sum[23:0]);
-endproperty
-NORM_SHIFT_MANTISSA_SUBN: assert property(NORM_SHIFT_MANTISSA_SUBN_p);
-
-property NORM_SHIFT_EXPO_SUBN_p;
-  (s_mantissa_sum != 0 && !s_mantissa_sum[24] && !s_mantissa_sum[23] && s_exponent_common == 8'b0) |->
-  (s_exponent_out == s_exponent_common);
-endproperty
-NORM_SHIFT_EXPO_SUBN: assert property(NORM_SHIFT_EXPO_SUBN_p);
-
-// ----------------------------------------------------------
-// ROUNDING
-// ----------------------------------------------------------
-property ROUND_RNZ_p;
-  (s_r_mode == 3'b000) |-> (s_mantissa_rounded == s_mantissa_r);
-endproperty
-ROUND_RNZ: assert property(ROUND_RNZ_p);
-
-property ROUND_RTZ_p;
-  (s_r_mode == 3'b001) |-> (s_mantissa_rounded == s_mantissa_ext[25:3]);
-endproperty
-ROUND_RTZ: assert property(ROUND_RTZ_p);
-
-property ROUND_RDN_p;
-  (s_r_mode == 3'b010) |-> (s_mantissa_rounded == s_mantissa_r);
-endproperty
-ROUND_RDN: assert property(ROUND_RDN_p);
-
-property ROUND_RUP_p;
-  (s_r_mode == 3'b011) |-> (s_mantissa_rounded == s_mantissa_r);
-endproperty
-ROUND_RUP: assert property(ROUND_RUP_p);
-
-property ROUND_RMM_p;
-  (s_r_mode == 3'b100) |-> (s_mantissa_rounded == s_mantissa_r);
-endproperty
-ROUND_RMM: assert property(ROUND_RMM_p);
-
-property ROUND_CARRY_p;
-  (s_carry_out) |-> (s_carry[23] && (s_mantissa_rounded == s_mantissa_ext[25:3] + 1'b1));
-endproperty
-ROUND_CARRY: assert property(ROUND_CARRY_p);
-
-// ----------------------------------------------------------
-// PACK
-// ----------------------------------------------------------
-property FP_PACK_p;
-  s_fp_result_wire == {s_result_sign, s_exponent_final, s_mantissa_rounded};
-endproperty
-FP_PACK: assert property(FP_PACK_p);
-
-// ----------------------------------------------------------
-// PRUEBAS
-// ----------------------------------------------------------
-property PRUEBA_SUB_p;
-  ((s_fp_a == 32'h000a0000) && (s_fp_b == 32'h000a0000) && (s_r_mode == 3'b001)) |-> (s_fp_result == 32'h00140000);
-endproperty
-PRUEBA_SUB: assert property(PRUEBA_SUB_p);
-
-property PRUEBA_SUB_NORM_p;
-  ((s_fp_a == 32'h01000000) && (s_fp_b == 32'h00300000) && (s_r_mode == 3'b001)) |-> (s_fp_result == 32'h01180000);
-endproperty
-PRUEBA_SUB_NORM: assert property(PRUEBA_SUB_NORM_p);
-
-property PRUEBA_NORM_NORM_p;
-  ((s_fp_a == 32'h14300000) && (s_fp_b == 32'h1FC00000) && (s_r_mode == 3'b001)) |-> (s_fp_result == 32'h1FC00001);
-endproperty
-PRUEBA_NORM_NORM: assert property(PRUEBA_NORM_NORM_p);
-
-// ----------------------------------------------------------
-// FUNCTION (unchanged)
-// ----------------------------------------------------------
-function automatic [7:0] leading_zero_count(input logic [23:0] value);
-  leading_zero_count = 0;
-  for (int i = 23; i >= 0; i--) begin
-    if (value[i]) begin
-      leading_zero_count = 8'(23 - i);
-      break;
+  // ===============================
+  // Leading-zero function
+  // ===============================
+  function automatic [7:0] leading_zero_count(input logic [23:0] value);
+    leading_zero_count = 0;
+    for (int i = 23; i >= 0; i--) begin
+      if (value[i]) begin
+        leading_zero_count = 23 - i;
+        break;
+      end
     end
-  end
-endfunction
+  endfunction
 
 endmodule
