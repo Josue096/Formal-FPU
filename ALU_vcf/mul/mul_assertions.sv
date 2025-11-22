@@ -20,7 +20,6 @@ module fp_mul_checker (
     input  logic [22:0]  frc_Z,
 
     //Senales del bloque exponente
-    input  
     input  logic [7:0]   exp_Z,
     input  logic         zer, inf, nan
 );
