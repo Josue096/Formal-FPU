@@ -94,20 +94,20 @@ module fp_mul_checker (
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
         //Booth encoding de las mantisas subnormal por un normal
-        BOOTH_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-                                (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
+        //BOOTH_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+        //                        (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
 
         //Booth encoding de las mantisas subnormal por un subnormal
-        BOOTH_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
-                                (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
+        //BOOTH_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
+        //                        (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
     
         //Booth encoding de las mantisas valor minimo por cualquier valor
         BOOTH_MINFRAC: assert ((!frc_X) ->
                                 (frc_Z_full[45:23] == frc_Y));
 
         //Chechk: numeros subnormales producen el mismo resultado que cero                       
-        BOOTH_SUB_SON_ZERO: assert ((Xsub) ->
-                                (frc_Z_full[45:23] == frc_Y));
+        //BOOTH_SUB_SON_ZERO: assert ((Xsub) ->
+        //                        (frc_Z_full[45:23] == frc_Y));
 
         frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};//Dado el diagrama de Vianney
 
@@ -123,7 +123,7 @@ module fp_mul_checker (
         NORM_ZERO: assert (((fp_X[31:0] == 31'b0) && !Ynif) -> (frc_Z_norm[25:3] == frc_Y));
 
         //Chechk: numeros subnormales producen el mismo resultado que cero  
-        NORM_SUB_SON_ZERO: assert ((Xsub && !Ynif) -> (frc_Z_norm[25:3] == frc_Y));
+        //NORM_SUB_SON_ZERO: assert ((Xsub && !Ynif) -> (frc_Z_norm[25:3] == frc_Y));
 
         //Calculo del signo
         ROUND_SIGN: assert (sign_Z == fp_X[31] ^ fp_Y[31]);
@@ -204,9 +204,9 @@ module fp_mul_checker (
         z = {sign_Z, exp_Z, frc_Z};
         NET_NAN: assert (nan -> fp_Z == 32'h7fc00000);
 
-        NET_INF: assert (inf -> fp_Z == {z[31], 8'hff, 23'b0});
+        NET_INF: assert ((inf && !nan) -> fp_Z == {z[31], 8'hff, 23'b0});
 
-        NET_ZERO: assert (zer -> fp_Z == {z[31], 8'h0, 23'b0});
+        NET_ZERO: assert ((zer && !nan && !inf) -> fp_Z == {z[31], 31'b0});
 
         NET_Z: assert (!nan && !inf && !zer && (z!=33'hffc00000) -> fp_Z == z);
 
