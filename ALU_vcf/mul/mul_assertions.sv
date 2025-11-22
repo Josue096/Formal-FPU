@@ -208,7 +208,7 @@ module fp_mul_checker (
 
         NET_ZERO: assert ((zer && !nan && !inf) -> fp_Z == {z[31], 31'b0});
 
-        NET_Z: assert (!nan && !inf && !zer && (z!=33'hffc00000) -> fp_Z == z);
+        NET_Z: assert ((!nan && !inf && !zer && (z!=33'hffc00000)) -> fp_Z == z);
 
         //Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
         //                  (fp_Z == 32'h41100000));           
