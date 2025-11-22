@@ -111,7 +111,7 @@ module fp_mul_checker (
         BOOTH_SUB_SON_ZERO: assert property ((Xsub) ->
                                 (frc_Z_full[45:23] == frc_Y));
 
-        frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};//Dado el diagrama de Vianney
+        assign frc_Z_norm_check = (frc_Z_full[47])? frc_Z_full : {frc_Z_full[46:0],1'b0};//Dado el diagrama de Vianney
 
         //Normalizacion de numeros 
         NORM_SHIFT_MANTISSA: assert property ((frc_Z_norm[0] == |frc_Z_norm_check[21:0]) 
@@ -132,10 +132,10 @@ module fp_mul_checker (
 
         //Redondeo al mas cercano (pares en empate)
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
-            2'b00: mantissa_r = frc_Z_norm[25:3];   
-            2'b01: mantissa_r = frc_Z_norm[25:3]; 
-            2'b10: mantissa_r = frc_Z_norm[3] ? frc_Z_norm[25:3] + 1'b1 : frc_Z_norm[25:3]; //si es impar redondea para arriba
-            2'b11: mantissa_r = frc_Z_norm[25:3] + 1'b1;
+            2'b00: assign mantissa_r = frc_Z_norm[25:3];   
+            2'b01: assign mantissa_r = frc_Z_norm[25:3]; 
+            2'b10: assign mantissa_r = frc_Z_norm[3] ? frc_Z_norm[25:3] + 1'b1 : frc_Z_norm[25:3]; //si es impar redondea para arriba
+            2'b11: assign mantissa_r = frc_Z_norm[25:3] + 1'b1;
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase
 
@@ -146,8 +146,8 @@ module fp_mul_checker (
 
         //Redondeo hacia abajo
         case (sign_Z)
-            1'b0: mantissa_r = frc_Z_norm[25:3];   
-            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            1'b0: assign mantissa_r = frc_Z_norm[25:3];   
+            1'b1: assign mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase 
 
@@ -155,8 +155,8 @@ module fp_mul_checker (
 
         //Redondeo hacia arriba
         case (sign_Z)
-            1'b0: mantissa_r = frc_Z_norm[25:3] + 1'b1;   
-            1'b1: mantissa_r = frc_Z_norm[25:3]; 
+            1'b0: assign mantissa_r = frc_Z_norm[25:3] + 1'b1;   
+            1'b1: assign mantissa_r = frc_Z_norm[25:3]; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
@@ -164,18 +164,18 @@ module fp_mul_checker (
 
         //Redondeo al mas cercano (maxima magnitud en empate)
         case (frc_Z_norm[2])
-            1'b0: mantissa_r = frc_Z_norm[25:3];   
-            1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
+            1'b0: assign mantissa_r = frc_Z_norm[25:3];   
+            1'b1: assign mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
 
         ROUND_RMM: assert property ((r_mode == 3'b100) -> frc_Z == mantissa_r);
 
         //Se genera carry por redondeo
-        carry = {1'b0, frc_Z_norm[25:3]} + 1'b1;
+        assign carry = {1'b0, frc_Z_norm[25:3]} + 1'b1;
         ROUND_CARRY: assert property ((norm_r) -> (carry [23]));
 
-        bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; //si hubo un carry por round o normalizacion
+        assign bias = (norm_n||norm_r) ? 8'b01111110 : 8'b01111111; //si hubo un carry por round o normalizacion
 
         //Calculo del exponenete
         EXP_NORM: assert property (exp_Z == fp_X[30:23]+fp_Y[30:23]-bias);
