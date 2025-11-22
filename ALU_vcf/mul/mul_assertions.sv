@@ -23,11 +23,11 @@ module fp_mul_checker (
     input  logic [7:0]   exp_Z,
     input  logic         zer, inf, nan
 );
-  logic clk = 0;
-  always #1 clk = ~clk;
+    logic clk = 0;
+    always #1 clk = ~clk;
 
   // Clock para TODAS las properties SVA
-  default clocking cb @ (posedge clk); endclocking
+    default clocking cb @ (posedge clk); endclocking
     // Flags subnormales, infinitos y ceros
     logic Xsub, Xnif, XZero;
     logic Ysub, Ynif, YZero;
@@ -48,20 +48,20 @@ module fp_mul_checker (
     // Combinacional
     
         // Flags X
-        Xsub  = !(|fp_X[30:23]); //Sub o cero
-        Xnif  = (fp_X[30:23] == 8'hFF); //Nan o inf
-        XZero = (fp_X[30:0] == 31'b0);
+        assign Xsub  = !(|fp_X[30:23]); //Sub o cero
+        assign Xnif  = (fp_X[30:23] == 8'hFF); //Nan o inf
+        assign XZero = (fp_X[30:0] == 31'b0);
 
         // Flags Y
-        Ysub  = !(|fp_Y[30:23]); //Sub o cero
-        Ynif  = (fp_Y[30:23] == 8'hFF); //Nan o inf
-        YZero = (fp_Y[30:0] == 31'b0);
+        assign Ysub  = !(|fp_Y[30:23]); //Sub o cero
+        assign Ynif  = (fp_Y[30:23] == 8'hFF); //Nan o inf
+        assign YZero = (fp_Y[30:0] == 31'b0);
         
-        equi_norm1 = 32'h402df854;
-        equi_norm2 = 32'h40490fdb;
+        assign equi_norm1 = 32'h402df854;
+        assign equi_norm2 = 32'h40490fdb;
 
-        equi_sub1 = 32'h002df854;
-        equi_sub2 = 32'h00490fdb;
+        assign equi_sub1 = 32'h002df854;
+        assign equi_sub2 = 32'h00490fdb;
 
         //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
 
