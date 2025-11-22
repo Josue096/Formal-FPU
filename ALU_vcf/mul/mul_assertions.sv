@@ -203,11 +203,11 @@ module fp_mul_checker (
         
         NET_NAN: assert (nan -> fp_Z == 32'h7fc00000);
 
-        NET_INF: assert (inf -> fp_Z == {Z[31], 8'hff, 23'b0});
+        NET_INF: assert (inf -> fp_Z == {z[31], 8'hff, 23'b0});
 
-        NET_ZERO: assert (zer -> fp_Z == {Z[31], 8'h0, 23'b0});
+        NET_ZERO: assert (zer -> fp_Z == {z[31], 8'h0, 23'b0});
 
-        NET_Z: assert (!nan && !inf && !zer && (Z!=33'hffc00000) -> fp_Z == Z);
+        NET_Z: assert (!nan && !inf && !zer && (z!=33'hffc00000) -> fp_Z == z);
 
         //Z_PRUEBA: assert ((fp_X == 32'h40400000 && fp_Y == 32'h40400000 && r_mode == 3'b001) ->
         //                  (fp_Z == 32'h41100000));           
