@@ -20,7 +20,7 @@ module fp_mul_checker (
     input  logic [22:0]  frc_Z,
 
     //Senales del bloque exponente
-    input  logic [31:0]  z,
+    input  
     input  logic [7:0]   exp_Z,
     input  logic         zer, inf, nan
 );
@@ -41,6 +41,8 @@ module fp_mul_checker (
     logic [31:0] equi_sub1;
     logic [31:0] equi_sub2;
     logic [7:0]  bias;
+
+    logic [31:0]  z;
 
     // Combinacional
     always_comb begin
@@ -200,7 +202,7 @@ module fp_mul_checker (
                         || (Ysub && ((fp_X[22:0] == 0) && &fp_X[30:23])) 
                         || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
                         || ((|fp_Y[22:0]) && &fp_Y[30:23])));
-        
+        z = {sign_Z, exp_Z, frc_Z};
         NET_NAN: assert (nan -> fp_Z == 32'h7fc00000);
 
         NET_INF: assert (inf -> fp_Z == {z[31], 8'hff, 23'b0});
