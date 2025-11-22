@@ -129,7 +129,7 @@ module fp_mul_checker (
 
         //Calculo del signo
         ROUND_SIGN: assert property (sign_Z == fp_X[31] ^ fp_Y[31]);
-
+    always_comb begin
         //Redondeo al mas cercano (pares en empate)
         case ({frc_Z_norm[2],(|frc_Z_norm[1:0])})
             2'b00: mantissa_r = frc_Z_norm[25:3];   
@@ -138,37 +138,38 @@ module fp_mul_checker (
             2'b11: mantissa_r = frc_Z_norm[25:3] + 1'b1;
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase
+    end
 
         ROUND_RNZ: assert property ((r_mode == 3'b000) -> frc_Z == mantissa_r);
 
         //Redondeo hacia cero
         ROUND_RTZ: assert property ((r_mode == 3'b001) -> frc_Z == frc_Z_norm[25:3]);
-
+    always_comb begin
         //Redondeo hacia abajo
         case (sign_Z)
             1'b0: mantissa_r = frc_Z_norm[25:3];   
             1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase 
-
+    end
         ROUND_RDN: assert property ((r_mode == 3'b010) -> frc_Z == mantissa_r);
-
+    always_comb begin
         //Redondeo hacia arriba
         case (sign_Z)
             1'b0: mantissa_r = frc_Z_norm[25:3] + 1'b1;   
             1'b1: mantissa_r = frc_Z_norm[25:3]; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
-
+    end
         ROUND_RUP: assert property ((r_mode == 3'b011) -> frc_Z == mantissa_r);
-
+    always_comb begin
         //Redondeo al mas cercano (maxima magnitud en empate)
         case (frc_Z_norm[2])
             1'b0: mantissa_r = frc_Z_norm[25:3];   
             1'b1: mantissa_r = frc_Z_norm[25:3] + 1'b1; 
             //default: mantissa_r = frc_Z_norm[25:3];
         endcase    
-
+    end
         ROUND_RMM: assert property ((r_mode == 3'b100) -> frc_Z == mantissa_r);
 
         //Se genera carry por redondeo
