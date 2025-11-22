@@ -60,10 +60,6 @@ module fp_mul_checker (
 
         equi_sub1 = 32'h002df854;
         equi_sub2 = 32'h00490fdb;
-
-        //man_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
-
-        // Aserciones
         
         //Numeros subnormales producen el mismo resultado que cero
         MUL_SUB_SON_ZERO: assert (((Xsub && !Ynif) || (Ysub && !Xnif)) ->
@@ -94,12 +90,12 @@ module fp_mul_checker (
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));
         
         //Booth encoding de las mantisas subnormal por un normal
-        //BOOTH_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
-        //                        (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
+        BOOTH_NORM_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
+                                (frc_Z_full == {1'b0, frc_X} * {1'b1, frc_Y}));
 
         //Booth encoding de las mantisas subnormal por un subnormal
-        //BOOTH_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
-        //                        (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
+        BOOTH_SUB_X_SUB: assert (((frc_X == equi_sub1[22:0]) && (frc_Y == equi_sub2[22:0])) ->
+                                (frc_Z_full == {1'b0, frc_X} * {1'b0, frc_Y}));
     
         //Booth encoding de las mantisas valor minimo por cualquier valor
         BOOTH_MINFRAC: assert ((!frc_X) ->
@@ -201,7 +197,9 @@ module fp_mul_checker (
                         || (Ysub && ((fp_X[22:0] == 0) && &fp_X[30:23])) 
                         || (Xsub && ((fp_Y[22:0] == 0) && &fp_Y[30:23]))
                         || ((|fp_Y[22:0]) && &fp_Y[30:23])));
+
         z = {sign_Z, exp_Z, frc_Z};
+
         NET_NAN: assert (nan -> fp_Z == 32'h7fc00000);
 
         NET_INF: assert ((inf && !nan) -> fp_Z == {z[31], 8'hff, 23'b0});
