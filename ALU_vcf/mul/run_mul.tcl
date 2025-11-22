@@ -10,7 +10,7 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
     mul_bind.sv
 }
 
-sim_run -stable
+sim_run -stable -save
 sim_save_reset
 check_fv -block
 report_fv -list > aep_results_mul.txt 
