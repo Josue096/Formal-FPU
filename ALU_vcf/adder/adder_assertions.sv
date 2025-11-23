@@ -232,7 +232,7 @@ module fp_adder_checker (
     //Se enpaqueta bien devuelta 
     FP_PACK: assert (fp_result_wire == {result_sign, exponent_final, mantissa_rounded});
 
-    UNDERFLOW: assert ((!is_zero_b) || (!is_zero_b) && (fp_result_wire[30:0] == 31'b0) -> underflow);
+    UNDERFLOW: assert (!(fp_b == {!fp_a[31], fp_a[30:0]}) && (fp_result_wire[30:0] == 31'b0) -> underflow);
 
     OVERFLOW: assert (((exponent_common + carry_out + mantissa_sum[24]) >= 255) -> overflow);
 
