@@ -77,6 +77,8 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
+        BOOTH_FULL: assert (frc_Z_full = {1'b1, frc_X} * {1'b1, frc_Y});
+
         //Booth encoding de las mantisas de dos numeros normales
         BOOTH_NORM_X_NORM: assert (((frc_X == equi_norm1[22:0]) && (frc_Y == equi_norm2[22:0])) ->
                                 (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y}));//frc_Z_full = {1'b1, frc_X} * {1'b1, frc_Y};
