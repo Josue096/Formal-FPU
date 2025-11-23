@@ -240,14 +240,13 @@ module fp_adder_checker (
               (fp_b[30:23] == 8'hFF && |fp_b[21:0])) -> fp_result == 32'h7fc00000);
 
     CASO_NAN_INF: assert (((fp_a == 32'h7f800000 && fp_b == 32'hff800000) || 
-                (fp_a == 32'hff800000 && fp_b == 32'h7f800000)) -> fp_result == 32'h7fc00000);
-                ;
+                (fp_a == 32'hff800000 && fp_b == 32'h7f800000)) -> fp_result == 32'h7fc00000):
     
     CASO_INF_POSITIVO: assert (((fp_a == 32'h7f800000 && !(fp_b[30:23] == 8'hFF && |fp_b[22:0])) || 
-                (fp_b == 32'h7f800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result == 32'h7f800000);
+                (fp_b == 32'h7f800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result == 32'h7f800000)
     
     CASO_INF_NEGATIVO: assert (((fp_a == 32'hff800000 && !(fp_b[30:23] == 8'hFF && |fp_b[22:0])) || 
-                (fp_b == 32'hff800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result == 32'hff800000);
+                (fp_b == 32'hff800000 && !(fp_a[30:23] == 8'hFF && |fp_a[22:0]))) -> fp_result == 32'hff800000)
 
     PRUEBA_SUB: assert ((fp_a == 32'h000a0000 && fp_b == 32'h000a0000 && r_mode == 3'b001) ->
                           (fp_result == 32'h00140000));
