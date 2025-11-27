@@ -277,7 +277,7 @@ end
   function automatic [31:0] fp_simple_add
 (
   input logic [31:0] a,
-  input logic [31:0] b,
+  input logic [31:0] b
 );
   logic sign;
   logic [7:0]  exp;
@@ -302,7 +302,7 @@ endfunction
   function automatic [31:0] fp_simple_sub
 (
   input logic [31:0] a,
-  input logic [31:0] b,
+  input logic [31:0] b
 );
   logic sign;
   logic [7:0]  exp;
