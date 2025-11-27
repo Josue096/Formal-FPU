@@ -54,11 +54,11 @@ module fp_adder_checker (
 
   always_comb begin
 
-    assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100});
+    assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
     man_full = fp_simple_add(fp_a, fp_b);
-    END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (man_full[30:23] != 8'hFF)) -> fp_result_wire == man_full);
+    END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (man_full[30:23] != 8'hFF)) -> fp_result == man_full);
 
-    END_TO_END_RESTA: assert((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001) -> fp_result_wire == fp_simple_sub(fp_a, fp_b));
+    END_TO_END_RESTA: assert((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001) -> fp_result == fp_simple_sub(fp_a, fp_b));
     
     //Caso de esquina 0 + 0 = 0
     ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
@@ -267,11 +267,11 @@ end
 
   function automatic [7:0] leading_zero_count(input logic [23:0] value);
     begin
-      leading_zero_count = 8'd0; // Inicializar el conteo en cero
+      leading_zero_count = 8'd0;
       
-      for (int i = 23; i >= 0; i--) begin // Recorrer desde el bit más significativo (MSB = 23)
+      for (int i = 23; i >= 0; i--) begin
       
-        if (value[i]) begin // Primer '1' encontrado: contar los ceros previos
+        if (value[i]) begin 
           leading_zero_count = 8'(23 - i);
           break;
         end
