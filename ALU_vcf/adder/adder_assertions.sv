@@ -274,10 +274,10 @@ end
     end
   endfunction
 
-  function automatic logic [31:0] fp_simple_add
+  function automatic [31:0] fp_simple_add
 (
-  logic [31:0] a,
-  logic [31:0] b,
+  input logic [31:0] a,
+  input logic [31:0] b,
 );
   logic sign;
   logic [7:0]  exp;
@@ -299,10 +299,10 @@ end
   return {sign, exp, mant_sum[22:0]};
 endfunction
 
-  function automatic logic [31:0] fp_simple_sub
+  function automatic [31:0] fp_simple_sub
 (
-  logic [31:0] a,
-  logic [31:0] b,
+  input logic [31:0] a,
+  input logic [31:0] b,
 );
   logic sign;
   logic [7:0]  exp;
