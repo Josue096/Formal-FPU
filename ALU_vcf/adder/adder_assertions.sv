@@ -52,7 +52,9 @@ module fp_adder_checker (
   logic [7:0]  expo_diff;
 
   always_comb begin
+    END_TO_END_SUMA: (!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 -> fp_result_wire == fp_simple_add(fp_a, fp_b));
 
+    END_TO_END_RESTA: (!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001 -> fp_result_wire == fp_simple_sub(fp_a, fp_b));
     //Caso de esquina 0 + 0 = 0
     ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
                 (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
@@ -271,4 +273,63 @@ end
       end
     end
   endfunction
+
+  function automatic logic [31:0] fp_simple_add
+(
+  logic [31:0] a,
+  logic [31:0] b,
+);
+  logic sign;
+  logic [7:0]  exp;
+  logic [23:0] mant_a, mant_b, mant_sum;
+  
+  if (a[30:23] > b[30:23]) exp = a[30:23];
+  else exp = b[30:23];
+
+  mant_a = {|a[30:23], a[22:0]};         
+  mant_b = {|b[30:23], b[22:0]};
+
+  mant_sum = mant_a + mant_b;
+  sign = a[31];
+  if (mant_sum[24]) begin
+    mant_sum = mant_sum >> 1;
+    exp = exp + 1;
+  end
+
+  return {sign, exp, mant_sum[22:0]};
+endfunction
+
+  function automatic logic [31:0] fp_simple_sub
+(
+  logic [31:0] a,
+  logic [31:0] b,
+);
+  logic sign;
+  logic [7:0]  exp;
+  logic [23:0] mant_a, mant_b; 
+  logic [23:0] mant_sum;
+  logic [7:0] dez;
+
+  mant_a = {|a[30:23], a[22:0]};         
+  mant_b = {|b[30:23], b[22:0]};
+
+  if (a[30:23] > b[30:23]) begin
+    exp = a[30:23];
+    sign = a[31];
+    mant_sum = mant_a - mant_b;
+  end
+  else begin
+    exp = b[30:23];
+    sign = b[31];
+    mant_sum = mant_b - mant_a;
+  end
+  if (exp > leading_zero_count(mant_sum)) dez = leading_zero_count(mant_sum);
+  else dez = exp;
+  if (!mant_sum[23]) begin
+    mant_sum = mant_sum << (dez);
+    exp = exp - dez;
+  end
+
+  return {sign, exp, mant_sum[22:0]};
+endfunction
 endmodule
