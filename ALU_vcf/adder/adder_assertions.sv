@@ -53,10 +53,13 @@ module fp_adder_checker (
   logic [31:0] man_full;
 
   always_comb begin
+
+    assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100});
     man_full = fp_simple_add(fp_a, fp_b);
     END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (man_full[30:23] != 8'hFF)) -> fp_result_wire == man_full);
 
     END_TO_END_RESTA: assert((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001) -> fp_result_wire == fp_simple_sub(fp_a, fp_b));
+    
     //Caso de esquina 0 + 0 = 0
     ZERO_SUM: assert ((fp_a == 32'h00000000 && fp_b == 32'h00000000) ->
                 (fp_result == 32'h00000000 && overflow == 0 && underflow == 0));
