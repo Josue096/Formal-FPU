@@ -281,7 +281,8 @@ end
 );
   logic sign;
   logic [7:0]  exp;
-  logic [23:0] mant_a, mant_b, mant_sum;
+  logic [23:0] mant_a, mant_b;
+  logic [24:0] mant_sum;
   
   if (a[30:23] > b[30:23]) exp = a[30:23];
   else exp = b[30:23];
