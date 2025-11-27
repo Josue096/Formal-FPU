@@ -50,9 +50,11 @@ module fp_adder_checker (
   logic [22:0] mantissa_r;
   logic [23:0] carry;
   logic [7:0]  expo_diff;
+  logic [31:0] man_full;
 
   always_comb begin
-    END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (fp_simple_add(fp_a, fp_b)[30:23] != 8'hFF)) -> fp_result_wire == fp_simple_add(fp_a, fp_b));
+    man_full = fp_simple_add(fp_a, fp_b);
+    END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (man_full[30:23] != 8'hFF)) -> fp_result_wire == man_full);
 
     END_TO_END_RESTA: assert((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001) -> fp_result_wire == fp_simple_sub(fp_a, fp_b));
     //Caso de esquina 0 + 0 = 0
