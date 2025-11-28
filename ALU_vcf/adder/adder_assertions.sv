@@ -55,7 +55,9 @@ module fp_adder_checker (
   always_comb begin
 
     assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
+
     man_full = fp_simple_add(fp_a, fp_b);
+    
     END_TO_END_SUMA: assert ((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] == fp_b[31]) && r_mode == 3'b001 && (man_full[30:23] != 8'hFF)) -> fp_result == man_full);
 
     END_TO_END_RESTA: assert((!(&fp_a[30:23] || &fp_b[30:23]) && (fp_a[31] != fp_b[31]) && r_mode == 3'b001) -> fp_result == fp_simple_sub(fp_a, fp_b));
