@@ -23,9 +23,10 @@ module fp_comm_wrapper;
     .underflow(ud2)
   );
 
-  // propiedad de conmutatividad
-  COMM: assert (result_ab == result_ba);
-  COMM_OV: assert (ov1 == ov2);
-  COMM_UD: assert (ud1 == ud2);
-
+    always_comb begin
+        COMM: assert (result_ab == result_ba);
+        COMM_OV: assert (ov1 == ov2);
+        COMM_UD: assert (ud1 == ud2);
+    end
+  
 endmodule
