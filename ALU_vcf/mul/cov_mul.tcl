@@ -7,8 +7,7 @@ set design fp_comm_wrapper
 
 read_file -top $design -format sverilog -cov all -sva -vcs {
     ../../FPU/multiplicador/fp_mul.sv
-    mul_assertions.sv
-    mul_bind.sv
+    omm_wrapper.sv
 }
 
 sim_run -stable
