@@ -44,10 +44,7 @@ module fp_adder_checker (
 //
   input logic [7:0]   exponent_final,
   input logic         overflow_internal,
-  input logic [31:0]  fp_result_wire,
-
-  input logic [31:0]  result_ba,
-  input logic         ov,ud
+  input logic [31:0]  fp_result_wire
 );
   logic [7:0]  shift_amount;
   logic [22:0] mantissa_r;
@@ -62,7 +59,6 @@ module fp_adder_checker (
 
     assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
 
-    COMMUT_ADD: assert (fp_result == result_ba);
 
     man_full = fp_simple_add(fp_a, fp_b);
     

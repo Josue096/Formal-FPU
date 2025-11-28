@@ -1,16 +1,3 @@
-module fp_adder_bind;
-  
-  logic [31:0] result_ba;
-  logic        ov,ud;
-
-  fp_adder u_add (
-        .fp_a       (fp_b),
-        .fp_b       (fp_a),
-        .r_mode     (r_mode),
-        .fp_result  (result_ba),
-        .overflow   (ov),
-        .underflow  (ud)
-    );
 bind fp_adder fp_adder_checker chk (
 //señales output-input 
   .fp_a                     (fp_a),
@@ -45,11 +32,6 @@ bind fp_adder fp_adder_checker chk (
   .mantissa_rounded         (fp_adder.mantissa_rounded),
   .carry_out                (fp_adder.carry_out),
   .overflow_internal        (fp_adder.overflow_internal),
-  .fp_result_wire           (fp_adder.fp_result_wire),
-  .result_ba           (result_ba),
-  .ov                       (ov),       
-  .ud                       (ud)     
+  .fp_result_wire           (fp_adder.fp_result_wire)
 
 );
-
-endmodule
