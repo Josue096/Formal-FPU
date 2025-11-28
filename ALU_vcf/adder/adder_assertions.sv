@@ -46,8 +46,8 @@ module fp_adder_checker (
   input logic         overflow_internal,
   input logic [31:0]  fp_result_wire,
 
-  input logic [31:0]  result_ba;
-  input logic         ov,ud;
+  input logic [31:0]  result_ba,
+  input logic         ov,ud
 );
   logic [7:0]  shift_amount;
   logic [22:0] mantissa_r;

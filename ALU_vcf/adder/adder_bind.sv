@@ -1,5 +1,4 @@
 module fp_adder_bind;
-  logic [31:0] fp_result_swap_w;
   
   logic [31:0] result_ba;
   logic        ov,ud;
@@ -47,7 +46,7 @@ bind fp_adder fp_adder_checker chk (
   .carry_out                (fp_adder.carry_out),
   .overflow_internal        (fp_adder.overflow_internal),
   .fp_result_wire           (fp_adder.fp_result_wire),
-  .fp_result_swap           (fp_result_swap_w),
+  .result_ba           (result_ba),
   .ov                       (ov),       
   .ud                       (ud)     
 
