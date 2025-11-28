@@ -2,7 +2,7 @@ module fp_comm_wrapper;
 
   logic [2:0]rmode;
   logic [31:0]a, b;
-  logic [31:0]fp_Z;
+  logic [31:0]result_ab, result_ba;
   logic ov1, ov2,ud1, ud2;
   // DUT original
   fp_mul dut_ab (
