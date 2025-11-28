@@ -24,8 +24,8 @@ module fp_comm_wrapper;
   );
 
   // propiedad de conmutatividad
-  COMM: assert property (result_ab == result_ba);
-  COMM_OV: assert property (ov1 == ov2);
-  COMM_UD: assert property (ud1 == ud2);
+  COMM: assert (result_ab == result_ba);
+  COMM_OV: assert (ov1 == ov2);
+  COMM_UD: assert (ud1 == ud2);
 
 endmodule
