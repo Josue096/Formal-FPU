@@ -44,7 +44,10 @@ module fp_adder_checker (
 //
   input logic [7:0]   exponent_final,
   input logic         overflow_internal,
-  input logic [31:0]  fp_result_wire
+  input logic [31:0]  fp_result_wire,
+
+  input logic [31:0]  result_ba;
+  input logic         ov,ud;
 );
   logic [7:0]  shift_amount;
   logic [22:0] mantissa_r;
@@ -52,17 +55,8 @@ module fp_adder_checker (
   logic [7:0]  expo_diff;
   logic [31:0] man_full;
 
-  logic [31:0] result_ba;
-  logic        ov,ud;
 
-  fp_adder u_add (
-        .fp_a       (fp_b),
-        .fp_b       (fp_a),
-        .r_mode     (r_mode),
-        .fp_result  (result_ba),
-        .overflow   (ov),
-        .underflow  (ud)
-    );
+
 
   always_comb begin
 
