@@ -1,6 +1,9 @@
-set design fp_mul
-
 set_app_var fml_mode_on true
+set_app_var fml_cov_tgl_input_port true
+set_fml_var fml_enable_prop_density_cov_map true
+
+# El top YA NO ES el DUT directamente
+set design fp_comm_wrapper
 
 read_file -top $design -format sverilog -cov all -sva -vcs {
     ../../FPU/multiplicador/fp_mul.sv
@@ -10,24 +13,6 @@ read_file -top $design -format sverilog -cov all -sva -vcs {
 
 sim_run -stable
 sim_save_reset
-
 check_fv -block
+report_fv -list > aep_results_mul_wrape.txt
 
-report_fv -list > aep_results_mul.txt
-
-# ----- COBERTURA DISPONIBLE EN TU VCF -----
-
-# Dead code coverage (muy útil)
-compute_dead_code
-
-# Per-property bounded coverage
-compute_per_prop_bounded_cov
-
-# Exportar resultados al Coverage Database
-save_covdb -o cov_results
-
-# Exportar resultados de bounded coverage
-save_per_prop_bounded_cov_results -o bounded_results
-
-# Exportar formal core coverage
-save_formal_core_results -o core_results
