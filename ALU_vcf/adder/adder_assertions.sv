@@ -52,9 +52,9 @@ module fp_adder_checker (
   logic [7:0]  expo_diff;
   logic [31:0] man_full;
 
+  assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
+  
   always_comb begin
-
-    assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
 
     man_full = fp_simple_add(fp_a, fp_b);
     
