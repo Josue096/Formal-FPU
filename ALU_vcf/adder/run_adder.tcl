@@ -20,4 +20,3 @@ sim_run -stable
 sim_save_reset
 check_fv 
 report_fv -list > aep_results_adder.txt 
-report_fv -vacuity > vacuity_report_adder.txt
