@@ -44,8 +44,8 @@ module fp_mul_checker (
     logic [31:0]  z;
 
     // Combinacional
-    assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
     always_comb begin
+        assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
         // Flags X
         Xsub  = !(|fp_X[30:23]); //Sub o cero
         Xnif  = (fp_X[30:23] == 8'hFF); //Nan o inf
