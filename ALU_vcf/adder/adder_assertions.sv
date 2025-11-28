@@ -52,9 +52,23 @@ module fp_adder_checker (
   logic [7:0]  expo_diff;
   logic [31:0] man_full;
 
+  logic [31:0] result_ba;
+  logic        ov,ud;
+
+  fp_adder u_add (
+        .fp_a       (fp_b),
+        .fp_b       (fp_a),
+        .r_mode     (r_mode),
+        .fp_result  (result_ba),
+        .overflow   (ov),
+        .underflow  (ud)
+    );
+
   always_comb begin
 
     assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
+
+    COMMUT_ADD: assert (fp_result == result_ba);
 
     man_full = fp_simple_add(fp_a, fp_b);
     
