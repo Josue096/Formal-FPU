@@ -23,6 +23,7 @@ module fp_comm_wrapper;
   );
 
     always_comb begin
+        assume (a <= b);
         COMM_SIGNO: assert (result_ab[31] == result_ba[31]);
         COMM_EXPONENTE: assert (result_ab[30:23] == result_ba[30:23]);
         COMM_MANTISSA: assert (result_ab[22:0] == result_ba[22:0]);
