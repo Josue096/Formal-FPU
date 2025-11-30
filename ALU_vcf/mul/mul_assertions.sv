@@ -78,6 +78,12 @@ module fp_mul_checker (
         MUL_ZERO_POR_NUM: assert (((XZero && !Ynif) || (YZero && !Xnif)) ->
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
+        //Multiplicacion por 1
+        MUL_ZERO_POR_NUMX: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_Y == 32'h3f800000)) ->
+                                (fp_Z == fp_X));
+        MUL_ZERO_POR_NUMX: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_X == 32'h3f800000)) ->
+                                (fp_Z == fp_Y));
+
         BOOTH_FULL: assert (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y});
 
         //Booth encoding de las mantisas de dos numeros normales
