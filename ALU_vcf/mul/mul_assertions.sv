@@ -47,7 +47,7 @@ module fp_mul_checker (
     always_comb begin
         assume (r_mode inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100}); 
         // Flags X
-        Xsub  = !(|fp_X[30:23]); //Sub o cero
+        Xsub  = (fp_X[30:23] == 8'd0); //Sub o cero
         Xnif  = (fp_X[30:23] == 8'hFF); //Nan o inf
         XZero = (fp_X[30:0] == 31'b0);
 
@@ -79,9 +79,9 @@ module fp_mul_checker (
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         //Multiplicacion por 1
-        MUL_ZERO_POR_NUMX: assert ((!(Xsub || Xnif) && ( fp_Y == 32'h3f800000)) ->
+        MUL_UNO_POR_NUMX: assert ((!(Xsub || Xnif) && ( fp_Y == 32'h3f800000)) ->
                                 (fp_Z == fp_X));
-        MUL_ZERO_POR_NUMY: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_X == 32'h3f800000)) ->
+        MUL_UNO_POR_NUMY: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_X == 32'h3f800000)) ->
                                 (fp_Z == fp_Y));
 
         //BOOTH_FULL: assert (frc_Z_full == {1'b1, frc_X} * {1'b1, frc_Y});
