@@ -79,7 +79,7 @@ module fp_mul_checker (
                                 (fp_Z == {(fp_X[31] ^ fp_Y[31]),31'b0}));
 
         //Multiplicacion por 1
-        MUL_ZERO_POR_NUMX: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_Y == 32'h3f800000)) ->
+        MUL_ZERO_POR_NUMX: assert ((!(Xsub || Xnif) && ( fp_Y == 32'h3f800000)) ->
                                 (fp_Z == fp_X));
         MUL_ZERO_POR_NUMY: assert (((!Xsub && !Ysub && !Xnif &&!Ynif) && ( fp_X == 32'h3f800000)) ->
                                 (fp_Z == fp_Y));
